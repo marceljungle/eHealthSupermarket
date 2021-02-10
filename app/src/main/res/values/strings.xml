@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">eHealthSupermarket</string>
+    <string name="holaPrimero">Hola mundo!!!</string>
+    <string name="home_label">Inicio</string>
+    <string name="mylistLabel">Mis Listas</string>
+    <string name="scanLabel">Escanear</string>
+    <string name="intolerancesLabel">Intolerancias</string>
+    <string name="accountLabel">Cuenta</string>
+</resources>
