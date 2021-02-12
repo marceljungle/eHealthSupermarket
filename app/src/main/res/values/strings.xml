@@ -6,4 +6,9 @@
     <string name="scanLabel">Escanear</string>
     <string name="intolerancesLabel">Intolerancias</string>
     <string name="accountLabel">Cuenta</string>
+    <string name="productImage">Información del producto</string>
+    <string name="productName">Lays Patatas Fritas Ca,pesinas</string>
+    <string name="productWeigth">300g</string>
+    <string name="intolerancesBased">Basados en tus intolerancias</string>
+    <string name="recommendedProducts">Productos recomendados</string>
 </resources>
