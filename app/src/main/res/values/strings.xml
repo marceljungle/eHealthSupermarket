@@ -11,4 +11,5 @@
     <string name="productWeigth">300g</string>
     <string name="intolerancesBased">Basados en tus intolerancias</string>
     <string name="recommendedProducts">Productos recomendados</string>
+    <string name="show_more">Ver más...</string>
 </resources>
