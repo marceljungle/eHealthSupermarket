@@ -12,14 +12,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.gmail.gigi.dan2011.ehealthsupermarket.ui.list.mylistFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.gmail.gigi.dan2011.ehealthsupermarket.MESSAGE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,22 +39,10 @@ public class MainActivity extends AppCompatActivity {
         /* Ubicate the navcontroller created in activity_main.xml */
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         /* Changes top bar title with the label specified in mobile_navigation.xml where all
-        * fragments are ubicated */
+         * fragments are ubicated */
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         /* Sets up a BottomNavigationView for use with a NavController */
         NavigationUI.setupWithNavController(navigationView, navController);
-
-
-    }
-
-
-    /** Called when the user taps the Send button */
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.editTextTextPersonName);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
     }
 
     public void startAccountSetting(View view) {
