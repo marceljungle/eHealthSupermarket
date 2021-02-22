@@ -10,6 +10,11 @@
     <string name="productName">Lays Patatas Fritas Ca,pesinas</string>
     <string name="productWeigth">300g</string>
     <string name="intolerancesBased">Basados en tus intolerancias</string>
+    <string name="similarIntolerances">Basados en perfiles similares al tuyo</string>
+    <string name="favouritesProduct">Tus favoritos</string>
+    <string name="allProduct">Todos los productos</string>
     <string name="recommendedProducts">Productos recomendados</string>
     <string name="show_more">Ver más...</string>
+    <string name="product_information">"Ingredientes: Patatas. aceite de maíz. condimento preparado de vegetales y especias [lactosa. azúcar. potenciadores del sabor (glutamato monosódico. 5'-ribonucleótido disódico). dextrosa. cebolla en polvo. pimentón molido. tomate en polvo. ajo en polvo. perejil. proteína hidrolizada de soja. sustancias aromatizantes. reguladores de acidez (ácido cítrico. ácido málico). colorante (extracto de pimentón). edulcorante (aspartamo). proteínas de leche. aromas de humo]. sal. Contiene una fuente de fenilalanina."</string>
+    <string name="product_information_1">Nota legal: Te recomendamos que siempre leas las etiquetas, advertencias e instrucciones del embalaje del producto antes de utilizarlo o consumirlo, ya que podrás encontrar información más detallada y actualizada sobre el mismo.</string>
 </resources>
