@@ -17,7 +17,7 @@
     <string name="list_add">Añadir lista</string>
     <string name="create_list">Crear una lista de compra</string>
     <string name="enter_name">"Nombre: "</string>
-    <string name="enter_list_hint">lista mañana</string>
+    <string name="enter_list_hint">Nombre de la lista</string>
     <string name="add_list">Añadir</string>
     <string name="cancel_list">Cancelar</string>
     <string name="close_text">X</string>
