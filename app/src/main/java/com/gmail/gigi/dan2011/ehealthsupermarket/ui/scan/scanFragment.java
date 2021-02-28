@@ -4,16 +4,27 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraDevice;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.TextureView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.gmail.gigi.dan2011.ehealthsupermarket.AndroidCameraApi;
+import com.gmail.gigi.dan2011.ehealthsupermarket.MainActivity;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
+import com.gmail.gigi.dan2011.ehealthsupermarket.activity_productview;
 import com.google.android.material.button.MaterialButton;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,11 +33,15 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import me.aflak.ezcam.EZCam;
+import me.aflak.ezcam.EZCamCallback;
 
 public class scanFragment extends Fragment {
 
     private MaterialButton qrButton; // or Button type if not working
     private MaterialButton smartButton;
+    //private CamPollingThread camPollingThread;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_scan, container, false);
@@ -35,37 +50,17 @@ public class scanFragment extends Fragment {
         qrButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ContextCompat.checkSelfPermission(scanFragment.this.getContext(), Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(scanFragment.this.getActivity(), new String[]{
-                            Manifest.permission.CAMERA
-                    }, 100);
-                }
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 100);
+                Intent act = new Intent(getActivity(), AndroidCameraApi.class);
+                startActivity(act);
             }
         });
         smartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ContextCompat.checkSelfPermission(scanFragment.this.getContext(), Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(scanFragment.this.getActivity(), new String[]{
-                            Manifest.permission.CAMERA
-                    }, 100);
-                }
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); /* https://github.com/OmarAflak/Android-Camera2-Library */
-                startActivityForResult(intent, 100);
+                Intent act = new Intent(getActivity(), AndroidCameraApi.class);
+                startActivity(act);
             }
         });
         return root;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data"); // here we get the image in bitmap format
-        }
     }
 }
