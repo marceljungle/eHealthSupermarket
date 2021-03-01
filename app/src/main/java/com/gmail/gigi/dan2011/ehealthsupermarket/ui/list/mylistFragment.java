@@ -24,6 +24,7 @@ import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.accountSetting;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.w3c.dom.Text;
 
@@ -45,14 +46,14 @@ import androidx.navigation.ui.NavigationUI;
 public class mylistFragment extends Fragment {
 
 
-    private EditText editTxt;
+    private TextInputLayout editTxt;
     private ListView list;
     private Button btn;
     private ArrayList<RowItem> arrayList = new ArrayList<>();
     private CustomAdapter adapter;
-    Dialog myDialog;
+    private Dialog myDialog;
     private mylistViewModel mylistViewModel;
-    ListView individual_row;
+    private ListView individual_row;
 
 
 
@@ -122,7 +123,7 @@ public class mylistFragment extends Fragment {
         fab.setOnClickListener(lambView -> {
             ShowPopup(view);
         });
-        myDialog = new Dialog(getContext());
+        myDialog = new Dialog(getContext(),R.style.CustomDialogTheme);
         /* IN PROGRESS */
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view2 = inflater.inflate(R.layout.fragment_mylist,null);
@@ -168,6 +169,7 @@ public class mylistFragment extends Fragment {
                 myDialog.dismiss();
             }
         });
+/*        myDialog.getWindow().setLayout(350, 200);*/
         myDialog.show();
         ////////////////////////////////////////////
 
@@ -175,7 +177,7 @@ public class mylistFragment extends Fragment {
         /* This part will handle the rest of the buttons of the previous part, in this case
         * it handles the add button behavior.   */
         adapter =new CustomAdapter(getContext(), arrayList);
-        editTxt = (EditText) myDialog.findViewById(R.id.name_of_list);
+        editTxt = (TextInputLayout) myDialog.findViewById(R.id.name_of_list);
         list = (ListView) getView().findViewById(R.id.main_list);
         btn = (Button) myDialog.findViewById(R.id.btnAdd);
         // Here, you set the data in your ListView
@@ -183,7 +185,7 @@ public class mylistFragment extends Fragment {
         btn.setOnClickListener(view1 -> {
             // this line adds the data of your EditText and puts in your array
             //arrayList.add(editTxt.getText().toString()); // fix this
-            fillArrayList(editTxt.getText().toString(), "20-02-2021", R.drawable.ic_intolerances, R.drawable.ic_intolerances);
+            fillArrayList(editTxt.getEditText().getText().toString(), "20-02-2021", R.drawable.ic_intolerances, R.drawable.ic_intolerances);
             // next thing you have to do is check if your adapter has changed
             adapter.notifyDataSetChanged();
             myDialog.dismiss();
