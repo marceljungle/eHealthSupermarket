@@ -19,15 +19,24 @@ import com.gmail.gigi.dan2011.ehealthsupermarket.ui.list.mylistFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.gmail.gigi.dan2011.ehealthsupermarket.MESSAGE";
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Get Auth Firebase reference
+        auth = FirebaseAuth.getInstance();
+        //Get current user
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         /* Bottom navigation menu creation */
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
@@ -44,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         /* Sets up a BottomNavigationView for use with a NavController */
         NavigationUI.setupWithNavController(navigationView, navController);
     }
+
+
+
 
     public void startAccountSetting(View view) {
         Intent intent = new Intent(this, accountSetting.class);

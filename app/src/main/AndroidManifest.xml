@@ -17,6 +17,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/Theme.EHealthSupermarket">
+        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         android:theme="@style/Theme.EHealthSupermarket"
         android:requestLegacyExternalStorage="true">
         <activity
