@@ -28,6 +28,7 @@
             </intent-filter>
         android:theme="@style/Theme.EHealthSupermarket"
         android:requestLegacyExternalStorage="true">
+        </activity>
         <activity
             android:name=".AndroidCameraApi"
             android:label="@string/title_activity_android_camera2_a_p_i"
