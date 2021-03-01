@@ -3,6 +3,7 @@ package com.gmail.gigi.dan2011.ehealthsupermarket.ui.list;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -67,6 +68,16 @@ public class mylistFragment extends Fragment {
         mylistViewModel = new ViewModelProvider(this).get(mylistViewModel.class);
         View root = inflater.inflate(R.layout.fragment_mylist, container, false);
 
+        individual_row = root.findViewById(R.id.main_list);
+        adapter = new CustomAdapter(getContext(), arrayList);
+        individual_row.setAdapter(adapter);
+        individual_row.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent bigFlagIntent = new Intent( getContext( ), accountSetting.class );
+                startActivity(bigFlagIntent);
+            }
+        });
         return root;
     }
     ////////////////////////////////////////////
@@ -124,16 +135,11 @@ public class mylistFragment extends Fragment {
             ShowPopup(view);
         });
         myDialog = new Dialog(getContext(),R.style.CustomDialogTheme);
-        /* IN PROGRESS */
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view2 = inflater.inflate(R.layout.fragment_mylist,null);
-        individual_row = view2.findViewById(R.id.main_list);
-        adapter =new CustomAdapter(getContext(), arrayList);
-        individual_row.setAdapter(adapter);
-        individual_row.setOnItemClickListener((parent, view1, position, id) -> ShowRowNewWindow(view1));
+
+
+
     }
     ////////////////////////////////////////////
-
 
 
 
@@ -169,7 +175,7 @@ public class mylistFragment extends Fragment {
                 myDialog.dismiss();
             }
         });
-/*        myDialog.getWindow().setLayout(350, 200);*/
+/*      myDialog.getWindow().setLayout(350, 200);*/
         myDialog.show();
         ////////////////////////////////////////////
 
