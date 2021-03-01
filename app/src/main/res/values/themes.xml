@@ -13,4 +13,18 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="CustomDialogTheme" parent="android:Theme.Material.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="android:colorAccent">@color/purple_500</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:colorPrimary">@color/purple_500</item>
+        <item name="android:alertDialogTheme">@color/purple_500</item>
+        <item name="alertDialogTheme">@color/purple_500</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/background_dialog</item>
+    </style>
 </resources>
