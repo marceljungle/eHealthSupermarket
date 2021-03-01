@@ -5,10 +5,6 @@
     android:id="@+id/individual_row"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="false"
-    android:focusableInTouchMode="false"
-    android:clickable="false"
-    android:descendantFocusability="blocksDescendants"
 >
 
     <ImageView
@@ -17,9 +13,6 @@
         android:layout_height="50dp"
         android:layout_weight="1"
         app:srcCompat="@drawable/ic_intolerances"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:clickable="false"
 />
 
     <LinearLayout
@@ -27,18 +20,12 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:clickable="false"
 >
 
         <TextView
             android:id="@+id/textHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:clickable="false"
             android:text="TextView"
 
             />
@@ -48,9 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:clickable="false"
 />
 
     </LinearLayout>
