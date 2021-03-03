@@ -17,12 +17,25 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.activity_productview;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class homeFragment extends Fragment {
 
     private homeViewModel homeViewModel;
+    private FirebaseAuth mauth;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+        //Get Auth Firebase reference
+       mauth = FirebaseAuth.getInstance();
+        //Get current user
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+
         homeViewModel = new ViewModelProvider(this).get(homeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
