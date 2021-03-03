@@ -12,9 +12,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -23,11 +30,21 @@ public class SignupActivity extends AppCompatActivity {
     private Button btnSignIn, btnSignUp;
     private FirebaseAuth auth;
 
+    private FirebaseFirestore db;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+
+        db = FirebaseFirestore.getInstance();
+
+
+
+
 
         // Get firebase authentication instance
         auth = FirebaseAuth.getInstance();
@@ -80,6 +97,24 @@ public class SignupActivity extends AppCompatActivity {
                         if (!task.isSuccessful()){
                             Toast.makeText(SignupActivity.this, "Autenticación fallida" + task.getException(), Toast.LENGTH_SHORT).show();
                         } else {
+                            Users user = new Users(inputEmail.getText().toString(), inputPassword.getText().toString(), auth.getCurrentUser().getUid() );
+                            CollectionReference users = db.collection("USERS");
+                            String idUser = auth.getCurrentUser().getUid();
+                            users.document(idUser).set(user).addOnSuccessListener(new OnSuccessListener() {
+                                @Override
+                                public void onSuccess(Object o) {
+                                    Toast.makeText(SignupActivity.this, "Your Course has been added to Firebase Firestore", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // this method is called when the data addition process is failed.
+                                    // displaying a toast message when data addition is failed.
+                                    Toast.makeText(SignupActivity.this, "Fail to add course \n" + e, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
                             startActivity(new Intent(SignupActivity.this, MainActivity.class));
                             finish();
 
@@ -89,5 +124,47 @@ public class SignupActivity extends AppCompatActivity {
                 });
             }
         });
+
+    }
+}
+
+class Users{
+
+    private String email;
+    private String password;
+    private String idUser;
+
+
+    public Users() {
+
+    }
+    public Users(String email, String password, String idUser) {
+        this.email = email;
+        this.password = password;
+        this.idUser = idUser;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 }
