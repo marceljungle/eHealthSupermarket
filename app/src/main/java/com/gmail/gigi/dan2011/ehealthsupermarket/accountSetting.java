@@ -1,16 +1,20 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class accountSetting extends AppCompatActivity {
 
+
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_setting);
+
+
     }
 
 

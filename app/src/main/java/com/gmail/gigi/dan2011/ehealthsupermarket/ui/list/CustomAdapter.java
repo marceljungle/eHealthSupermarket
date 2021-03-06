@@ -43,16 +43,16 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = thisInflater.inflate(R.layout.fragment_mylist_row, parent, false );
+            convertView = thisInflater.inflate(R.layout.fragment_mylist_row, parent, false);
 
             TextView theHeading = (TextView) convertView.findViewById(R.id.textHeading);
             TextView theSubHeading = (TextView) convertView.findViewById(R.id.textSubHeading);
-            ImageView theImage = (ImageView) convertView.findViewById(R.id.imageView);
+            ImageView theImage = (ImageView) convertView.findViewById(R.id.imageView_product);
             RowItem currentRow = (RowItem) getItem(position);
 
-            theHeading.setText( currentRow.getHeading() );
-            theSubHeading.setText( currentRow.getSubHeading() );
-            theImage.setImageResource(currentRow.getSmallImageName() );
+            theHeading.setText(currentRow.getHeading());
+            theSubHeading.setText(currentRow.getSubHeading());
+            theImage.setImageResource(currentRow.getSmallImageName());
         }
         return convertView;
     }
