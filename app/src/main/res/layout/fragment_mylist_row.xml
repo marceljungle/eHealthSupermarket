@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/individual_row"
+    android:id="@+id/individual_row1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
->
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_product"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="1"
-        app:srcCompat="@drawable/ic_intolerances"
-/>
+        app:srcCompat="@drawable/ic_intolerances" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical"
->
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textHeading"
@@ -34,8 +30,7 @@
             android:id="@+id/textSubHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-/>
+            android:text="TextView" />
 
     </LinearLayout>
 

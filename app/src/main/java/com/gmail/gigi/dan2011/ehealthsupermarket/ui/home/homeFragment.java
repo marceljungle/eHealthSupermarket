@@ -1,13 +1,17 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.ui.home;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.activity_productview;
@@ -15,38 +19,29 @@ import com.gmail.gigi.dan2011.ehealthsupermarket.dbCollections.Additive;
 import com.gmail.gigi.dan2011.ehealthsupermarket.dbCollections.Ingredient;
 import com.gmail.gigi.dan2011.ehealthsupermarket.dbCollections.Intolerance;
 import com.gmail.gigi.dan2011.ehealthsupermarket.dbCollections.Product;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 public class homeFragment extends Fragment {
 
     private homeViewModel homeViewModel;
+    private ImageView imageProduct;
     private FirebaseAuth mauth;
     private FirebaseFirestore db;
 
-    public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -61,6 +56,8 @@ public class homeFragment extends Fragment {
 
         /*  Button to view the activity that contains the product information.*/
         ImageButton product = (ImageButton) root.findViewById(R.id.imagebuttonproduct2);
+        ImageView imageProduct = (ImageView) root.findViewById(R.id.imageView_product);
+
         product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,15 +83,22 @@ public class homeFragment extends Fragment {
                 Toast.makeText(getContext(), "Fail to add course \n" + e, Toast.LENGTH_SHORT).show();
             }
         });
-        ImageButton imageButton = root.findViewById(R.id.imagebuttonproduct2);
 
-        /*        product1.setProduct_id();*/
-
-        db.collection("PRODUCTS").document("TEST").get();
-
-        imageButton.setBackground(LoadImageFromWebOperations());
-
-
+        db.collection("PRODUCTS").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        System.out.println("/n--------------------------------------------------------------------------------------------------");
+                        System.out.println(document.getData().get("image"));
+                        final String urlimage = (String) document.getData().get("image");
+                        System.out.println("/n-----------------------------------------22222---------------------------------------------------------");
+                        System.out.println(urlimage);
+                        Picasso.get().load(urlimage).into(product);
+                    }
+                }
+            }
+        });
         return root;
     }
 

@@ -50,6 +50,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     //Add the dependency for the Firebase SDK for Google Authentication
     implementation 'com.google.firebase:firebase-auth'
-
+    //Add the dependency for the Firebase database
     implementation 'com.google.firebase:firebase-database'
+
+    //Add the dependency for the picasso library
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
