@@ -1,26 +1,19 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.dbCollections;
 
-import android.os.Build;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import androidx.annotation.RequiresApi;
 
 public class Product {
 
     private String product_id;
     private String product_name;
     private String generic_name;
-    private Integer quantity;
+    private String quantity;
     private String packaging;
     private List<String> brands;
     private String information_phone;
     private String information_mail;
     private String factory_address;
     private String information_text;
-    private List<Ingredient> ingredients;
     private List<Additive> additives;
     private List<Intolerance> intolerances;
     private String image;
@@ -31,6 +24,23 @@ public class Product {
 
     }
 
+
+    public Product(String product_id, String product_name, String generic_name, String quantity, String packaging, List<String> brands, String information_phone, String information_mail, String factory_address, String information_text, List<Additive> additives, List<Intolerance> intolerances, String image, String code) {
+        this.product_id = product_id;
+        this.product_name = product_name;
+        this.generic_name = generic_name;
+        this.quantity = quantity;
+        this.packaging = packaging;
+        this.brands = brands;
+        this.information_phone = information_phone;
+        this.information_mail = information_mail;
+        this.factory_address = factory_address;
+        this.information_text = information_text;
+        this.additives = additives;
+        this.intolerances = intolerances;
+        this.image = image;
+        this.code = code;
+    }
 
     public String getProduct_id() {
         return product_id;
@@ -56,11 +66,11 @@ public class Product {
         this.generic_name = generic_name;
     }
 
-    public Integer getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
@@ -112,14 +122,6 @@ public class Product {
         this.information_text = information_text;
     }
 
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
     public List<Additive> getAdditives() {
         return additives;
     }
@@ -149,24 +151,6 @@ public class Product {
     }
 
     public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Product(String product_id, String product_name, String generic_name, Integer quantity, String packaging, List<String> brands, String information_phone, String information_mail, String factory_address, String information_text, List<Ingredient> ingredients, List<Additive> additives, List<Intolerance> intolerances, String image, String code) {
-        this.product_id = product_id;
-        this.product_name = product_name;
-        this.generic_name = generic_name;
-        this.quantity = quantity;
-        this.packaging = packaging;
-        this.brands = brands;
-        this.information_phone = information_phone;
-        this.information_mail = information_mail;
-        this.factory_address = factory_address;
-        this.information_text = information_text;
-        this.ingredients = ingredients;
-        this.additives = additives;
-        this.intolerances = intolerances;
-        this.image = image;
         this.code = code;
     }
 }
