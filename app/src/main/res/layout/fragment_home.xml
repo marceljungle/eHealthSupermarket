@@ -64,6 +64,7 @@
 
                         <Button
                             android:id="@+id/button2"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
@@ -71,19 +72,47 @@
                             android:backgroundTint="@color/white"
                             android:text="@string/show_more"
                             android:textColor="@color/black"
-                            android:textSize="12sp"
-                            style="@style/Widget.MaterialComponents.Button.TextButton" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/no_products_based_in_intolerances"
+                        android:textColor="@color/black"
+                        android:textSize="22sp" />
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:backgroundTint="@color/white"
+                        android:text="@string/go_to_intolerances"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
                 <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -92,7 +121,8 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/customborder"
                             android:backgroundTint="@color/white"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <ImageButton
                                 android:id="@+id/imagebuttonproduct2"
@@ -126,7 +156,8 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/customborder"
                             android:backgroundTint="@color/white"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <ImageButton
                                 android:layout_width="150dp"
@@ -161,43 +192,8 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/customborder"
                             android:backgroundTint="@color/white"
-                            android:orientation="vertical">
-
-                            <ImageButton
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000">
-
-                            </TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <ImageButton
                                 android:layout_width="150dp"
@@ -233,178 +229,8 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/customborder"
                             android:backgroundTint="@color/white"
-                            android:orientation="vertical">
-
-                            <ImageButton
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000">
-
-                            </TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLay1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="7dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/linearLay1.1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="7dp"
-                    android:orientation="horizontal">
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="10dp"
-                            android:text="@string/similarIntolerances"
-                            android:textColor="#000000"
-                            android:textSize="20sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/button4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginEnd="2dp"
-                            android:backgroundTint="@color/white"
-                            android:text="@string/show_more"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            style="@style/Widget.MaterialComponents.Button.TextButton" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical">
-
-                            <ImageButton
-                                android:id="@+id/imagebuttonproduct1"
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000"></TextView>
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical">
-
-                            <ImageButton
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000">
-
-                            </TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <ImageButton
                                 android:layout_width="150dp"
@@ -440,43 +266,8 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/customborder"
                             android:backgroundTint="@color/white"
-                            android:orientation="vertical">
-
-                            <ImageButton
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000">
-
-                            </TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <ImageButton
                                 android:layout_width="150dp"
@@ -549,6 +340,7 @@
 
                         <Button
                             android:id="@+id/button1"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
@@ -556,10 +348,38 @@
                             android:backgroundTint="@color/white"
                             android:text="@string/show_more"
                             android:textColor="@color/black"
-                            android:textSize="12sp"
-                            style="@style/Widget.MaterialComponents.Button.TextButton" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/no_products_favorites"
+                        android:textColor="@color/black"
+                        android:textSize="22sp" />
+
+                    <Button
+                        android:id="@+id/button44"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:backgroundTint="@color/white"
+                        android:gravity="start"
+                        android:text="@string/go_to_scanSection"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <HorizontalScrollView
@@ -577,7 +397,8 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/customborder"
                             android:backgroundTint="@color/white"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <ImageButton
                                 android:id="@+id/imagebuttonproduct"
@@ -612,7 +433,8 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/customborder"
                             android:backgroundTint="@color/white"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <ImageButton
                                 android:layout_width="150dp"
@@ -647,43 +469,8 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/customborder"
                             android:backgroundTint="@color/white"
-                            android:orientation="vertical">
-
-                            <ImageButton
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000">
-
-                            </TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <ImageButton
                                 android:layout_width="150dp"
@@ -719,177 +506,8 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/customborder"
                             android:backgroundTint="@color/white"
-                            android:orientation="vertical">
-
-                            <ImageButton
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000">
-
-                            </TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLay3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="7dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/linearLay3.1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="7dp"
-                    android:orientation="horizontal">
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="10dp"
-                            android:text="@string/allProduct"
-                            android:textColor="#000000"
-                            android:textSize="20sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/button5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginEnd="2dp"
-                            android:backgroundTint="@color/white"
-                            android:text="@string/show_more"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            style="@style/Widget.MaterialComponents.Button.TextButton" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical">
-
-                            <ImageButton
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000"></TextView>
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical">
-
-                            <ImageButton
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000">
-
-                            </TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <ImageButton
                                 android:layout_width="150dp"
@@ -925,43 +543,8 @@
                             android:layout_marginHorizontal="5dp"
                             android:background="@drawable/customborder"
                             android:backgroundTint="@color/white"
-                            android:orientation="vertical">
-
-                            <ImageButton
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000">
-
-                            </TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <ImageButton
                                 android:layout_width="150dp"

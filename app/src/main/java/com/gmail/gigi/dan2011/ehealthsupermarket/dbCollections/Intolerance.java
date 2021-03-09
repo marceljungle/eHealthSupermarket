@@ -6,10 +6,18 @@ public class Intolerance {
 
     private String intolerance_id;
     private String intolerance_name;
-    private List<String> ingredients_involved;
+    private String about;
+    private List<String> ingredientsInvolved;
 
     public Intolerance() {
 
+    }
+
+    public Intolerance(String intolerance_id, String intolerance_name, String about, List<String> ingredientsInvolved) {
+        this.intolerance_id = intolerance_id;
+        this.intolerance_name = intolerance_name;
+        this.about = about;
+        this.ingredientsInvolved = ingredientsInvolved;
     }
 
     public String getIntolerance_id() {
@@ -28,17 +36,19 @@ public class Intolerance {
         this.intolerance_name = intolerance_name;
     }
 
-    public List<String> getIngredients_involved() {
-        return ingredients_involved;
+    public String getAbout() {
+        return about;
     }
 
-    public void setIngredients_involved(List<String> ingredients_involved) {
-        this.ingredients_involved = ingredients_involved;
+    public void setAbout(String about) {
+        this.about = about;
     }
 
-    public Intolerance(String intolerance_id, String intolerance_name, List<String> ingredients_involved) {
-        this.intolerance_id = intolerance_id;
-        this.intolerance_name = intolerance_name;
-        this.ingredients_involved = ingredients_involved;
+    public List<String> getIngredientsInvolved() {
+        return ingredientsInvolved;
+    }
+
+    public void setIngredientsInvolved(List<String> ingredientsInvolved) {
+        this.ingredientsInvolved = ingredientsInvolved;
     }
 }

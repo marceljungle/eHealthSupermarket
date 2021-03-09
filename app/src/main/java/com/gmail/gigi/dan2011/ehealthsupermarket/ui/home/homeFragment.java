@@ -7,32 +7,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.activity_productview;
 import com.gmail.gigi.dan2011.ehealthsupermarket.dbCollections.Additive;
-import com.gmail.gigi.dan2011.ehealthsupermarket.dbCollections.Ingredient;
 import com.gmail.gigi.dan2011.ehealthsupermarket.dbCollections.Intolerance;
 import com.gmail.gigi.dan2011.ehealthsupermarket.dbCollections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 public class homeFragment extends Fragment {
 
@@ -65,9 +64,37 @@ public class homeFragment extends Fragment {
             }
         });
 
-        /* TEST */
         db = FirebaseFirestore.getInstance();
-        Product product1 = new Product("", "Patatas fritas al punto de sal", "Patatas fritas al punto de sal LAY's", 207, "1", new ArrayList<String>(Arrays.asList("Lay's")), "900123123", "lays@lays.com", "Avenida de los olmos, 2 01013 - Vitoria, España", "Patatas, aceites vegetaless(maiz y girasol en proporciones variables), sal (1,2%)", new ArrayList<Ingredient>(Collections.singleton(new Ingredient("", "Patatas"))), new ArrayList<Additive>(Collections.singleton(new Additive("", "Curcumina", "E-100", 2, "Colorante"))), new ArrayList<Intolerance>(Collections.singleton(new Intolerance("", "Glúten", new ArrayList<String>(Arrays.asList("Patata", "Harina blanca", "Cereales"))))), "https://prod-mercadona.imgix.net/images/ff60554fe3825ea5e6b75c26b744b34c.jpg", "8410199021106");
+        db.collection("ADDITIVES").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    final ObjectMapper mapper = new ObjectMapper();
+                    for (int i = 0; i < 50; i++) {
+                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                        Map<String, Object> theData = document.getData();
+                        Additive pojo = mapper.convertValue(theData, Additive.class);
+
+                        Product product1 = new Product("", "", "", "", "", new ArrayList<>(Arrays.asList("")), "", "", "", "", Arrays.asList(pojo), new ArrayList<Intolerance>(Arrays.asList(new Intolerance("", "", "", new ArrayList<String>()))), "", "");
+                        CollectionReference additives = db.collection("PRODUCTS");
+                        additives.add(product1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference aVoid) {
+                                additives.document(aVoid.getId()).update("product_id", aVoid.getId());
+                                product1.setProduct_id(aVoid.getId());
+                            }
+                        });
+                    }
+                }
+            }
+        });
+        // for (int i = 0; i < 50; i++) {
+
+        //}
+
+        /*
+        db = FirebaseFirestore.getInstance();
+        Product product1 = new Product("", "Patatas fritas al punto de sal", "Patatas fritas al punto de sal LAY's", 207, "1", new ArrayList<String>(Arrays.asList("Lay's")), "900123123", "lays@lays.com", "Avenida de los olmos, 2 01013 - Vitoria, España", "Patatas, aceites vegetaless(maiz y girasol en proporciones variables), sal (1,2%)", new ArrayList<Additive>(Collections.singleton(new Additive("", "Curcumina", "E-100", 2, "Colorante"))), new ArrayList<Intolerance>(Collections.singleton(new Intolerance("", "Glúten", new ArrayList<String>(Arrays.asList("Patata", "Harina blanca", "Cereales"))))), "https://prod-mercadona.imgix.net/images/ff60554fe3825ea5e6b75c26b744b34c.jpg", "8410199021106");
         CollectionReference products = db.collection("PRODUCTS");
         products.document("TEST").set(product1).addOnSuccessListener(new OnSuccessListener() {
             @Override
@@ -88,7 +115,6 @@ public class homeFragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        System.out.println("/n--------------------------------------------------------------------------------------------------");
                         System.out.println(document.getData().get("image"));
                         final String urlimage = (String) document.getData().get("image");
                         System.out.println("/n-----------------------------------------22222---------------------------------------------------------");
@@ -97,9 +123,12 @@ public class homeFragment extends Fragment {
                     }
                 }
             }
-        });
+        });*/
         return root;
     }
 
+    private void showFavorites(View root) {
+
+    }
 
 }
