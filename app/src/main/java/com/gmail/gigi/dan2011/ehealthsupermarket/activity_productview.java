@@ -2,6 +2,7 @@ package com.gmail.gigi.dan2011.ehealthsupermarket;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -12,11 +13,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
 
 public class activity_productview extends AppCompatActivity {
     private FirebaseFirestore db;
     private ImageView imageProduct;
+    private ImageView like;
+    private ImageView dislike;
+    private Boolean clicked = true;
+    private Boolean clicked1 = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,39 @@ public class activity_productview extends AppCompatActivity {
         setContentView(R.layout.activity_productview);
 
         imageProduct = (ImageView) findViewById(R.id.imageView_product);
+
+
+        like = (ImageView) findViewById(R.id.button_addFav);
+        dislike = (ImageView) findViewById(R.id.button_addFav2);
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clicked) {
+                    like.setImageResource(R.drawable.ic_like_selected);
+                    clicked = false;
+                    //TODO
+                } else {
+                    clicked = true;
+                    like.setImageResource(R.drawable.ic_like_unselect);
+                }
+            }
+        });
+
+        dislike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clicked1) {
+                    dislike.setImageResource(R.drawable.ic_dislike_selected);
+                    clicked1 = false;
+                    //TODO
+                } else {
+                    clicked1 = true;
+                    dislike.setImageResource(R.drawable.ic_dislike_unselected);
+                    //TODO
+                }
+            }
+        });
 
         db = FirebaseFirestore.getInstance();
         db.collection("PRODUCTS").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -36,7 +73,7 @@ public class activity_productview extends AppCompatActivity {
                         final String urlimage = (String) document.getData().get("image");
                         System.out.println("/n-----------------------------------------22222---------------------------------------------------------");
                         System.out.println(urlimage);
-                        Picasso.get().load(urlimage).into(imageProduct);
+                        //Picasso.get().load(urlimage).into(imageProduct);
                     }
                 }
             }

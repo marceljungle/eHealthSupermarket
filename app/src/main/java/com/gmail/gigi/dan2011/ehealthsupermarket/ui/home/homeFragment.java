@@ -29,7 +29,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,7 +93,7 @@ public class homeFragment extends Fragment {
                         final String urlimage = (String) document.getData().get("image");
                         System.out.println("/n-----------------------------------------22222---------------------------------------------------------");
                         System.out.println(urlimage);
-                        Picasso.get().load(urlimage).into(product);
+                        //Picasso.get().load(urlimage).into(product);
                     }
                 }
             }
