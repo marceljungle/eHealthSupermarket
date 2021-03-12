@@ -8,18 +8,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gmail.gigi.dan2011.ehealthsupermarket.R;
-import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductsListView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductView;
+import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductsListView;
+import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.api.Distribution.BucketOptions.Linear;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,9 +30,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Text;
 
 /**
  * Represents an example of javadoc in a function.
@@ -39,9 +44,19 @@ public class HomeFragment extends Fragment {
   private HomeViewModel homeViewModel;
   private ImageView imageProduct;
   private FirebaseAuth mauth;
-  private FirebaseFirestore db;
+  private FirebaseFirestore db = FirebaseFirestore.getInstance();
   private Button viewMore1;
   private Logger log = LoggerFactory.getLogger(HomeFragment.class);
+  private LinearLayout[] favorites = new LinearLayout[5];
+  private LinearLayout[] basedInIntolerances = new LinearLayout[5];
+  private ImageButton[] favImageButtons = new ImageButton[5];
+  private TextView[] favNames = new TextView[5];
+  private TextView[] basedInIntolerancesNames = new TextView[5];
+  private TextView[] favQuantity = new TextView[5];
+  private TextView[] basedInIntolerancesQuantity = new TextView[5];
+  private LinearLayout noFavorites;
+  private LinearLayout noBasedInIntolerances;
+  private View rootView;
 
   /**
    * Represents an example of javadoc in a function.
@@ -58,7 +73,7 @@ public class HomeFragment extends Fragment {
     View root = inflater.inflate(R.layout.fragment_home, container, false);
 
     /*  Button to view the activity that contains the product information.*/
-    ImageButton product = (ImageButton) root.findViewById(R.id.imageProduct);
+    ImageButton product = (ImageButton) root.findViewById(R.id.imageFav1);
     ImageView imageProduct = (ImageView) root.findViewById(R.id.imageView_product);
 
     /*Button to view the activity the contains all products 1*/
@@ -71,10 +86,6 @@ public class HomeFragment extends Fragment {
       }
     });
 
-
-
-
-
     product.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -83,8 +94,6 @@ public class HomeFragment extends Fragment {
             startActivity(in);
           }
         });
-
-    db = FirebaseFirestore.getInstance();
     db.collection("ADDITIVES")
         .get()
         .addOnCompleteListener(
@@ -173,9 +182,76 @@ public class HomeFragment extends Fragment {
             }
         }
     });*/
+
+    favorites[0] = root.findViewById(R.id.favorite1);
+    favorites[1] = root.findViewById(R.id.favorite2);
+    favorites[2] = root.findViewById(R.id.favorite3);
+    favorites[3] = root.findViewById(R.id.favorite4);
+    favorites[4] = root.findViewById(R.id.favorite5);
+
+    noFavorites = root.findViewById(R.id.noFavoriteProducts);
+    noBasedInIntolerances = root.findViewById(R.id.noBasedInIntoleranceProducts);
+    rootView = root;
     return root;
   }
 
+
   private void showFavorites(View root) {
+    String userUid = mauth.getUid();
+    Map<String, Object> userFields = db.collection("USERS").document(userUid).get().getResult().getData();
+    List<Product> likedProducts = new ArrayList<Product>((List<Product>)userFields.get("liked_products"));
+    Integer blankLayouts = 5 - likedProducts.size();
+    Integer filledLayouts = likedProducts.size();
+    if (!likedProducts.isEmpty()) {
+      for (int i = 0; i<filledLayouts; i++) {
+        switch (i){
+          case 0:
+            favorites[0].setVisibility(View.VISIBLE);
+            favImageButtons[0] = rootView.findViewById(R.id.imageFav1);
+            favNames[0] = rootView.findViewById(R.id.nameFav1);
+            favQuantity[0] = rootView.findViewById(R.id.quantityFav1);
+            //TODO: assign here values to the interface
+            break;
+          case 1:
+            favorites[1].setVisibility(View.VISIBLE);
+            favImageButtons[1] = rootView.findViewById(R.id.imageFav1);
+            favNames[1] = rootView.findViewById(R.id.nameFav1);
+            favQuantity[1] = rootView.findViewById(R.id.quantityFav1);
+            //TODO: assign here values to the interface
+            break;
+          case 2:
+            favorites[2].setVisibility(View.VISIBLE);
+            favImageButtons[2] = rootView.findViewById(R.id.imageFav2);
+            favNames[2] = rootView.findViewById(R.id.nameFav2);
+            favQuantity[2] = rootView.findViewById(R.id.quantityFav2);
+            //TODO: assign here values to the interface
+            break;
+          case 3:
+            favorites[3].setVisibility(View.VISIBLE);
+            favImageButtons[3] = rootView.findViewById(R.id.imageFav3);
+            favNames[3] = rootView.findViewById(R.id.nameFav3);
+            favQuantity[3] = rootView.findViewById(R.id.quantityFav3);
+            //TODO: assign here values to the interface
+            break;
+          case 4:
+            favorites[4].setVisibility(View.VISIBLE);
+            favImageButtons[4] = rootView.findViewById(R.id.imageFav4);
+            favNames[4] = rootView.findViewById(R.id.nameFav4);
+            favQuantity[4] = rootView.findViewById(R.id.quantityFav4);
+            //TODO: assign here values to the interface
+            break;
+        }
+      }
+      for (int i = filledLayouts; i < blankLayouts; i++) {
+        favorites[i].setVisibility(View.GONE);
+      }
+    }else {
+      favorites[0].setVisibility(View.GONE);
+      favorites[1].setVisibility(View.GONE);
+      favorites[2].setVisibility(View.GONE);
+      favorites[3].setVisibility(View.GONE);
+      favorites[4].setVisibility(View.GONE);
+      noFavorites.setVisibility(View.VISIBLE);
+    }
   }
 }

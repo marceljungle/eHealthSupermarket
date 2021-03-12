@@ -112,6 +112,7 @@ public class SignupActivity extends AppCompatActivity {
                       Toast.makeText(SignupActivity.this,
                           "Your Course has been added to Firebase Firestore", Toast.LENGTH_SHORT)
                           .show();
+                      //TODO: add fields entry of new users to the database.
                     }
                   }).addOnFailureListener(new OnFailureListener() {
                     @Override
