@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
@@ -13,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
-import com.gmail.gigi.dan2011.ehealthsupermarket.activity_products_listview;
 import com.gmail.gigi.dan2011.ehealthsupermarket.activity_productview;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
@@ -40,7 +38,6 @@ public class HomeFragment extends Fragment {
   private ImageView imageProduct;
   private FirebaseAuth mauth;
   private FirebaseFirestore db;
-  private Button viewMore1;
   private Logger log = LoggerFactory.getLogger(HomeFragment.class);
 
   /**
@@ -58,20 +55,8 @@ public class HomeFragment extends Fragment {
     View root = inflater.inflate(R.layout.fragment_home, container, false);
 
     /*  Button to view the activity that contains the product information.*/
-    ImageButton product = (ImageButton) root.findViewById(R.id.imageProduct);
+    ImageButton product = (ImageButton) root.findViewById(R.id.imagebuttonproduct2);
     ImageView imageProduct = (ImageView) root.findViewById(R.id.imageView_product);
-
-    /*Button to view the activity the contains all products 1*/
-    Button viewMore = (Button) root.findViewById(R.id.button_viewMore);
-    viewMore.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent(getActivity(), activity_products_listview.class);
-        startActivity(intent);
-      }
-    });
-
-
 
     product.setOnClickListener(
         new View.OnClickListener() {
