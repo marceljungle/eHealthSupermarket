@@ -13,8 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
-import com.gmail.gigi.dan2011.ehealthsupermarket.activity_products_listview;
-import com.gmail.gigi.dan2011.ehealthsupermarket.activity_productview;
+import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductsListView;
+import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  */
 public class HomeFragment extends Fragment {
 
-  private homeViewModel homeViewModel;
+  private HomeViewModel homeViewModel;
   private ImageView imageProduct;
   private FirebaseAuth mauth;
   private FirebaseFirestore db;
@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
     // Get current user
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    homeViewModel = new ViewModelProvider(this).get(homeViewModel.class);
+    homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
     View root = inflater.inflate(R.layout.fragment_home, container, false);
 
     /*  Button to view the activity that contains the product information.*/
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
     viewMore.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent(getActivity(), activity_products_listview.class);
+        Intent intent = new Intent(getActivity(), ActivityProductsListView.class);
         startActivity(intent);
       }
     });
@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            Intent in = new Intent(getActivity(), activity_productview.class);
+            Intent in = new Intent(getActivity(), ActivityProductView.class);
             startActivity(in);
           }
         });

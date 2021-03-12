@@ -7,53 +7,57 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
-
 import java.util.ArrayList;
 
+/**
+ * Javadoc comment.
+ */
 public class CustomAdapter extends BaseAdapter {
 
-    private ArrayList<RowItem> singleRow;
-    private LayoutInflater thisInflater;
+  private ArrayList<RowItem> singleRow;
+  private LayoutInflater thisInflater;
 
 
-    public CustomAdapter(Context context, ArrayList<RowItem> aRow) {
+  /**
+   * Javadoc comment.
+   */
+  public CustomAdapter(Context context, ArrayList<RowItem> aaRow) {
 
-        this.singleRow = aRow;
-        thisInflater = (LayoutInflater.from(context));
+    this.singleRow = aaRow;
+    thisInflater = (LayoutInflater.from(context));
 
+  }
+
+  @Override
+  public int getCount() {
+    return singleRow.size();
+  }
+
+  @Override
+  public Object getItem(int position) {
+    return singleRow.get(position);
+  }
+
+  @Override
+  public long getItemId(int position) {
+    return position;
+  }
+
+  @Override
+  public View getView(int position, View convertView, ViewGroup parent) {
+    if (convertView == null) {
+      convertView = thisInflater.inflate(R.layout.fragment_mylist_row, parent, false);
+
+      TextView theHeading = (TextView) convertView.findViewById(R.id.textHeading);
+      TextView theSubHeading = (TextView) convertView.findViewById(R.id.textSubHeading);
+      ImageView theImage = (ImageView) convertView.findViewById(R.id.imageView_product);
+      RowItem currentRow = (RowItem) getItem(position);
+
+      theHeading.setText(currentRow.getHeading());
+      theSubHeading.setText(currentRow.getSubHeading());
+      theImage.setImageResource(currentRow.getSmallImageName());
     }
-
-    @Override
-    public int getCount() {
-        return singleRow.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return singleRow.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = thisInflater.inflate(R.layout.fragment_mylist_row, parent, false);
-
-            TextView theHeading = (TextView) convertView.findViewById(R.id.textHeading);
-            TextView theSubHeading = (TextView) convertView.findViewById(R.id.textSubHeading);
-            ImageView theImage = (ImageView) convertView.findViewById(R.id.imageView_product);
-            RowItem currentRow = (RowItem) getItem(position);
-
-            theHeading.setText(currentRow.getHeading());
-            theSubHeading.setText(currentRow.getSubHeading());
-            theImage.setImageResource(currentRow.getSmallImageName());
-        }
-        return convertView;
-    }
+    return convertView;
+  }
 }

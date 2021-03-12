@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class accountSetting extends AppCompatActivity {
+/**
+ * Javadoc comment.
+ */
+public class AccountSettings extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
