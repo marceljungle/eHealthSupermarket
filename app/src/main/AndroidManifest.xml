@@ -19,9 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EHealthSupermarket">
-        <activity android:name=".activity_products_listview"></activity>
+        <activity android:name=".ActivityProductsListView"></activity>
         <activity
-            android:name=".ui.list.mylistProducts"
+            android:name=".ui.list.MyListProducts"
             android:label="Productos"
             android:theme="@style/Theme.EHealthSupermarket.NoActionBar" />
         <activity android:name=".SignupActivity" />
@@ -42,7 +42,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".activity_productview"
+            android:name=".ActivityProductView"
             android:label=""
             android:parentActivityName=".MainActivity">
 
@@ -52,7 +52,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".accountSetting"
+            android:name=".AccountSettings"
             android:label="Ajustes"
             android:parentActivityName=".MainActivity">
 

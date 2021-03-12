@@ -3,7 +3,9 @@ package com.gmail.gigi.dan2011.ehealthsupermarket.collections;
 import java.util.List;
 import java.util.Objects;
 
-/** Function example. */
+/**
+ * Function example.
+ */
 public class User {
 
   private String name;
@@ -18,9 +20,12 @@ public class User {
   private String email;
   private String idUser;
 
-  public User() {}
+  public User() {
+  }
 
-  /** Function example. */
+  /**
+   * Function example.
+   */
   public User(
       String name,
       String lastName,

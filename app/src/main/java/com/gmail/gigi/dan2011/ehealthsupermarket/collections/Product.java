@@ -3,7 +3,9 @@ package com.gmail.gigi.dan2011.ehealthsupermarket.collections;
 import java.util.List;
 import java.util.Objects;
 
-/** Function example. */
+/**
+ * Function example.
+ */
 public class Product {
 
   private String productId;
@@ -21,9 +23,12 @@ public class Product {
   private String image;
   private String code;
 
-  public Product() {}
+  public Product() {
+  }
 
-  /** Function example. */
+  /**
+   * Function example.
+   */
   public Product(
       String productId,
       String productName,
@@ -55,6 +60,9 @@ public class Product {
     this.code = code;
   }
 
+  /**
+   * Javadoc comment.
+   */
   public Product(String productId, String genericName, String quantity, String packaging,
       String image) {
     this.productId = productId;
@@ -181,18 +189,29 @@ public class Product {
   }
 
   public static Product[] ITEMS = {
-      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("2", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("3", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("4", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("5", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("6", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
+          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("2", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
+          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("3", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
+          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("4", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
+          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("5", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
+          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("6", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
+          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
+          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
+          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
+          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
   };
 
-  /////////////////////////////////////////////////
+  /**
+   * Javadoc comment.
+   */
   public static Product getItem(int id) {
     for (Product item : ITEMS) {
       if (item.getId() == id) {
