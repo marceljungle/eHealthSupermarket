@@ -55,6 +55,15 @@ public class Product {
     this.code = code;
   }
 
+  public Product(String productId, String genericName, String quantity, String packaging,
+      String image) {
+    this.productId = productId;
+    this.genericName = genericName;
+    this.quantity = quantity;
+    this.packaging = packaging;
+    this.image = image;
+  }
+
   public String getProductId() {
     return productId;
   }
@@ -165,6 +174,32 @@ public class Product {
 
   public void setCode(String code) {
     this.code = code;
+  }
+
+  public int getId() {
+    return productId.hashCode();
+  }
+
+  public static Product[] ITEMS = {
+      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("2", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("3", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("4", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("5", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("6", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick", "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
+  };
+
+  /////////////////////////////////////////////////
+  public static Product getItem(int id) {
+    for (Product item : ITEMS) {
+      if (item.getId() == id) {
+        return item;
+      }
+    }
+    return null;
   }
 
   @Override
