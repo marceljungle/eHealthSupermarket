@@ -19,7 +19,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EHealthSupermarket">
-        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".activity_products_listview"></activity>
+        <activity
+            android:name=".ui.list.mylistProducts"
+            android:label="Productos"
+            android:theme="@style/Theme.EHealthSupermarket.NoActionBar" />
+        <activity android:name=".SignupActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -32,7 +37,6 @@
             android:name=".AndroidCameraApi"
             android:label="@string/title_activity_android_camera2_a_p_i"
             android:parentActivityName=".MainActivity">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -67,10 +71,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity> <!-- fixes abnormal behavior of the keyboard, when opened it was raising the bottom menu with it -->
-
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="preloaded_fonts"
