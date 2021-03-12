@@ -1,48 +1,27 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.ui.list;
 
 import android.app.Dialog;
-import android.app.ListActivity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.gmail.gigi.dan2011.ehealthsupermarket.DisplayMessageActivity;
-import com.gmail.gigi.dan2011.ehealthsupermarket.MainActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.accountSetting;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 public class mylistFragment extends Fragment {
 
@@ -57,13 +36,9 @@ public class mylistFragment extends Fragment {
     private ListView individual_row;
 
 
-
-
-
-
     /* Stuff in this function will be executed when the fragment View is creating.
-    *  in this case we are inflating the elements from fragment_mylist layout file to be able to
-    *  use them in this class, that's why it's returning the View. */
+     *  in this case we are inflating the elements from fragment_mylist layout file to be able to
+     *  use them in this class, that's why it's returning the View. */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mylistViewModel = new ViewModelProvider(this).get(mylistViewModel.class);
         View root = inflater.inflate(R.layout.fragment_mylist, container, false);
@@ -74,18 +49,13 @@ public class mylistFragment extends Fragment {
         individual_row.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent bigFlagIntent = new Intent( getContext( ), accountSetting.class );
+                Intent bigFlagIntent = new Intent(getContext(), mylistProducts.class);
                 startActivity(bigFlagIntent);
             }
         });
         return root;
     }
     ////////////////////////////////////////////
-
-
-
-
-
 
 
     /* A function which we call to add elements to the main list of items. */
@@ -98,11 +68,6 @@ public class mylistFragment extends Fragment {
         arrayList.add(row);
     }
     ////////////////////////////////////////////
-
-
-
-
-
 
 
     /* Opens new activity when pressed
@@ -125,28 +90,20 @@ public class mylistFragment extends Fragment {
 
     */
     /* Stuff in this function will be executed when the View is already created.
-    *  In this case we handle the floating button which creates the popup window which
-    *  adds elements to the main list. In this case it's a good question why not to add this body
-    *  to onCreateView? it's the same in this case, it's not a heavy task. */
+     *  In this case we handle the floating button which creates the popup window which
+     *  adds elements to the main list. In this case it's a good question why not to add this body
+     *  to onCreateView? it's the same in this case, it's not a heavy task. */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         FloatingActionButton fab = getView().findViewById(R.id.fab);
         fab.setOnClickListener(lambView -> {
             ShowPopup(view);
         });
-        myDialog = new Dialog(getContext(),R.style.CustomDialogTheme);
-
+        myDialog = new Dialog(getContext(), R.style.CustomDialogTheme);
 
 
     }
     ////////////////////////////////////////////
-
-
-
-
-
-
-
 
 
     /* Function that constructs the popup dialog, it assign the contentView from the
@@ -155,7 +112,7 @@ public class mylistFragment extends Fragment {
     public void ShowPopup(View v) {
 
         /* This part is dedicated to the dialog and some of its buttons
-        * basically sets the content view and handles the closing action. */
+         * basically sets the content view and handles the closing action. */
         TextView text_close;
         Button btnAdd;
         Button btnClose;
@@ -175,14 +132,14 @@ public class mylistFragment extends Fragment {
                 myDialog.dismiss();
             }
         });
-/*      myDialog.getWindow().setLayout(350, 200);*/
+        /*      myDialog.getWindow().setLayout(350, 200);*/
         myDialog.show();
         ////////////////////////////////////////////
 
 
         /* This part will handle the rest of the buttons of the previous part, in this case
-        * it handles the add button behavior.   */
-        adapter =new CustomAdapter(getContext(), arrayList);
+         * it handles the add button behavior.   */
+        adapter = new CustomAdapter(getContext(), arrayList);
         editTxt = (TextInputLayout) myDialog.findViewById(R.id.name_of_list);
         list = (ListView) getView().findViewById(R.id.main_list);
         btn = (Button) myDialog.findViewById(R.id.btnAdd);
@@ -203,10 +160,6 @@ public class mylistFragment extends Fragment {
         Intent intent = new Intent(getContext(), accountSetting.class);
         startActivity(intent);
     }
-
-
-
-
 
 
     ////////////////////////////////////////////
