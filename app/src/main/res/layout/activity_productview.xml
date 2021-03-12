@@ -76,13 +76,24 @@
                         android:textColor="@color/black"
                         app:rippleColor="#000000" />
 
-                    <Button
-                        android:id="@+id/button_addFav"
-                        android:layout_width="56dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#FFFFFF"
-                        app:icon="@drawable/baseline_favorite_border_black_24dp"
-                        app:iconTint="#000000" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/button_addFav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_like_unselect" />
+
+                        <ImageView
+                            android:id="@+id/button_addFav2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_dislike_unselected" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
