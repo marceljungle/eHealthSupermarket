@@ -78,32 +78,33 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:text="@string/no_products_based_in_intolerances"
-                        android:textColor="@color/black"
-                        android:textSize="22sp" />
+                  android:id="@+id/noBasedInIntoleranceProducts"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:visibility="gone">
 
                     <Button
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:backgroundTint="@color/white"
-                        android:text="@string/go_to_intolerances"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+                      android:id="@+id/button"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginStart="20dp"
+                      android:backgroundTint="@color/white"
+                      android:text="@string/go_to_intolerances"
+                      android:textColor="@color/black"
+                      android:textSize="12sp" />
+
+                    <TextView
+                      android:id="@+id/textView8"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:layout_marginStart="20dp"
+                      android:layout_marginLeft="20dp"
+                      android:layout_marginRight="20dp"
+                      android:text="@string/no_products_based_in_intolerances"
+                      android:textColor="@color/black"
+                      android:textSize="22sp" />
                 </LinearLayout>
 
                 <HorizontalScrollView
@@ -117,41 +118,45 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical"
-                            android:visibility="visible">
+                          android:id="@+id/favorite1"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:layout_marginHorizontal="5dp"
+                          android:background="@drawable/customborder"
+                          android:backgroundTint="@color/white"
+                          android:orientation="vertical"
+                          android:visibility="visible">
 
                             <ImageButton
-                                android:id="@+id/imageProduct"
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter">
+                              android:id="@+id/imageFav1"
+                              android:layout_width="150dp"
+                              android:layout_height="150dp"
+                              android:backgroundTint="@color/white"
+                              android:contentDescription="@string/productImage"
+                              android:scaleType="fitCenter">
 
                             </ImageButton>
 
                             <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000"></TextView>
+                              android:id="@+id/nameFav1"
+                              android:layout_width="150dp"
+                              android:layout_height="wrap_content"
+                              android:text="@string/productName"
+                              android:textColor="#000000"></TextView>
 
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
+                              android:id="@+id/quantityFav1"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="@string/productWeigth">
 
                             </TextView>
 
                         </LinearLayout>
 
                         <LinearLayout
+                          android:id="@+id/favorite2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="5dp"
@@ -161,6 +166,7 @@
                             android:visibility="visible">
 
                             <ImageButton
+                                android:id="@+id/imageFav2"
                                 android:layout_width="150dp"
                                 android:layout_height="150dp"
                                 android:backgroundTint="@color/white"
@@ -171,6 +177,7 @@
                             </ImageButton>
 
                             <TextView
+                                android:id="@+id/nameFav2"
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/productName"
@@ -179,6 +186,7 @@
                             </TextView>
 
                             <TextView
+                                android:id="@+id/quantityFav2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/productWeigth">
@@ -188,6 +196,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                          android:id="@+id/favorite3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="5dp"
@@ -197,43 +206,7 @@
                             android:visibility="visible">
 
                             <ImageButton
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:backgroundTint="@color/white"
-                                android:contentDescription="@string/productImage"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/papafrita">
-
-
-                            </ImageButton>
-
-                            <TextView
-                                android:layout_width="150dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productName"
-                                android:textColor="#000000">
-
-                            </TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/productWeigth">
-
-                            </TextView>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="5dp"
-                            android:background="@drawable/customborder"
-                            android:backgroundTint="@color/white"
-                            android:orientation="vertical"
-                            android:visibility="visible">
-
-                            <ImageButton
+                                android:id="@+id/imageFav3"
                                 android:layout_width="150dp"
                                 android:layout_height="150dp"
                                 android:backgroundTint="@color/white"
@@ -245,6 +218,7 @@
                             </ImageButton>
 
                             <TextView
+                                android:id="@+id/nameFav3"
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/productName"
@@ -253,6 +227,7 @@
                             </TextView>
 
                             <TextView
+                                android:id="@+id/quantityFav3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/productWeigth">
@@ -262,6 +237,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                          android:id="@+id/favorite4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="5dp"
@@ -271,6 +247,7 @@
                             android:visibility="visible">
 
                             <ImageButton
+                                android:id="@+id/imageFav4"
                                 android:layout_width="150dp"
                                 android:layout_height="150dp"
                                 android:backgroundTint="@color/white"
@@ -282,6 +259,7 @@
                             </ImageButton>
 
                             <TextView
+                                android:id="@+id/nameFav4"
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/productName"
@@ -290,12 +268,53 @@
                             </TextView>
 
                             <TextView
+                                android:id="@+id/quantityFav4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/productWeigth">
 
                             </TextView>
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                          android:id="@+id/favorite5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@drawable/customborder"
+                            android:backgroundTint="@color/white"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <ImageButton
+                                android:id="@+id/imageFav5"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:backgroundTint="@color/white"
+                                android:contentDescription="@string/productImage"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/papafrita">
+
+
+                            </ImageButton>
+
+                            <TextView
+                                android:id="@+id/nameFav5"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/productName"
+                                android:textColor="#000000">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/quantityFav5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/productWeigth">
+
+                            </TextView>
                         </LinearLayout>
                     </LinearLayout>
                 </HorizontalScrollView>
@@ -355,6 +374,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/noFavoriteProducts"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
