@@ -1,39 +1,43 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.ui.list;
 
 class RowItem {
-    private String heading;
-    private String subHeading;
-    private int smallImageName;
-    private int bigImageName;
 
-    public void setHeading( String theHeading ) {
-        this.heading = theHeading;
-    }
+  private String heading;
+  private String subHeading;
+  private int smallImageName;
+  private int bigImageName;
 
-    public String getHeading() {
-        return this.heading;
-    }
-    public void setSubHeading( String theSubHeading ) {
-        this.subHeading = theSubHeading;
-    }
+  public void setHeading(String theHeading) {
+    this.heading = theHeading;
+  }
 
-    public String getSubHeading( ) {
-        return this.subHeading;
-    }
-    public void setSmallImageName(int smallName) {
-        this.smallImageName = smallName;
-    }
+  public String getHeading() {
+    return this.heading;
+  }
 
-    public int getSmallImageName() {
-        return this.smallImageName;
-    }
-    public void setBigImageName(int bigName) {
-        this.bigImageName = bigName;
-    }
+  public void setSubHeading(String theSubHeading) {
+    this.subHeading = theSubHeading;
+  }
 
-    public int getBigImageName( ) {
-        return this.bigImageName;
-    }
+  public String getSubHeading() {
+    return this.subHeading;
+  }
+
+  public void setSmallImageName(int smallName) {
+    this.smallImageName = smallName;
+  }
+
+  public int getSmallImageName() {
+    return this.smallImageName;
+  }
+
+  public void setBigImageName(int bigName) {
+    this.bigImageName = bigName;
+  }
+
+  public int getBigImageName() {
+    return this.bigImageName;
+  }
 
 
 }
