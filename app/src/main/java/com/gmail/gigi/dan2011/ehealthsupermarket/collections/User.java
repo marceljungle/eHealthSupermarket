@@ -9,14 +9,14 @@ import java.util.Objects;
 public class User {
 
   private String name;
-  private String lastName;
+  private String last_name;
   private String image;
-  private String phoneNumber;
+  private String phone_number;
   private String nickname;
-  private List<Product> likedProducts;
-  private List<Product> dislikedProducts;
+  private List<Product> liked_products;
+  private List<Product> disliked_products;
   private List<Intolerance> intolerances;
-  private List<Additive> unsupportedAdditives;
+  private List<Additive> unsupported_additives;
   private String email;
   private String idUser;
 
@@ -28,25 +28,25 @@ public class User {
    */
   public User(
       String name,
-      String lastName,
+      String last_name,
       String image,
-      String phoneNumber,
+      String phone_number,
       String nickname,
-      List<Product> likedProducts,
-      List<Product> dislikedProducts,
+      List<Product> liked_products,
+      List<Product> disliked_products,
       List<Intolerance> intolerances,
-      List<Additive> unsupportedAdditives,
+      List<Additive> unsupported_additives,
       String email,
       String idUser) {
     this.name = name;
-    this.lastName = lastName;
+    this.last_name = last_name;
     this.image = image;
-    this.phoneNumber = phoneNumber;
+    this.phone_number = phone_number;
     this.nickname = nickname;
-    this.likedProducts = likedProducts;
-    this.dislikedProducts = dislikedProducts;
+    this.liked_products = liked_products;
+    this.disliked_products = disliked_products;
     this.intolerances = intolerances;
-    this.unsupportedAdditives = unsupportedAdditives;
+    this.unsupported_additives = unsupported_additives;
     this.email = email;
     this.idUser = idUser;
   }
@@ -59,12 +59,12 @@ public class User {
     this.name = name;
   }
 
-  public String getLastName() {
-    return lastName;
+  public String getLast_name() {
+    return last_name;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setLast_name(String last_name) {
+    this.last_name = last_name;
   }
 
   public String getImage() {
@@ -75,12 +75,12 @@ public class User {
     this.image = image;
   }
 
-  public String getPhoneNumber() {
-    return phoneNumber;
+  public String getPhone_number() {
+    return phone_number;
   }
 
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  public void setPhone_number(String phone_number) {
+    this.phone_number = phone_number;
   }
 
   public String getNickname() {
@@ -91,20 +91,20 @@ public class User {
     this.nickname = nickname;
   }
 
-  public List<Product> getLikedProducts() {
-    return likedProducts;
+  public List<Product> getLiked_products() {
+    return liked_products;
   }
 
-  public void setLikedProducts(List<Product> likedProducts) {
-    this.likedProducts = likedProducts;
+  public void setLiked_products(List<Product> liked_products) {
+    this.liked_products = liked_products;
   }
 
-  public List<Product> getDislikedProducts() {
-    return dislikedProducts;
+  public List<Product> getDisliked_products() {
+    return disliked_products;
   }
 
-  public void setDislikedProducts(List<Product> dislikedProducts) {
-    this.dislikedProducts = dislikedProducts;
+  public void setDisliked_products(List<Product> disliked_products) {
+    this.disliked_products = disliked_products;
   }
 
   public List<Intolerance> getIntolerances() {
@@ -115,12 +115,12 @@ public class User {
     this.intolerances = intolerances;
   }
 
-  public List<Additive> getUnsupportedAdditives() {
-    return unsupportedAdditives;
+  public List<Additive> getUnsupported_additives() {
+    return unsupported_additives;
   }
 
-  public void setUnsupportedAdditives(List<Additive> unsupportedAdditives) {
-    this.unsupportedAdditives = unsupportedAdditives;
+  public void setUnsupported_additives(List<Additive> unsupported_additives) {
+    this.unsupported_additives = unsupported_additives;
   }
 
   public String getEmail() {
@@ -149,14 +149,14 @@ public class User {
     }
     User user = (User) o;
     return Objects.equals(name, user.name)
-        && Objects.equals(lastName, user.lastName)
+        && Objects.equals(last_name, user.last_name)
         && Objects.equals(image, user.image)
-        && Objects.equals(phoneNumber, user.phoneNumber)
+        && Objects.equals(phone_number, user.phone_number)
         && Objects.equals(nickname, user.nickname)
-        && Objects.equals(likedProducts, user.likedProducts)
-        && Objects.equals(dislikedProducts, user.dislikedProducts)
+        && Objects.equals(liked_products, user.liked_products)
+        && Objects.equals(disliked_products, user.disliked_products)
         && Objects.equals(intolerances, user.intolerances)
-        && Objects.equals(unsupportedAdditives, user.unsupportedAdditives)
+        && Objects.equals(unsupported_additives, user.unsupported_additives)
         && Objects.equals(email, user.email)
         && Objects.equals(idUser, user.idUser);
   }
@@ -165,14 +165,14 @@ public class User {
   public int hashCode() {
     return Objects.hash(
         name,
-        lastName,
+        last_name,
         image,
-        phoneNumber,
+        phone_number,
         nickname,
-        likedProducts,
-        dislikedProducts,
+        liked_products,
+        disliked_products,
         intolerances,
-        unsupportedAdditives,
+        unsupported_additives,
         email,
         idUser);
   }

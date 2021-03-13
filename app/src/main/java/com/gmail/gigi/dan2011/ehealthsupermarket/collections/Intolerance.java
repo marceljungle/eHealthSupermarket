@@ -6,8 +6,8 @@ import java.util.Objects;
 /** Function example. */
 public class Intolerance {
 
-  private String intoleranceId;
-  private String intoleranceName;
+  private String intolerance_id;
+  private String intolerance_name;
   private String about;
   private List<String> ingredientsInvolved;
 
@@ -15,30 +15,30 @@ public class Intolerance {
 
   /** Function example. */
   public Intolerance(
-      String intoleranceId,
-      String intoleranceName,
+      String intolerance_id,
+      String intolerance_name,
       String about,
       List<String> ingredientsInvolved) {
-    this.intoleranceId = intoleranceId;
-    this.intoleranceName = intoleranceName;
+    this.intolerance_id = intolerance_id;
+    this.intolerance_name = intolerance_name;
     this.about = about;
     this.ingredientsInvolved = ingredientsInvolved;
   }
 
-  public String getIntoleranceId() {
-    return intoleranceId;
+  public String getIntolerance_id() {
+    return intolerance_id;
   }
 
-  public void setIntoleranceId(String intoleranceId) {
-    this.intoleranceId = intoleranceId;
+  public void setIntolerance_id(String intolerance_id) {
+    this.intolerance_id = intolerance_id;
   }
 
-  public String getIntoleranceName() {
-    return intoleranceName;
+  public String getIntolerance_name() {
+    return intolerance_name;
   }
 
-  public void setIntoleranceName(String intoleranceName) {
-    this.intoleranceName = intoleranceName;
+  public void setIntolerance_name(String intolerance_name) {
+    this.intolerance_name = intolerance_name;
   }
 
   public String getAbout() {
@@ -61,10 +61,10 @@ public class Intolerance {
   public String toString() {
     return "Intolerance{"
         + "intoleranceId='"
-        + intoleranceId
+        + intolerance_id
         + '\''
         + ", intoleranceName='"
-        + intoleranceName
+        + intolerance_name
         + '\''
         + ", about='"
         + about
@@ -83,14 +83,14 @@ public class Intolerance {
       return false;
     }
     Intolerance that = (Intolerance) o;
-    return Objects.equals(intoleranceId, that.intoleranceId)
-        && Objects.equals(intoleranceName, that.intoleranceName)
+    return Objects.equals(intolerance_id, that.intolerance_id)
+        && Objects.equals(intolerance_name, that.intolerance_name)
         && Objects.equals(about, that.about)
         && Objects.equals(ingredientsInvolved, that.ingredientsInvolved);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(intoleranceId, intoleranceName, about, ingredientsInvolved);
+    return Objects.hash(intolerance_id, intolerance_name, about, ingredientsInvolved);
   }
 }
