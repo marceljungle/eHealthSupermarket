@@ -5,44 +5,44 @@ import java.util.Objects;
 /** Function example. */
 public class Additive {
 
-  private String additiveId;
-  private String additiveName;
-  private String additiveCode;
-  private Integer additiveDangerLevel;
+  private String additive_id;
+  private String additive_name;
+  private String additive_code;
+  private Integer additive_danger_level;
   private String clasification;
 
   public Additive() {}
 
-  public String getAdditiveId() {
-    return additiveId;
+  public String getAdditive_id() {
+    return additive_id;
   }
 
-  public void setAdditiveId(String additiveId) {
-    this.additiveId = additiveId;
+  public void setAdditive_id(String additive_id) {
+    this.additive_id = additive_id;
   }
 
-  public String getAdditiveName() {
-    return additiveName;
+  public String getAdditive_name() {
+    return additive_name;
   }
 
-  public void setAdditiveName(String additiveName) {
-    this.additiveName = additiveName;
+  public void setAdditive_name(String additive_name) {
+    this.additive_name = additive_name;
   }
 
-  public String getAdditiveCode() {
-    return additiveCode;
+  public String getAdditive_code() {
+    return additive_code;
   }
 
-  public void setAdditiveCode(String additiveCode) {
-    this.additiveCode = additiveCode;
+  public void setAdditive_code(String additive_code) {
+    this.additive_code = additive_code;
   }
 
-  public Integer getAdditiveDangerLevel() {
-    return additiveDangerLevel;
+  public Integer getAdditive_danger_level() {
+    return additive_danger_level;
   }
 
-  public void setAdditiveDangerLevel(Integer additiveDangerLevel) {
-    this.additiveDangerLevel = additiveDangerLevel;
+  public void setAdditive_danger_level(Integer additive_danger_level) {
+    this.additive_danger_level = additive_danger_level;
   }
 
   public String getClasification() {
@@ -55,15 +55,15 @@ public class Additive {
 
   /** Function example. */
   public Additive(
-      String additiveId,
-      String additiveName,
-      String additiveCode,
-      Integer additiveDangerLevel,
+      String additive_id,
+      String additive_name,
+      String additive_code,
+      Integer additive_danger_level,
       String clasification) {
-    this.additiveId = additiveId;
-    this.additiveName = additiveName;
-    this.additiveCode = additiveCode;
-    this.additiveDangerLevel = additiveDangerLevel;
+    this.additive_id = additive_id;
+    this.additive_name = additive_name;
+    this.additive_code = additive_code;
+    this.additive_danger_level = additive_danger_level;
     this.clasification = clasification;
   }
 
@@ -71,16 +71,16 @@ public class Additive {
   public String toString() {
     return "Additive{"
         + "additiveId='"
-        + additiveId
+        + additive_id
         + '\''
         + ", additiveName='"
-        + additiveName
+        + additive_name
         + '\''
         + ", additiveCode='"
-        + additiveCode
+        + additive_code
         + '\''
         + ", additiveDangerLevel="
-        + additiveDangerLevel
+        + additive_danger_level
         + ", clasification='"
         + clasification
         + '\''
@@ -96,15 +96,15 @@ public class Additive {
       return false;
     }
     Additive additive = (Additive) o;
-    return Objects.equals(additiveId, additive.additiveId)
-        && Objects.equals(additiveName, additive.additiveName)
-        && Objects.equals(additiveCode, additive.additiveCode)
-        && Objects.equals(additiveDangerLevel, additive.additiveDangerLevel)
+    return Objects.equals(additive_id, additive.additive_id)
+        && Objects.equals(additive_name, additive.additive_name)
+        && Objects.equals(additive_code, additive.additive_code)
+        && Objects.equals(additive_danger_level, additive.additive_danger_level)
         && Objects.equals(clasification, additive.clasification);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(additiveId, additiveName, additiveCode, additiveDangerLevel, clasification);
+    return Objects.hash(additive_id, additive_name, additive_code, additive_danger_level, clasification);
   }
 }

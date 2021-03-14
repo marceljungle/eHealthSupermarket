@@ -9,15 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.squareup.picasso.Picasso;
+import java.util.ArrayList;
 
 /**
  * Javadoc comment.
  */
 public class ProductAdapter extends BaseAdapter {
 
+  private ArrayList<Product> product;
   private Context context;
 
-  public ProductAdapter(Context context) {
+  public ProductAdapter(Context context, ArrayList<Product> product) {
+    this.product = product;
     this.context = context;
   }
 
@@ -33,7 +36,7 @@ public class ProductAdapter extends BaseAdapter {
 
   @Override
   public long getItemId(int position) {
-    return getItem(position).getId();
+    return getItem(position).idGet();
   }
 
   @Override
@@ -51,7 +54,7 @@ public class ProductAdapter extends BaseAdapter {
 
     final Product item = getItem(position);
     Picasso.get().load(item.getImage()).into(imageProduct);
-    nameProduct.setText(item.getGenericName());
+    nameProduct.setText(item.getGeneric_name());
     quantityProduct.setText(item.getPackaging() + " " + item.getQuantity());
 
     return view;

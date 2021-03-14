@@ -21,18 +21,28 @@ import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Text;
+
 
 /**
  * Represents an example of javadoc in a function.
@@ -43,6 +53,7 @@ public class HomeFragment extends Fragment {
   private ImageView imageProduct;
   private FirebaseAuth mauth;
   private FirebaseFirestore db = FirebaseFirestore.getInstance();
+  private FirebaseUser user;
   private Button viewMore1;
   private Logger log = LoggerFactory.getLogger(HomeFragment.class);
   private LinearLayout[] favorites = new LinearLayout[5];
@@ -54,7 +65,7 @@ public class HomeFragment extends Fragment {
   private TextView[] basedInIntolerancesQuantity = new TextView[5];
   private LinearLayout noFavorites;
   private LinearLayout noBasedInIntolerances;
-  private View rootView;
+  private View root;
 
   /**
    * Represents an example of javadoc in a function.
@@ -65,7 +76,7 @@ public class HomeFragment extends Fragment {
     // Get Auth Firebase reference
     mauth = FirebaseAuth.getInstance();
     // Get current user
-    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    user = FirebaseAuth.getInstance().getCurrentUser();
 
     homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
     View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -92,61 +103,28 @@ public class HomeFragment extends Fragment {
             startActivity(in);
           }
         });
-    db.collection("ADDITIVES")
-        .get()
-        .addOnCompleteListener(
-            new OnCompleteListener<QuerySnapshot>() {
-              @Override
-              public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                  final ObjectMapper mapper = new ObjectMapper();
-                  for (int i = 0; i < 50; i++) {
-                    DocumentSnapshot document = task.getResult().getDocuments().get(0);
-                    Map<String, Object> theData = document.getData();
-                    theData.put("additiveId", theData.remove("additive_id"));
-                    theData.put("additiveName", theData.remove("additive_name"));
-                    theData.put("additiveCode", theData.remove("additive_code"));
-                    theData.put("additiveDangerLevel", theData.remove("additive_danger_level"));
-                    Additive pojo = mapper.convertValue(theData, Additive.class);
-                    log.info(pojo.toString());
-                    Product product1 =
-                        new Product(
-                            "",
-                            "",
-                            "",
-                            "",
-                            "",
-                            new ArrayList<>(Arrays.asList("")),
-                            "",
-                            "",
-                            "",
-                            "",
-                            Arrays.asList(pojo),
-                            new ArrayList<Intolerance>(
-                                Arrays.asList(
-                                    new Intolerance("", "", "", new ArrayList<String>()))),
-                            "",
-                            "");
-                    /* CollectionReference additives = db.collection("PRODUCTS");
-                    additives
-                        .add(product1)
-                        .addOnSuccessListener(
-                            new OnSuccessListener<DocumentReference>() {
-                              @Override
-                              public void onSuccess(DocumentReference ref) {
-                                additives
-                                    .document(ref.getId())
-                                    .update("productId", ref.getId());
-                                product1.setProductId(ref.getId());
-                              }
-                            });*/
-                  }
-                }
-              }
-            });
-    // for (int i = 0; i < 50; i++) {
 
-    // }
+
+/*
+
+    db.collection("PRODUCTS").document("01ir2JNAshVPjH6GGafd")
+        .get()
+        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+          @Override
+          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            final ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> document = task.getResult().getData();
+            Product pojo = mapper.convertValue(document, Product.class);
+            System.out.println(pojo.toString());
+            log.info(pojo.toString());
+            db.collection("USERS").document(user.getUid()).update("liked_products", Arrays.asList(pojo, pojo));
+            System.out.println(pojo.toString());
+          }
+        });
+
+*/
+
+
 
     /*
     db = FirebaseFirestore.getInstance();
@@ -189,60 +167,86 @@ public class HomeFragment extends Fragment {
 
     noFavorites = root.findViewById(R.id.noFavoriteProducts);
     noBasedInIntolerances = root.findViewById(R.id.noBasedInIntoleranceProducts);
-    rootView = root;
+
+    showFavorites(root);
     return root;
   }
 
-  
+
   private void showFavorites(View root) {
-    String userUid = mauth.getUid();
-    Map<String, Object> userFields = db.collection("USERS").document(userUid).get().getResult()
-        .getData();
-    List<Product> likedProducts = new ArrayList<Product>(
-        (List<Product>) userFields.get("liked_products"));
+    String userUid = user.getUid();
+    final ObjectMapper mapper = new ObjectMapper();
+    db.collection("USERS").document(userUid).get().addOnCompleteListener(
+        new OnCompleteListener<DocumentSnapshot>() {
+          @Override
+          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            List<Product> likedProducts = new ArrayList<>();
+            List<Map<String, Object>> favProducts = (List)task.getResult().getData().get("liked_products");
+            for (Map<String, Object> mapProd:favProducts) {
+              likedProducts.add(mapper.convertValue(mapProd, Product.class));
+            }
+            showFavorites2(root, likedProducts);
+          }
+        });
+  }
+
+
+  private void showFavorites2(View root, List<Product> likedProducts) {
+
     Integer blankLayouts = 5 - likedProducts.size();
     Integer filledLayouts = likedProducts.size();
+    Collections.shuffle(likedProducts);
     if (!likedProducts.isEmpty()) {
       for (int i = 0; i < filledLayouts; i++) {
         switch (i) {
           case 0:
             favorites[0].setVisibility(View.VISIBLE);
-            favImageButtons[0] = rootView.findViewById(R.id.imageFav1);
-            favNames[0] = rootView.findViewById(R.id.nameFav1);
-            favQuantity[0] = rootView.findViewById(R.id.quantityFav1);
-            //TODO: assign here values to the interface
+            favImageButtons[0] = root.findViewById(R.id.imageFav1);
+            favNames[0] = root.findViewById(R.id.nameFav1);
+            favQuantity[0] = root.findViewById(R.id.quantityFav1);
+            Picasso.get().load(likedProducts.get(0).getImage()).into(favImageButtons[0]);
+            favNames[0].setText(likedProducts.get(0).getGeneric_name());
+            favQuantity[0].setText(likedProducts.get(0).getPackaging() + " " + likedProducts.get(0).getQuantity());
             break;
           case 1:
             favorites[1].setVisibility(View.VISIBLE);
-            favImageButtons[1] = rootView.findViewById(R.id.imageFav1);
-            favNames[1] = rootView.findViewById(R.id.nameFav1);
-            favQuantity[1] = rootView.findViewById(R.id.quantityFav1);
-            //TODO: assign here values to the interface
+            favImageButtons[1] = root.findViewById(R.id.imageFav2);
+            favNames[1] = root.findViewById(R.id.nameFav2);
+            favQuantity[1] = root.findViewById(R.id.quantityFav2);
+            Picasso.get().load(likedProducts.get(1).getImage()).into(favImageButtons[1]);
+            favNames[1].setText(likedProducts.get(1).getGeneric_name());
+            favQuantity[1].setText(likedProducts.get(1).getPackaging() + " " + likedProducts.get(1).getQuantity());
             break;
           case 2:
             favorites[2].setVisibility(View.VISIBLE);
-            favImageButtons[2] = rootView.findViewById(R.id.imageFav2);
-            favNames[2] = rootView.findViewById(R.id.nameFav2);
-            favQuantity[2] = rootView.findViewById(R.id.quantityFav2);
-            //TODO: assign here values to the interface
+            favImageButtons[2] = root.findViewById(R.id.imageFav3);
+            favNames[2] = root.findViewById(R.id.nameFav3);
+            favQuantity[2] = root.findViewById(R.id.quantityFav3);
+            Picasso.get().load(likedProducts.get(2).getImage()).into(favImageButtons[2]);
+            favNames[2].setText(likedProducts.get(2).getGeneric_name());
+            favQuantity[2].setText(likedProducts.get(2).getPackaging() + " " + likedProducts.get(2).getQuantity());
             break;
           case 3:
             favorites[3].setVisibility(View.VISIBLE);
-            favImageButtons[3] = rootView.findViewById(R.id.imageFav3);
-            favNames[3] = rootView.findViewById(R.id.nameFav3);
-            favQuantity[3] = rootView.findViewById(R.id.quantityFav3);
-            //TODO: assign here values to the interface
+            favImageButtons[3] = root.findViewById(R.id.imageFav4);
+            favNames[3] = root.findViewById(R.id.nameFav4);
+            favQuantity[3] = root.findViewById(R.id.quantityFav4);
+            Picasso.get().load(likedProducts.get(3).getImage()).into(favImageButtons[3]);
+            favNames[3].setText(likedProducts.get(3).getGeneric_name());
+            favQuantity[3].setText(likedProducts.get(3).getPackaging() + " " + likedProducts.get(3).getQuantity());
             break;
           case 4:
             favorites[4].setVisibility(View.VISIBLE);
-            favImageButtons[4] = rootView.findViewById(R.id.imageFav4);
-            favNames[4] = rootView.findViewById(R.id.nameFav4);
-            favQuantity[4] = rootView.findViewById(R.id.quantityFav4);
-            //TODO: assign here values to the interface
+            favImageButtons[4] = root.findViewById(R.id.imageFav5);
+            favNames[4] = root.findViewById(R.id.nameFav5);
+            favQuantity[4] = root.findViewById(R.id.quantityFav5);
+            Picasso.get().load(likedProducts.get(4).getImage()).into(favImageButtons[4]);
+            favNames[4].setText(likedProducts.get(4).getGeneric_name());
+            favQuantity[4].setText(likedProducts.get(4).getPackaging() + " " + likedProducts.get(4).getQuantity());
             break;
         }
       }
-      for (int i = filledLayouts; i < blankLayouts; i++) {
+      for (int i = filledLayouts; i < 5; i++) {
         favorites[i].setVisibility(View.GONE);
       }
     } else {
