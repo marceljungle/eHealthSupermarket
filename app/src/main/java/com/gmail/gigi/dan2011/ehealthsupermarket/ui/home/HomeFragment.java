@@ -22,7 +22,6 @@ import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.api.Distribution.BucketOptions.Linear;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Text;
 
 /**
  * Represents an example of javadoc in a function.
@@ -195,16 +193,18 @@ public class HomeFragment extends Fragment {
     return root;
   }
 
-
+  
   private void showFavorites(View root) {
     String userUid = mauth.getUid();
-    Map<String, Object> userFields = db.collection("USERS").document(userUid).get().getResult().getData();
-    List<Product> likedProducts = new ArrayList<Product>((List<Product>)userFields.get("liked_products"));
+    Map<String, Object> userFields = db.collection("USERS").document(userUid).get().getResult()
+        .getData();
+    List<Product> likedProducts = new ArrayList<Product>(
+        (List<Product>) userFields.get("liked_products"));
     Integer blankLayouts = 5 - likedProducts.size();
     Integer filledLayouts = likedProducts.size();
     if (!likedProducts.isEmpty()) {
-      for (int i = 0; i<filledLayouts; i++) {
-        switch (i){
+      for (int i = 0; i < filledLayouts; i++) {
+        switch (i) {
           case 0:
             favorites[0].setVisibility(View.VISIBLE);
             favImageButtons[0] = rootView.findViewById(R.id.imageFav1);
@@ -245,7 +245,7 @@ public class HomeFragment extends Fragment {
       for (int i = filledLayouts; i < blankLayouts; i++) {
         favorites[i].setVisibility(View.GONE);
       }
-    }else {
+    } else {
       favorites[0].setVisibility(View.GONE);
       favorites[1].setVisibility(View.GONE);
       favorites[2].setVisibility(View.GONE);
