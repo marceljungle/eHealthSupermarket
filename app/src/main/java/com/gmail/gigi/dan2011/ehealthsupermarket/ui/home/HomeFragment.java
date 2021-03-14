@@ -17,31 +17,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductsListView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
-import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
-import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Text;
 
 
 /**
@@ -59,13 +48,13 @@ public class HomeFragment extends Fragment {
   private LinearLayout[] favorites = new LinearLayout[5];
   private LinearLayout[] basedInIntolerances = new LinearLayout[5];
   private ImageButton[] favImageButtons = new ImageButton[5];
+  private ImageButton[] basedInIntolerancesImageButtons = new ImageButton[5];
   private TextView[] favNames = new TextView[5];
   private TextView[] basedInIntolerancesNames = new TextView[5];
   private TextView[] favQuantity = new TextView[5];
   private TextView[] basedInIntolerancesQuantity = new TextView[5];
   private LinearLayout noFavorites;
   private LinearLayout noBasedInIntolerances;
-  private View root;
 
   /**
    * Represents an example of javadoc in a function.
@@ -105,8 +94,7 @@ public class HomeFragment extends Fragment {
         });
 
 
-/*
-
+    /*
     db.collection("PRODUCTS").document("01ir2JNAshVPjH6GGafd")
         .get()
         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -117,7 +105,8 @@ public class HomeFragment extends Fragment {
             Product pojo = mapper.convertValue(document, Product.class);
             System.out.println(pojo.toString());
             log.info(pojo.toString());
-            db.collection("USERS").document(user.getUid()).update("liked_products", Arrays.asList(pojo, pojo));
+            db.collection("USERS").document(user.getUid()).update("liked_products",
+            Arrays.asList(pojo, pojo));
             System.out.println(pojo.toString());
           }
         });
@@ -164,11 +153,16 @@ public class HomeFragment extends Fragment {
     favorites[2] = root.findViewById(R.id.favorite3);
     favorites[3] = root.findViewById(R.id.favorite4);
     favorites[4] = root.findViewById(R.id.favorite5);
-
+    basedInIntolerances[0] = root.findViewById(R.id.intBased1);
+    basedInIntolerances[1] = root.findViewById(R.id.intBased2);
+    basedInIntolerances[2] = root.findViewById(R.id.intBased3);
+    basedInIntolerances[3] = root.findViewById(R.id.intBased4);
+    basedInIntolerances[4] = root.findViewById(R.id.intBased5);
     noFavorites = root.findViewById(R.id.noFavoriteProducts);
     noBasedInIntolerances = root.findViewById(R.id.noBasedInIntoleranceProducts);
 
     showFavorites(root);
+    // showBasedInIntolerances(root);
     return root;
   }
 
@@ -181,8 +175,15 @@ public class HomeFragment extends Fragment {
           @Override
           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
             List<Product> likedProducts = new ArrayList<>();
-            List<Map<String, Object>> favProducts = (List)task.getResult().getData().get("liked_products");
-            for (Map<String, Object> mapProd:favProducts) {
+            List<Map<String, Object>> favProducts = new ArrayList<>();
+            try{
+              favProducts = (List) task.getResult()
+                  .getData().get("liked_products");
+              log.info("Obtained user liked products from Firebase!");
+            }catch(Exception e) {
+              log.error("User doesn't have liked products! User wrongly created..?");
+            }
+            for (Map<String, Object> mapProd : favProducts) {
               likedProducts.add(mapper.convertValue(mapProd, Product.class));
             }
             showFavorites2(root, likedProducts);
@@ -206,7 +207,8 @@ public class HomeFragment extends Fragment {
             favQuantity[0] = root.findViewById(R.id.quantityFav1);
             Picasso.get().load(likedProducts.get(0).getImage()).into(favImageButtons[0]);
             favNames[0].setText(likedProducts.get(0).getGeneric_name());
-            favQuantity[0].setText(likedProducts.get(0).getPackaging() + " " + likedProducts.get(0).getQuantity());
+            favQuantity[0].setText(
+                likedProducts.get(0).getPackaging() + " " + likedProducts.get(0).getQuantity());
             break;
           case 1:
             favorites[1].setVisibility(View.VISIBLE);
@@ -215,7 +217,8 @@ public class HomeFragment extends Fragment {
             favQuantity[1] = root.findViewById(R.id.quantityFav2);
             Picasso.get().load(likedProducts.get(1).getImage()).into(favImageButtons[1]);
             favNames[1].setText(likedProducts.get(1).getGeneric_name());
-            favQuantity[1].setText(likedProducts.get(1).getPackaging() + " " + likedProducts.get(1).getQuantity());
+            favQuantity[1].setText(
+                likedProducts.get(1).getPackaging() + " " + likedProducts.get(1).getQuantity());
             break;
           case 2:
             favorites[2].setVisibility(View.VISIBLE);
@@ -224,7 +227,8 @@ public class HomeFragment extends Fragment {
             favQuantity[2] = root.findViewById(R.id.quantityFav3);
             Picasso.get().load(likedProducts.get(2).getImage()).into(favImageButtons[2]);
             favNames[2].setText(likedProducts.get(2).getGeneric_name());
-            favQuantity[2].setText(likedProducts.get(2).getPackaging() + " " + likedProducts.get(2).getQuantity());
+            favQuantity[2].setText(
+                likedProducts.get(2).getPackaging() + " " + likedProducts.get(2).getQuantity());
             break;
           case 3:
             favorites[3].setVisibility(View.VISIBLE);
@@ -233,7 +237,8 @@ public class HomeFragment extends Fragment {
             favQuantity[3] = root.findViewById(R.id.quantityFav4);
             Picasso.get().load(likedProducts.get(3).getImage()).into(favImageButtons[3]);
             favNames[3].setText(likedProducts.get(3).getGeneric_name());
-            favQuantity[3].setText(likedProducts.get(3).getPackaging() + " " + likedProducts.get(3).getQuantity());
+            favQuantity[3].setText(
+                likedProducts.get(3).getPackaging() + " " + likedProducts.get(3).getQuantity());
             break;
           case 4:
             favorites[4].setVisibility(View.VISIBLE);
@@ -242,7 +247,16 @@ public class HomeFragment extends Fragment {
             favQuantity[4] = root.findViewById(R.id.quantityFav5);
             Picasso.get().load(likedProducts.get(4).getImage()).into(favImageButtons[4]);
             favNames[4].setText(likedProducts.get(4).getGeneric_name());
-            favQuantity[4].setText(likedProducts.get(4).getPackaging() + " " + likedProducts.get(4).getQuantity());
+            favQuantity[4].setText(
+                likedProducts.get(4).getPackaging() + " " + likedProducts.get(4).getQuantity());
+            break;
+          default:
+            favorites[0].setVisibility(View.GONE);
+            favorites[1].setVisibility(View.GONE);
+            favorites[2].setVisibility(View.GONE);
+            favorites[3].setVisibility(View.GONE);
+            favorites[4].setVisibility(View.GONE);
+            noFavorites.setVisibility(View.VISIBLE);
             break;
         }
       }
@@ -256,6 +270,110 @@ public class HomeFragment extends Fragment {
       favorites[3].setVisibility(View.GONE);
       favorites[4].setVisibility(View.GONE);
       noFavorites.setVisibility(View.VISIBLE);
+    }
+  }
+
+  private void showBasedInIntolerances(View root) {
+    String userUid = user.getUid();
+    final ObjectMapper mapper = new ObjectMapper();
+
+    /* TODO: retrieve products from database and apply an algorithm to get
+        recomended products based in user intolerances */
+  }
+
+  private void showBasedInIntolerances2(View root, List<Product> basedIntoIntolerancesProducts) {
+
+    Integer blankLayouts = 5 - basedIntoIntolerancesProducts.size();
+    Integer filledLayouts = basedIntoIntolerancesProducts.size();
+    Collections.shuffle(basedIntoIntolerancesProducts);
+    if (!basedIntoIntolerancesProducts.isEmpty()) {
+      for (int i = 0; i < filledLayouts; i++) {
+        switch (i) {
+          case 0:
+            basedInIntolerances[0].setVisibility(View.VISIBLE);
+            basedInIntolerancesImageButtons[0] = root.findViewById(R.id.imgIntBased1);
+            basedInIntolerancesNames[0] = root.findViewById(R.id.nameIntBased1);
+            basedInIntolerancesQuantity[0] = root.findViewById(R.id.quantityIntBased1);
+            Picasso.get().load(basedIntoIntolerancesProducts.get(0).getImage())
+                .into(basedInIntolerancesImageButtons[0]);
+            basedInIntolerancesNames[0]
+                .setText(basedIntoIntolerancesProducts.get(0).getGeneric_name());
+            basedInIntolerancesQuantity[0].setText(
+                basedIntoIntolerancesProducts.get(0).getPackaging() + " "
+                    + basedIntoIntolerancesProducts.get(0).getQuantity());
+            break;
+          case 1:
+            basedInIntolerances[1].setVisibility(View.VISIBLE);
+            basedInIntolerancesImageButtons[1] = root.findViewById(R.id.imgIntBased2);
+            basedInIntolerancesNames[1] = root.findViewById(R.id.nameIntBased2);
+            basedInIntolerancesQuantity[1] = root.findViewById(R.id.quantityIntBased2);
+            Picasso.get().load(basedIntoIntolerancesProducts.get(1).getImage())
+                .into(basedInIntolerancesImageButtons[1]);
+            basedInIntolerancesNames[1]
+                .setText(basedIntoIntolerancesProducts.get(1).getGeneric_name());
+            basedInIntolerancesQuantity[1].setText(
+                basedIntoIntolerancesProducts.get(1).getPackaging() + " "
+                    + basedIntoIntolerancesProducts.get(1).getQuantity());
+            break;
+          case 2:
+            basedInIntolerances[2].setVisibility(View.VISIBLE);
+            basedInIntolerancesImageButtons[2] = root.findViewById(R.id.imgIntBased3);
+            basedInIntolerancesNames[2] = root.findViewById(R.id.nameIntBased3);
+            basedInIntolerancesQuantity[2] = root.findViewById(R.id.quantityIntBased3);
+            Picasso.get().load(basedIntoIntolerancesProducts.get(2).getImage())
+                .into(basedInIntolerancesImageButtons[2]);
+            basedInIntolerancesNames[2]
+                .setText(basedIntoIntolerancesProducts.get(2).getGeneric_name());
+            basedInIntolerancesQuantity[2].setText(
+                basedIntoIntolerancesProducts.get(2).getPackaging() + " "
+                    + basedIntoIntolerancesProducts.get(2).getQuantity());
+            break;
+          case 3:
+            basedInIntolerances[3].setVisibility(View.VISIBLE);
+            basedInIntolerancesImageButtons[3] = root.findViewById(R.id.imgIntBased4);
+            basedInIntolerancesNames[3] = root.findViewById(R.id.nameIntBased4);
+            basedInIntolerancesQuantity[3] = root.findViewById(R.id.quantityIntBased4);
+            Picasso.get().load(basedIntoIntolerancesProducts.get(3).getImage())
+                .into(basedInIntolerancesImageButtons[3]);
+            basedInIntolerancesNames[3]
+                .setText(basedIntoIntolerancesProducts.get(3).getGeneric_name());
+            basedInIntolerancesQuantity[3].setText(
+                basedIntoIntolerancesProducts.get(3).getPackaging() + " "
+                    + basedIntoIntolerancesProducts.get(3).getQuantity());
+            break;
+          case 4:
+            basedInIntolerances[4].setVisibility(View.VISIBLE);
+            basedInIntolerancesImageButtons[4] = root.findViewById(R.id.imgIntBased5);
+            basedInIntolerancesNames[4] = root.findViewById(R.id.nameIntBased5);
+            basedInIntolerancesQuantity[4] = root.findViewById(R.id.quantityIntBased5);
+            Picasso.get().load(basedIntoIntolerancesProducts.get(4).getImage())
+                .into(basedInIntolerancesImageButtons[4]);
+            basedInIntolerancesNames[4]
+                .setText(basedIntoIntolerancesProducts.get(4).getGeneric_name());
+            basedInIntolerancesQuantity[4].setText(
+                basedIntoIntolerancesProducts.get(4).getPackaging() + " "
+                    + basedIntoIntolerancesProducts.get(4).getQuantity());
+            break;
+          default:
+            favorites[0].setVisibility(View.GONE);
+            favorites[1].setVisibility(View.GONE);
+            favorites[2].setVisibility(View.GONE);
+            favorites[3].setVisibility(View.GONE);
+            favorites[4].setVisibility(View.GONE);
+            noFavorites.setVisibility(View.VISIBLE);
+            break;
+        }
+      }
+      for (int i = filledLayouts; i < 5; i++) {
+        basedInIntolerances[i].setVisibility(View.GONE);
+      }
+    } else {
+      basedInIntolerances[0].setVisibility(View.GONE);
+      basedInIntolerances[1].setVisibility(View.GONE);
+      basedInIntolerances[2].setVisibility(View.GONE);
+      basedInIntolerances[3].setVisibility(View.GONE);
+      basedInIntolerances[4].setVisibility(View.GONE);
+      noBasedInIntolerances.setVisibility(View.VISIBLE);
     }
   }
 }
