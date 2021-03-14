@@ -8,16 +8,16 @@ import java.util.Objects;
  */
 public class Product {
 
-  private String productId;
-  private String productName;
-  private String genericName;
+  private String product_id;
+  private String product_name;
+  private String generic_name;
   private String quantity;
   private String packaging;
   private List<String> brands;
-  private String informationPhone;
-  private String informationMail;
-  private String factoryAddress;
-  private String informationText;
+  private String information_phone;
+  private String information_mail;
+  private String factory_address;
+  private String information_text;
   private List<Additive> additives;
   private List<Intolerance> intolerances;
   private String image;
@@ -30,30 +30,30 @@ public class Product {
    * Function example.
    */
   public Product(
-      String productId,
-      String productName,
-      String genericName,
+      String product_id,
+      String product_name,
+      String generic_name,
       String quantity,
       String packaging,
       List<String> brands,
-      String informationPhone,
-      String informationMail,
-      String factoryAddress,
-      String informationText,
+      String information_phone,
+      String information_mail,
+      String factory_address,
+      String information_text,
       List<Additive> additives,
       List<Intolerance> intolerances,
       String image,
       String code) {
-    this.productId = productId;
-    this.productName = productName;
-    this.genericName = genericName;
+    this.product_id = product_id;
+    this.product_name = product_name;
+    this.generic_name = generic_name;
     this.quantity = quantity;
     this.packaging = packaging;
     this.brands = brands;
-    this.informationPhone = informationPhone;
-    this.informationMail = informationMail;
-    this.factoryAddress = factoryAddress;
-    this.informationText = informationText;
+    this.information_phone = information_phone;
+    this.information_mail = information_mail;
+    this.factory_address = factory_address;
+    this.information_text = information_text;
     this.additives = additives;
     this.intolerances = intolerances;
     this.image = image;
@@ -63,37 +63,37 @@ public class Product {
   /**
    * Javadoc comment.
    */
-  public Product(String productId, String genericName, String quantity, String packaging,
+  public Product(String product_id, String generic_name, String quantity, String packaging,
       String image) {
-    this.productId = productId;
-    this.genericName = genericName;
+    this.product_id = product_id;
+    this.generic_name = generic_name;
     this.quantity = quantity;
     this.packaging = packaging;
     this.image = image;
   }
 
-  public String getProductId() {
-    return productId;
+  public String getProduct_id() {
+    return product_id;
   }
 
-  public void setProductId(String productId) {
-    this.productId = productId;
+  public void setProduct_id(String product_id) {
+    this.product_id = product_id;
   }
 
-  public String getProductName() {
-    return productName;
+  public String getProduct_name() {
+    return product_name;
   }
 
-  public void setProductName(String productName) {
-    this.productName = productName;
+  public void setProduct_name(String product_name) {
+    this.product_name = product_name;
   }
 
-  public String getGenericName() {
-    return genericName;
+  public String getGeneric_name() {
+    return generic_name;
   }
 
-  public void setGenericName(String genericName) {
-    this.genericName = genericName;
+  public void setGeneric_name(String generic_name) {
+    this.generic_name = generic_name;
   }
 
   public String getQuantity() {
@@ -120,36 +120,36 @@ public class Product {
     this.brands = brands;
   }
 
-  public String getInformationPhone() {
-    return informationPhone;
+  public String getInformation_phone() {
+    return information_phone;
   }
 
-  public void setInformationPhone(String informationPhone) {
-    this.informationPhone = informationPhone;
+  public void setInformation_phone(String information_phone) {
+    this.information_phone = information_phone;
   }
 
-  public String getInformationMail() {
-    return informationMail;
+  public String getInformation_mail() {
+    return information_mail;
   }
 
-  public void setInformationMail(String informationMail) {
-    this.informationMail = informationMail;
+  public void setInformation_mail(String information_mail) {
+    this.information_mail = information_mail;
   }
 
-  public String getFactoryAddress() {
-    return factoryAddress;
+  public String getFactory_address() {
+    return factory_address;
   }
 
-  public void setFactoryAddress(String factoryAddress) {
-    this.factoryAddress = factoryAddress;
+  public void setFactory_address(String factory_address) {
+    this.factory_address = factory_address;
   }
 
-  public String getInformationText() {
-    return informationText;
+  public String getInformation_text() {
+    return information_text;
   }
 
-  public void setInformationText(String informationText) {
-    this.informationText = informationText;
+  public void setInformation_text(String information_text) {
+    this.information_text = information_text;
   }
 
   public List<Additive> getAdditives() {
@@ -184,8 +184,8 @@ public class Product {
     this.code = code;
   }
 
-  public int getId() {
-    return productId.hashCode();
+  public int idGet() {
+    return product_id.hashCode();
   }
 
   public static Product[] ITEMS = {
@@ -214,7 +214,7 @@ public class Product {
    */
   public static Product getItem(int id) {
     for (Product item : ITEMS) {
-      if (item.getId() == id) {
+      if (item.idGet() == id) {
         return item;
       }
     }
@@ -225,13 +225,13 @@ public class Product {
   public String toString() {
     return "Product{"
         + "productId='"
-        + productId
+        + product_id
         + '\''
         + ", productName='"
-        + productName
+        + product_name
         + '\''
         + ", genericName='"
-        + genericName
+        + generic_name
         + '\''
         + ", quantity='"
         + quantity
@@ -242,16 +242,16 @@ public class Product {
         + ", brands="
         + brands
         + ", informationPhone='"
-        + informationPhone
+        + information_phone
         + '\''
         + ", informationMail='"
-        + informationMail
+        + information_mail
         + '\''
         + ", factoryAddress='"
-        + factoryAddress
+        + factory_address
         + '\''
         + ", informationText='"
-        + informationText
+        + information_text
         + '\''
         + ", additives="
         + additives
@@ -275,16 +275,16 @@ public class Product {
       return false;
     }
     Product product = (Product) o;
-    return Objects.equals(productId, product.productId)
-        && Objects.equals(productName, product.productName)
-        && Objects.equals(genericName, product.genericName)
+    return Objects.equals(product_id, product.product_id)
+        && Objects.equals(product_name, product.product_name)
+        && Objects.equals(generic_name, product.generic_name)
         && Objects.equals(quantity, product.quantity)
         && Objects.equals(packaging, product.packaging)
         && Objects.equals(brands, product.brands)
-        && Objects.equals(informationPhone, product.informationPhone)
-        && Objects.equals(informationMail, product.informationMail)
-        && Objects.equals(factoryAddress, product.factoryAddress)
-        && Objects.equals(informationText, product.informationText)
+        && Objects.equals(information_phone, product.information_phone)
+        && Objects.equals(information_mail, product.information_mail)
+        && Objects.equals(factory_address, product.factory_address)
+        && Objects.equals(information_text, product.information_text)
         && Objects.equals(additives, product.additives)
         && Objects.equals(intolerances, product.intolerances)
         && Objects.equals(image, product.image)
@@ -294,16 +294,16 @@ public class Product {
   @Override
   public int hashCode() {
     return Objects.hash(
-        productId,
-        productName,
-        genericName,
+        product_id,
+        product_name,
+        generic_name,
         quantity,
         packaging,
         brands,
-        informationPhone,
-        informationMail,
-        factoryAddress,
-        informationText,
+        information_phone,
+        information_mail,
+        factory_address,
+        information_text,
         additives,
         intolerances,
         image,
