@@ -23,7 +23,6 @@ import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.api.Distribution.BucketOptions.Linear;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -43,6 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Text;
+
 
 /**
  * Represents an example of javadoc in a function.
@@ -172,6 +172,7 @@ public class HomeFragment extends Fragment {
     return root;
   }
 
+
   private void showFavorites(View root) {
     String userUid = user.getUid();
     final ObjectMapper mapper = new ObjectMapper();
@@ -196,8 +197,8 @@ public class HomeFragment extends Fragment {
     Integer filledLayouts = likedProducts.size();
     Collections.shuffle(likedProducts);
     if (!likedProducts.isEmpty()) {
-      for (int i = 0; i<filledLayouts; i++) {
-        switch (i){
+      for (int i = 0; i < filledLayouts; i++) {
+        switch (i) {
           case 0:
             favorites[0].setVisibility(View.VISIBLE);
             favImageButtons[0] = root.findViewById(R.id.imageFav1);
@@ -248,7 +249,7 @@ public class HomeFragment extends Fragment {
       for (int i = filledLayouts; i < 5; i++) {
         favorites[i].setVisibility(View.GONE);
       }
-    }else {
+    } else {
       favorites[0].setVisibility(View.GONE);
       favorites[1].setVisibility(View.GONE);
       favorites[2].setVisibility(View.GONE);
