@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -54,6 +55,50 @@ public class LoginActivity extends AppCompatActivity {
 
     // Get firebase authentication instance
     auth = FirebaseAuth.getInstance();
+
+    //Click on login button
+    btnLogin.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        // Get EditText values
+        String email = inputEmail.getText().toString();
+        final String password = inputPassword.getText().toString();
+
+        //Validate if email has been entered
+        if (TextUtils.isEmpty(email)) {
+          Toast.makeText(getApplicationContext(), "¡Introducir la dirección de correo electrónico!",
+              Toast.LENGTH_SHORT).show();
+          return;
+        }
+        //Validate if password has been entered
+        if (TextUtils.isEmpty(password)) {
+          Toast.makeText(getApplicationContext(), "¡Introducir la contraseña!", Toast.LENGTH_SHORT)
+              .show();
+          return;
+        }
+
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this,
+            new OnCompleteListener<AuthResult>() {
+              @Override
+              public void onComplete(@NonNull Task<AuthResult> task) {
+                if (!task.isSuccessful()) {
+                  // There's been a problem
+                  if (password.length() < 6) {
+                    inputPassword.setError(getString(R.string.minimum_password));
+                  } else {
+                    Toast.makeText(LoginActivity.this, getString(R.string.auth_failed),
+                        Toast.LENGTH_SHORT).show();
+                  }
+                } else {
+                  Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                  startActivity(intent);
+                  finish();
+                }
+              }
+            });
+      }
+    });
 
     //Click on register button
     btnSignup.setOnClickListener(new View.OnClickListener() {

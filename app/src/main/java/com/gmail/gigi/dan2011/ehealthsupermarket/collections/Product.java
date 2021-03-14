@@ -1,12 +1,13 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.collections;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Function example.
  */
-public class Product {
+public class Product implements Serializable {
 
   private String product_id;
   private String product_name;
@@ -184,42 +185,10 @@ public class Product {
     this.code = code;
   }
 
-  public int idGet() {
-    return product_id.hashCode();
+  public String idGet() {
+    return product_id.toString();
   }
 
-  public static Product[] ITEMS = {
-      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
-          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("2", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
-          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("3", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
-          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("4", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
-          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("5", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
-          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("6", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
-          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
-          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
-          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-      new Product("1", "Leche semidesnatada sin lactosa Hacendado", "1 L", "Brick",
-          "https://prod-mercadona.imgix.net/images/6c49659a46a8540a915d5925646b889e.jpg"),
-  };
-
-  /**
-   * Javadoc comment.
-   */
-  public static Product getItem(int id) {
-    for (Product item : ITEMS) {
-      if (item.idGet() == id) {
-        return item;
-      }
-    }
-    return null;
-  }
 
   @Override
   public String toString() {

@@ -1,19 +1,25 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.collections;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-/** Function example. */
-public class Intolerance {
+/**
+ * Function example.
+ */
+public class Intolerance implements Serializable {
 
   private String intolerance_id;
   private String intolerance_name;
   private String about;
   private List<String> ingredientsInvolved;
 
-  public Intolerance() {}
+  public Intolerance() {
+  }
 
-  /** Function example. */
+  /**
+   * Function example.
+   */
   public Intolerance(
       String intolerance_id,
       String intolerance_name,

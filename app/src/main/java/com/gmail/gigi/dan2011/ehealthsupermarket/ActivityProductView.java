@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 /**
  * Javadoc comment.
@@ -19,6 +22,12 @@ public class ActivityProductView extends AppCompatActivity {
 
   private FirebaseFirestore db;
   private ImageView imageProduct;
+  private TextView textGenericName;
+  private TextView textQuantity;
+  private TextView textInformationText;
+  private TextView textFactoryAdress;
+  private TextView textTelephone;
+
   private ImageView like;
   private ImageView dislike;
   private Boolean clicked = true;
@@ -30,10 +39,25 @@ public class ActivityProductView extends AppCompatActivity {
     setContentView(R.layout.activity_productview);
 
     imageProduct = (ImageView) findViewById(R.id.imageView_product);
+    textGenericName = (TextView) findViewById(R.id.textGenericName);
+    textQuantity = (TextView) findViewById(R.id.textQuantity);
+    textInformationText = (TextView) findViewById(R.id.textInformationText);
+    textFactoryAdress = (TextView) findViewById(R.id.textFactoryAdress);
+    textTelephone = (TextView) findViewById(R.id.textTelephone);
 
     like = (ImageView) findViewById(R.id.button_addFav);
     dislike = (ImageView) findViewById(R.id.button_addFav2);
 
+    Product product = (Product) getIntent().getSerializableExtra("product");
+    System.out.println("-------------------------------------------------" + product.getImage());
+
+    Picasso.get().load(product.getImage()).into(imageProduct);
+    textGenericName.setText(product.getGeneric_name());
+    textQuantity.setText(product.getPackaging() + "" + product.getQuantity());
+    textInformationText.setText(product.getInformation_text());
+    textFactoryAdress.setText(product.getFactory_address());
+    textTelephone.setText(product.getInformation_phone());
+    
     like.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {

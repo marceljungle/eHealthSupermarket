@@ -1,9 +1,12 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.collections;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-/** Function example. */
-public class Additive {
+/**
+ * Function example.
+ */
+public class Additive implements Serializable {
 
   private String additive_id;
   private String additive_name;
@@ -11,7 +14,8 @@ public class Additive {
   private Integer additive_danger_level;
   private String clasification;
 
-  public Additive() {}
+  public Additive() {
+  }
 
   public String getAdditive_id() {
     return additive_id;
@@ -53,7 +57,9 @@ public class Additive {
     this.clasification = clasification;
   }
 
-  /** Function example. */
+  /**
+   * Function example.
+   */
   public Additive(
       String additive_id,
       String additive_name,
@@ -105,6 +111,7 @@ public class Additive {
 
   @Override
   public int hashCode() {
-    return Objects.hash(additive_id, additive_name, additive_code, additive_danger_level, clasification);
+    return Objects
+        .hash(additive_id, additive_name, additive_code, additive_danger_level, clasification);
   }
 }
