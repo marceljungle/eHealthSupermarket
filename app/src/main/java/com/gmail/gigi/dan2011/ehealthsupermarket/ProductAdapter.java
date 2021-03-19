@@ -18,6 +18,7 @@ public class ProductAdapter extends BaseAdapter {
 
   private ArrayList<Product> product;
   private Context context;
+  private String productId;
 
   public ProductAdapter(Context context, ArrayList<Product> product) {
     this.product = product;
@@ -26,17 +27,17 @@ public class ProductAdapter extends BaseAdapter {
 
   @Override
   public int getCount() {
-    return Product.ITEMS.length;
+    return product.size();
   }
 
   @Override
   public Product getItem(int position) {
-    return Product.ITEMS[position];
+    return product.get(position);
   }
 
   @Override
   public long getItemId(int position) {
-    return getItem(position).idGet();
+    return position;
   }
 
   @Override
@@ -52,11 +53,17 @@ public class ProductAdapter extends BaseAdapter {
     TextView nameProduct = (TextView) view.findViewById(R.id.product_name_grid);
     TextView quantityProduct = (TextView) view.findViewById(R.id.product_quantity_grid);
 
-    final Product item = getItem(position);
+    Product item = (Product) getItem(position);
+
+    this.productId = item.getProduct_id();
     Picasso.get().load(item.getImage()).into(imageProduct);
     nameProduct.setText(item.getGeneric_name());
     quantityProduct.setText(item.getPackaging() + " " + item.getQuantity());
 
     return view;
+  }
+
+  public String productGetId() {
+    return this.productId;
   }
 }

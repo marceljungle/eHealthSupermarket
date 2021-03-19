@@ -1,139 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".ActivityProductView">
+
+  <LinearLayout
+    android:id="@+id/LinearLayout0"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityProductView">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/LinearLayout0"
+    <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <LinearLayout
+        android:id="@+id/LinearLayout_ScrollVertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ScrollView
+        <LinearLayout
+          android:id="@+id/LinearLayout_Images"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_marginBottom="10dp">
+
+          <ImageView
+            android:id="@+id/imageView_product"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="392dp" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/LinearLayout_ScrollVertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <LinearLayout
+          android:id="@+id/LinearLayout_ProductName"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginHorizontal="10dp"
+          android:layout_marginVertical="10dp"
+          android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/LinearLayout_Images"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="10dp">
+          <TextView
+            android:id="@+id/textGenericName"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Patatas fritas receta campesina Lay´s"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
 
-                    <ImageView
-                        android:id="@+id/imageView_product"
-                        android:layout_width="match_parent"
-                        android:layout_height="392dp" />
-                </LinearLayout>
+          <TextView
+            android:id="@+id/textQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Paquete 160 g"
+            android:textSize="20dp" />
+        </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/LinearLayout_ProductName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="10dp"
-                    android:orientation="vertical">
+        <LinearLayout
+          android:id="@+id/LinearLayout_buttons"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="10dp"
+          android:layout_marginVertical="10dp"
+          android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Patatas fritas receta campesina Lay´s"
-                        android:textSize="20dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+          <Button
+            android:id="@+id/button_addList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:text="Añadir a mi lista de la compra"
+            android:textColor="@color/black"
+            app:rippleColor="#000000" />
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Paquete 160 g"
-                        android:textSize="20dp" />
-                </LinearLayout>
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/LinearLayout_buttons"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="10dp"
-                    android:orientation="vertical">
+            <ImageView
+              android:id="@+id/button_addFav"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/ic_like_unselect" />
 
-                    <Button
-                        android:id="@+id/button_addList"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#FFFFFF"
-                        android:text="Añadir a mi lista de la compra"
-                        android:textColor="@color/black"
-                        app:rippleColor="#000000" />
+            <ImageView
+              android:id="@+id/button_addFav2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/ic_dislike_unselected" />
+          </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+        </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/button_addFav"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_like_unselect" />
+        <LinearLayout
+          android:id="@+id/LinearLayout_productinformacion"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginHorizontal="10dp"
+          android:layout_marginVertical="10dp"
+          android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/button_addFav2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_dislike_unselected" />
-                    </LinearLayout>
+          <TextView
+            android:id="@+id/textInformationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Información importante"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+          />
 
-                </LinearLayout>
+          <TextView
+            android:id="@+id/textFactoryAdress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/product_information"
+            android:textSize="14dp" />
 
-                <LinearLayout
-                    android:id="@+id/LinearLayout_productinformacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="10dp"
-                    android:orientation="vertical">
+          <TextView
+            android:id="@+id/textTelephone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#B6B5B5"
+            android:text="@string/product_information_1"
+            android:textSize="14dp"
+            android:layout_marginVertical="10dp" />
+        </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Información importante"
-                        android:textSize="16dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                    />
+      </LinearLayout>
+    </ScrollView>
 
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/product_information"
-                        android:textSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#B6B5B5"
-                        android:text="@string/product_information_1"
-                        android:textSize="14dp"
-                        android:layout_marginVertical="10dp" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
+  </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
