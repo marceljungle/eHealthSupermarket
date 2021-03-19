@@ -92,9 +92,8 @@ public class HomeFragment extends Fragment {
             startActivity(in);
           }
         });
-
-
-    /*
+/*
+    //AÑADE UN PRODUCTO ESPECÍFICO A LOS FAVORITOS DEL USUARIO RESCATANDO PREVIAMENTE EL PRODUCTO
     db.collection("PRODUCTS").document("01ir2JNAshVPjH6GGafd")
         .get()
         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -105,19 +104,28 @@ public class HomeFragment extends Fragment {
             Product pojo = mapper.convertValue(document, Product.class);
             System.out.println(pojo.toString());
             log.info(pojo.toString());
-            db.collection("USERS").document(user.getUid()).update("liked_products",
-            Arrays.asList(pojo, pojo));
+            db.collection("USERS").document(user.getUid())
+                .update("liked_products", Arrays.asList(pojo, pojo));
+
             System.out.println(pojo.toString());
           }
         });
-
 */
 
 
-
     /*
+    AÑADE UN PRODUCTO A LA COLECCION PRODUCTS CON UN IDENTIFICADOR ESPECÍFICO
     db = FirebaseFirestore.getInstance();
-    Product product1 = new Product("", "Patatas fritas al punto de sal", "Patatas fritas al punto de sal LAY's", 207, "1", new ArrayList<String>(Arrays.asList("Lay's")), "900123123", "lays@lays.com", "Avenida de los olmos, 2 01013 - Vitoria, España", "Patatas, aceites vegetaless(maiz y girasol en proporciones variables), sal (1,2%)", new ArrayList<Additive>(Collections.singleton(new Additive("", "Curcumina", "E-100", 2, "Colorante"))), new ArrayList<Intolerance>(Collections.singleton(new Intolerance("", "Glúten", new ArrayList<String>(Arrays.asList("Patata", "Harina blanca", "Cereales"))))), "https://prod-mercadona.imgix.net/images/ff60554fe3825ea5e6b75c26b744b34c.jpg", "8410199021106");
+      Product productPrueba = new Product("", "Patatas fritas al punto de sal",
+              "Patatas fritas al punto de sal LAY's", "207", "1",
+              new ArrayList<String>(Arrays.asList("Lay's")), "900123123", "lays@lays.com",
+              "Avenida de los olmos, 2 01013 - Vitoria, España",
+              "Patatas, aceites vegetaless(maiz y girasol en proporciones variables), sal (1,2%)",
+              new ArrayList<Additive>(
+                  Collections.singleton(new Additive("", "Curcumina", "E-100", 2, "Colorante"))),
+              Arrays.asList(new Intolerance("2", "Glúten", "", Arrays.asList("asd", "dasd"))),
+              "https://prod-mercadona.imgix.net/images/ff60554fe3825ea5e6b75c26b744b34c.jpg",
+              "8410199021106");
     CollectionReference products = db.collection("PRODUCTS");
     products.document("TEST").set(product1).addOnSuccessListener(new OnSuccessListener() {
         @Override
@@ -133,6 +141,8 @@ public class HomeFragment extends Fragment {
             Toast.makeText(getContext(), "Fail to add course \n" + e, Toast.LENGTH_SHORT).show();
         }
     });
+
+    //EXTRAE LA URL DE LA IMAGEN DE UN PRODUCTO
     db.collection("PRODUCTS").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
         @Override
         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -175,6 +185,7 @@ public class HomeFragment extends Fragment {
           @Override
           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
             List<Product> likedProducts = new ArrayList<>();
+
             List<Map<String, Object>> favProducts = new ArrayList<>();
             try{
               favProducts = (List) task.getResult()
@@ -249,6 +260,7 @@ public class HomeFragment extends Fragment {
             favNames[4].setText(likedProducts.get(4).getGeneric_name());
             favQuantity[4].setText(
                 likedProducts.get(4).getPackaging() + " " + likedProducts.get(4).getQuantity());
+
             break;
           default:
             favorites[0].setVisibility(View.GONE);
@@ -257,6 +269,7 @@ public class HomeFragment extends Fragment {
             favorites[3].setVisibility(View.GONE);
             favorites[4].setVisibility(View.GONE);
             noFavorites.setVisibility(View.VISIBLE);
+
             break;
         }
       }
