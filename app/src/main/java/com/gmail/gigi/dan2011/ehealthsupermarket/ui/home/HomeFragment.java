@@ -17,31 +17,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductsListView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
-import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
-import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Text;
 
 
 /**
@@ -103,10 +92,8 @@ public class HomeFragment extends Fragment {
             startActivity(in);
           }
         });
-
-
 /*
-
+    //AÑADE UN PRODUCTO ESPECÍFICO A LOS FAVORITOS DEL USUARIO RESCATANDO PREVIAMENTE EL PRODUCTO
     db.collection("PRODUCTS").document("01ir2JNAshVPjH6GGafd")
         .get()
         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -117,18 +104,27 @@ public class HomeFragment extends Fragment {
             Product pojo = mapper.convertValue(document, Product.class);
             System.out.println(pojo.toString());
             log.info(pojo.toString());
-            db.collection("USERS").document(user.getUid()).update("liked_products", Arrays.asList(pojo, pojo));
+            db.collection("USERS").document(user.getUid())
+                .update("liked_products", Arrays.asList(pojo, pojo));
             System.out.println(pojo.toString());
           }
         });
-
 */
 
 
-
     /*
+    AÑADE UN PRODUCTO A LA COLECCION PRODUCTS CON UN IDENTIFICADOR ESPECÍFICO
     db = FirebaseFirestore.getInstance();
-    Product product1 = new Product("", "Patatas fritas al punto de sal", "Patatas fritas al punto de sal LAY's", 207, "1", new ArrayList<String>(Arrays.asList("Lay's")), "900123123", "lays@lays.com", "Avenida de los olmos, 2 01013 - Vitoria, España", "Patatas, aceites vegetaless(maiz y girasol en proporciones variables), sal (1,2%)", new ArrayList<Additive>(Collections.singleton(new Additive("", "Curcumina", "E-100", 2, "Colorante"))), new ArrayList<Intolerance>(Collections.singleton(new Intolerance("", "Glúten", new ArrayList<String>(Arrays.asList("Patata", "Harina blanca", "Cereales"))))), "https://prod-mercadona.imgix.net/images/ff60554fe3825ea5e6b75c26b744b34c.jpg", "8410199021106");
+      Product productPrueba = new Product("", "Patatas fritas al punto de sal",
+              "Patatas fritas al punto de sal LAY's", "207", "1",
+              new ArrayList<String>(Arrays.asList("Lay's")), "900123123", "lays@lays.com",
+              "Avenida de los olmos, 2 01013 - Vitoria, España",
+              "Patatas, aceites vegetaless(maiz y girasol en proporciones variables), sal (1,2%)",
+              new ArrayList<Additive>(
+                  Collections.singleton(new Additive("", "Curcumina", "E-100", 2, "Colorante"))),
+              Arrays.asList(new Intolerance("2", "Glúten", "", Arrays.asList("asd", "dasd"))),
+              "https://prod-mercadona.imgix.net/images/ff60554fe3825ea5e6b75c26b744b34c.jpg",
+              "8410199021106");
     CollectionReference products = db.collection("PRODUCTS");
     products.document("TEST").set(product1).addOnSuccessListener(new OnSuccessListener() {
         @Override
@@ -144,6 +140,8 @@ public class HomeFragment extends Fragment {
             Toast.makeText(getContext(), "Fail to add course \n" + e, Toast.LENGTH_SHORT).show();
         }
     });
+
+    //EXTRAE LA URL DE LA IMAGEN DE UN PRODUCTO
     db.collection("PRODUCTS").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
         @Override
         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -181,8 +179,9 @@ public class HomeFragment extends Fragment {
           @Override
           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
             List<Product> likedProducts = new ArrayList<>();
-            List<Map<String, Object>> favProducts = (List)task.getResult().getData().get("liked_products");
-            for (Map<String, Object> mapProd:favProducts) {
+            List<Map<String, Object>> favProducts = (List) task.getResult().getData()
+                .get("liked_products");
+            for (Map<String, Object> mapProd : favProducts) {
               likedProducts.add(mapper.convertValue(mapProd, Product.class));
             }
             showFavorites2(root, likedProducts);
@@ -206,7 +205,8 @@ public class HomeFragment extends Fragment {
             favQuantity[0] = root.findViewById(R.id.quantityFav1);
             Picasso.get().load(likedProducts.get(0).getImage()).into(favImageButtons[0]);
             favNames[0].setText(likedProducts.get(0).getGeneric_name());
-            favQuantity[0].setText(likedProducts.get(0).getPackaging() + " " + likedProducts.get(0).getQuantity());
+            favQuantity[0].setText(
+                likedProducts.get(0).getPackaging() + " " + likedProducts.get(0).getQuantity());
             break;
           case 1:
             favorites[1].setVisibility(View.VISIBLE);
@@ -215,7 +215,8 @@ public class HomeFragment extends Fragment {
             favQuantity[1] = root.findViewById(R.id.quantityFav2);
             Picasso.get().load(likedProducts.get(1).getImage()).into(favImageButtons[1]);
             favNames[1].setText(likedProducts.get(1).getGeneric_name());
-            favQuantity[1].setText(likedProducts.get(1).getPackaging() + " " + likedProducts.get(1).getQuantity());
+            favQuantity[1].setText(
+                likedProducts.get(1).getPackaging() + " " + likedProducts.get(1).getQuantity());
             break;
           case 2:
             favorites[2].setVisibility(View.VISIBLE);
@@ -224,7 +225,8 @@ public class HomeFragment extends Fragment {
             favQuantity[2] = root.findViewById(R.id.quantityFav3);
             Picasso.get().load(likedProducts.get(2).getImage()).into(favImageButtons[2]);
             favNames[2].setText(likedProducts.get(2).getGeneric_name());
-            favQuantity[2].setText(likedProducts.get(2).getPackaging() + " " + likedProducts.get(2).getQuantity());
+            favQuantity[2].setText(
+                likedProducts.get(2).getPackaging() + " " + likedProducts.get(2).getQuantity());
             break;
           case 3:
             favorites[3].setVisibility(View.VISIBLE);
@@ -233,7 +235,8 @@ public class HomeFragment extends Fragment {
             favQuantity[3] = root.findViewById(R.id.quantityFav4);
             Picasso.get().load(likedProducts.get(3).getImage()).into(favImageButtons[3]);
             favNames[3].setText(likedProducts.get(3).getGeneric_name());
-            favQuantity[3].setText(likedProducts.get(3).getPackaging() + " " + likedProducts.get(3).getQuantity());
+            favQuantity[3].setText(
+                likedProducts.get(3).getPackaging() + " " + likedProducts.get(3).getQuantity());
             break;
           case 4:
             favorites[4].setVisibility(View.VISIBLE);
@@ -242,7 +245,8 @@ public class HomeFragment extends Fragment {
             favQuantity[4] = root.findViewById(R.id.quantityFav5);
             Picasso.get().load(likedProducts.get(4).getImage()).into(favImageButtons[4]);
             favNames[4].setText(likedProducts.get(4).getGeneric_name());
-            favQuantity[4].setText(likedProducts.get(4).getPackaging() + " " + likedProducts.get(4).getQuantity());
+            favQuantity[4].setText(
+                likedProducts.get(4).getPackaging() + " " + likedProducts.get(4).getQuantity());
             break;
         }
       }

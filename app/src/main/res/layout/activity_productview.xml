@@ -85,13 +85,13 @@
             <ImageView
               android:id="@+id/button_addFav"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_height="match_parent"
               android:background="@drawable/ic_like_unselect" />
 
             <ImageView
               android:id="@+id/button_addFav2"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_height="match_parent"
               android:background="@drawable/ic_dislike_unselected" />
           </LinearLayout>
 

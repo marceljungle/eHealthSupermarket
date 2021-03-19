@@ -5,14 +5,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -21,6 +19,7 @@ import com.squareup.picasso.Picasso;
 public class ActivityProductView extends AppCompatActivity {
 
   private FirebaseFirestore db;
+  private FirebaseUser user;
   private ImageView imageProduct;
   private TextView textGenericName;
   private TextView textQuantity;
@@ -30,78 +29,136 @@ public class ActivityProductView extends AppCompatActivity {
 
   private ImageView like;
   private ImageView dislike;
-  private Boolean clicked = true;
-  private Boolean clicked1 = true;
+  private Boolean clicked_like = false;
+  private Boolean clicked_dilike = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_productview);
 
+    // Get current user
+    user = FirebaseAuth.getInstance().getCurrentUser();
+
+    // Get the id of the views
     imageProduct = (ImageView) findViewById(R.id.imageView_product);
     textGenericName = (TextView) findViewById(R.id.textGenericName);
     textQuantity = (TextView) findViewById(R.id.textQuantity);
     textInformationText = (TextView) findViewById(R.id.textInformationText);
     textFactoryAdress = (TextView) findViewById(R.id.textFactoryAdress);
     textTelephone = (TextView) findViewById(R.id.textTelephone);
-
     like = (ImageView) findViewById(R.id.button_addFav);
     dislike = (ImageView) findViewById(R.id.button_addFav2);
 
+    // Product clicked on the previous activity
     Product product = (Product) getIntent().getSerializableExtra("product");
-    System.out.println("-------------------------------------------------" + product.getImage());
 
+    //Set the view of the product with the data obtained
     Picasso.get().load(product.getImage()).into(imageProduct);
     textGenericName.setText(product.getGeneric_name());
     textQuantity.setText(product.getPackaging() + "" + product.getQuantity());
     textInformationText.setText(product.getInformation_text());
     textFactoryAdress.setText(product.getFactory_address());
     textTelephone.setText(product.getInformation_phone());
-    
+
+    /**
+     * Click on like Button
+     */
     like.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (clicked) {
+        if (clicked_like == false && clicked_dilike == false) {
           like.setImageResource(R.drawable.ic_like_selected);
-          clicked = false;
-          //TODO
-        } else {
-          clicked = true;
+          clicked_like = true;
+
+          /**
+           * Add product to liked products list
+           */
+          db.collection("USERS").document(user.getUid())
+              .update("liked_products", FieldValue.arrayUnion(product));
+          ///////////////////////////////////////////////////////
+
+        } else if (clicked_like == true && clicked_dilike == false) {
+          clicked_like = false;
           like.setImageResource(R.drawable.ic_like_unselect);
+
+          /**
+           * Delete product from liked products list
+           */
+          db.collection("USERS").document(user.getUid())
+              .update("liked_products", FieldValue.arrayRemove(product));
+
+
+        } else if (clicked_like == false && clicked_dilike == true) {
+          clicked_like = true;
+          clicked_dilike = false;
+          like.setImageResource(R.drawable.ic_like_selected);
+          dislike.setImageResource(R.drawable.ic_dislike_unselected);
+
+          /**
+           * Add product to liked products list
+           */
+          db.collection("USERS").document(user.getUid())
+              .update("liked_products", FieldValue.arrayUnion(product));
+
+          /**
+           * Delete product from disliked products list
+           */
+          db.collection("USERS").document(user.getUid())
+              .update("disliked_products", FieldValue.arrayRemove(product));
+
         }
       }
     });
 
+    /**
+     * Click on dislike Button
+     */
     dislike.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (clicked1) {
+        if (clicked_dilike == false && clicked_like == false) {
           dislike.setImageResource(R.drawable.ic_dislike_selected);
-          clicked1 = false;
-          //TODO
-        } else {
-          clicked1 = true;
+          clicked_dilike = true;
+
+          /**
+           * Add product to disliked products list
+           */
+          db.collection("USERS").document(user.getUid())
+              .update("disliked_products", FieldValue.arrayUnion(product));
+
+
+        } else if (clicked_dilike == true && clicked_like == false) {
+          clicked_dilike = false;
           dislike.setImageResource(R.drawable.ic_dislike_unselected);
-          //TODO
+
+          /**
+           * Delete product from disliked products list
+           */
+          db.collection("USERS").document(user.getUid())
+              .update("disliked_products", FieldValue.arrayRemove(product));
+
+
+        } else if (clicked_dilike == false && clicked_like == true) {
+          clicked_dilike = true;
+          clicked_like = false;
+          dislike.setImageResource(R.drawable.ic_dislike_selected);
+          like.setImageResource(R.drawable.ic_like_unselect);
+
+          /**
+           * Add product to disliked products list
+           */
+          db.collection("USERS").document(user.getUid())
+              .update("disliked_products", FieldValue.arrayUnion(product));
+          /**
+           * Delete product from liked products list
+           */
+          db.collection("USERS").document(user.getUid())
+              .update("liked_products", FieldValue.arrayRemove(product));
+
         }
       }
     });
-
-    db = FirebaseFirestore.getInstance();
-    db.collection("PRODUCTS").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-      @Override
-      public void onComplete(@NonNull Task<QuerySnapshot> task) {
-        if (task.isSuccessful()) {
-          for (QueryDocumentSnapshot document : task.getResult()) {
-            System.out.println(document.getData().get("image"));
-            final String urlimage = (String) document.getData().get("image");
-            System.out.println(urlimage);
-            //Picasso.get().load(urlimage).into(imageProduct);
-          }
-        }
-      }
-    });
-
 
   }
 
