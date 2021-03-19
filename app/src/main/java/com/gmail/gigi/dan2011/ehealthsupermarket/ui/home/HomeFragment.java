@@ -176,7 +176,6 @@ public class HomeFragment extends Fragment {
     return root;
   }
 
-
   private void showFavorites(View root) {
     String userUid = user.getUid();
     final ObjectMapper mapper = new ObjectMapper();
@@ -201,7 +200,6 @@ public class HomeFragment extends Fragment {
           }
         });
   }
-
 
   private void showFavorites2(View root, List<Product> likedProducts) {
 

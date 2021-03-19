@@ -12,12 +12,58 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical">
+      <TextView
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="2dp"
+        android:text="@string/recommendedProducts"
+        android:textColor="#000000"
+        android:textSize="28sp" />
       <LinearLayout
         android:id="@+id/linearLay0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:orientation="vertical">
+        <LinearLayout
+          android:id="@+id/linearLay0.1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="10dp"
+          android:layout_marginVertical="7dp"
+          android:orientation="horizontal">
+          <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginVertical="10dp"
+              android:text="@string/favouritesProduct"
+              android:textColor="#000000"
+              android:textSize="20sp" />
+          </LinearLayout>
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:orientation="vertical">
+            <Button
+              android:id="@+id/button_viewMore"
+              style="@style/Widget.MaterialComponents.Button.TextButton"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="2dp"
+              android:layout_gravity="end"
+              android:backgroundTint="@color/white"
+              android:text="@string/show_more"
+              android:textColor="@color/black"
+              android:textSize="12sp" />
+          </LinearLayout>
+        </LinearLayout>
         <HorizontalScrollView
           android:layout_width="match_parent"
           android:layout_height="match_parent"
@@ -199,8 +245,15 @@
             android:textColor="@color/black"
             android:textSize="22sp" />
         </LinearLayout>
+      </LinearLayout>
+      <LinearLayout
+        android:id="@+id/linearLay2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="7dp"
+        android:orientation="vertical">
         <LinearLayout
-          android:id="@+id/linearLay0.1"
+          android:id="@+id/linearLay2.1"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="10dp"
@@ -214,7 +267,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginVertical="10dp"
-              android:text="@string/favouritesProduct"
+              android:text="@string/intolerancesBased"
               android:textColor="#000000"
               android:textSize="20sp" />
           </LinearLayout>
@@ -224,7 +277,7 @@
             android:layout_gravity="end"
             android:orientation="vertical">
             <Button
-              android:id="@+id/button_viewMore"
+              android:id="@+id/button1"
               style="@style/Widget.MaterialComponents.Button.TextButton"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -236,13 +289,6 @@
               android:textSize="12sp" />
           </LinearLayout>
         </LinearLayout>
-      </LinearLayout>
-      <LinearLayout
-        android:id="@+id/linearLay2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="7dp"
-        android:orientation="vertical">
         <HorizontalScrollView
           android:layout_width="match_parent"
           android:layout_height="match_parent">
@@ -426,53 +472,7 @@
             android:textColor="@color/black"
             android:textSize="22sp" />
         </LinearLayout>
-        <LinearLayout
-          android:id="@+id/linearLay2.1"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginHorizontal="10dp"
-          android:layout_marginVertical="7dp"
-          android:orientation="horizontal">
-          <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginVertical="10dp"
-              android:text="@string/intolerancesBased"
-              android:textColor="#000000"
-              android:textSize="20sp" />
-          </LinearLayout>
-          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:orientation="vertical">
-            <Button
-              android:id="@+id/button1"
-              style="@style/Widget.MaterialComponents.Button.TextButton"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginEnd="2dp"
-              android:layout_gravity="end"
-              android:backgroundTint="@color/white"
-              android:text="@string/show_more"
-              android:textColor="@color/black"
-              android:textSize="12sp" />
-          </LinearLayout>
-        </LinearLayout>
       </LinearLayout>
-      <TextView
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="2dp"
-        android:text="@string/recommendedProducts"
-        android:textColor="#000000"
-        android:textSize="28sp" />
     </LinearLayout>
   </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
