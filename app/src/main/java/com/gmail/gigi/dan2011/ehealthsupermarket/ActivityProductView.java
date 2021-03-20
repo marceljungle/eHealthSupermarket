@@ -5,20 +5,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
+import com.gmail.gigi.dan2011.ehealthsupermarket.collections.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
+import java.util.Map;
 
 /**
  * Javadoc comment.
  */
 public class ActivityProductView extends AppCompatActivity {
 
-  private FirebaseFirestore db;
+  private FirebaseFirestore db = FirebaseFirestore.getInstance();
   private FirebaseUser user;
   private ImageView imageProduct;
   private TextView textGenericName;
@@ -31,6 +38,7 @@ public class ActivityProductView extends AppCompatActivity {
   private ImageView dislike;
   private Boolean clicked_like = false;
   private Boolean clicked_dilike = false;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +68,43 @@ public class ActivityProductView extends AppCompatActivity {
     textInformationText.setText(product.getInformation_text());
     textFactoryAdress.setText(product.getFactory_address());
     textTelephone.setText(product.getInformation_phone());
+
+    /**
+     * Check if the product is in the liked products list
+     */
+    db.collection("USERS").document(user.getUid()).get().addOnCompleteListener(
+        new OnCompleteListener<DocumentSnapshot>() {
+          @Override
+          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            if (task.isSuccessful()) {
+              final ObjectMapper mapper = new ObjectMapper();
+              Map<String, Object> document = task.getResult().getData();
+              User actualUser = mapper.convertValue(document, User.class);
+              if (actualUser.getLiked_products().contains(product)) {
+                clicked_like = true;
+                like.setImageResource(R.drawable.ic_like_selected);
+              }
+            }
+          }
+        });
+    /**
+     * Check if the product is in the disliked products list
+     */
+    db.collection("USERS").document(user.getUid()).get().addOnCompleteListener(
+        new OnCompleteListener<DocumentSnapshot>() {
+          @Override
+          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            if (task.isSuccessful()) {
+              final ObjectMapper mapper = new ObjectMapper();
+              Map<String, Object> document = task.getResult().getData();
+              User actualUser = mapper.convertValue(document, User.class);
+              if (actualUser.getDisliked_products().contains(product)) {
+                clicked_dilike = true;
+                dislike.setImageResource(R.drawable.ic_dislike_selected);
+              }
+            }
+          }
+        });
 
     /**
      * Click on like Button
@@ -162,6 +207,7 @@ public class ActivityProductView extends AppCompatActivity {
 
   }
 
+
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     System.out.println(item.getItemId());
@@ -171,4 +217,5 @@ public class ActivityProductView extends AppCompatActivity {
     }
     return true;
   }
+
 }
