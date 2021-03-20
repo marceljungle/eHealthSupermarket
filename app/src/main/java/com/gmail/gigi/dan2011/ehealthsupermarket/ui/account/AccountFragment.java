@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import com.gmail.gigi.dan2011.ehealthsupermarket.AddIntolerancesOrAdditives;
 import com.gmail.gigi.dan2011.ehealthsupermarket.LoginActivity;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +48,17 @@ public class AccountFragment extends Fragment {
           startActivity(intent);
         }
       }
+    });
+
+
+
+    LinearLayout textRow = (LinearLayout) root.findViewById(R.id.testRow);
+    textRow.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+          Intent intent = new Intent(getActivity(), AddIntolerancesOrAdditives.class);
+          startActivity(intent);
+        }
     });
     return root;
   }
