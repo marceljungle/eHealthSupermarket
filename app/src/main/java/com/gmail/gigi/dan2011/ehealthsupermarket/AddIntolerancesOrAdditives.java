@@ -57,6 +57,9 @@ public class AddIntolerancesOrAdditives extends AppCompatActivity {
     getMenuInflater().inflate(R.menu.searchfile, menu);
     final MenuItem myActionMenuItem = menu.findItem(R.id.search);
     searchView = (SearchView) myActionMenuItem.getActionView();
+    searchView.setFocusable(true);
+    searchView.setIconifiedByDefault(false);
+    searchView.requestFocus();
     searchView.setOnQueryTextListener(new OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
