@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import java.util.Map;
+
+//import androidx.fragment.app.Fragment;
 
 /**
  * Javadoc comment.
@@ -36,6 +39,8 @@ public class ActivityProductView extends AppCompatActivity {
 
   private ImageView like;
   private ImageView dislike;
+  private LinearLayout layout_like;
+  private LinearLayout layout_dislike;
   private Boolean clicked_like = false;
   private Boolean clicked_dilike = false;
 
@@ -57,6 +62,8 @@ public class ActivityProductView extends AppCompatActivity {
     textTelephone = (TextView) findViewById(R.id.textTelephone);
     like = (ImageView) findViewById(R.id.button_addFav);
     dislike = (ImageView) findViewById(R.id.button_addFav2);
+    layout_like = (LinearLayout) findViewById(R.id.layout_like);
+    layout_dislike = (LinearLayout) findViewById(R.id.layout_dislike);
 
     // Product clicked on the previous activity
     Product product = (Product) getIntent().getSerializableExtra("product");
@@ -67,8 +74,13 @@ public class ActivityProductView extends AppCompatActivity {
     textQuantity.setText(product.getPackaging() + "" + product.getQuantity());
     textInformationText.setText(product.getInformation_text());
     textFactoryAdress.setText(product.getFactory_address());
-    textTelephone.setText(product.getInformation_phone());
+    textTelephone.setText("Número de atención: " + product.getInformation_phone());
 
+    /**
+     * Check if the product is in the liked products list
+     */
+    //TODO
+    
     /**
      * Check if the product is in the liked products list
      */
@@ -83,6 +95,7 @@ public class ActivityProductView extends AppCompatActivity {
               if (actualUser.getLiked_products().contains(product)) {
                 clicked_like = true;
                 like.setImageResource(R.drawable.ic_like_selected);
+                layout_like.setBackground(getDrawable(R.drawable.border_button_pressed));
               }
             }
           }
@@ -101,6 +114,7 @@ public class ActivityProductView extends AppCompatActivity {
               if (actualUser.getDisliked_products().contains(product)) {
                 clicked_dilike = true;
                 dislike.setImageResource(R.drawable.ic_dislike_selected);
+                layout_dislike.setBackground(getDrawable(R.drawable.border_button_pressed));
               }
             }
           }
@@ -109,11 +123,12 @@ public class ActivityProductView extends AppCompatActivity {
     /**
      * Click on like Button
      */
-    like.setOnClickListener(new View.OnClickListener() {
+    layout_like.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         if (clicked_like == false && clicked_dilike == false) {
           like.setImageResource(R.drawable.ic_like_selected);
+          layout_like.setBackground(getDrawable(R.drawable.border_button_pressed));
           clicked_like = true;
 
           /**
@@ -126,6 +141,7 @@ public class ActivityProductView extends AppCompatActivity {
         } else if (clicked_like == true && clicked_dilike == false) {
           clicked_like = false;
           like.setImageResource(R.drawable.ic_like_unselect);
+          layout_like.setBackground(getDrawable(R.drawable.border_button_unpressed));
 
           /**
            * Delete product from liked products list
@@ -138,8 +154,9 @@ public class ActivityProductView extends AppCompatActivity {
           clicked_like = true;
           clicked_dilike = false;
           like.setImageResource(R.drawable.ic_like_selected);
+          layout_like.setBackground(getDrawable(R.drawable.border_button_pressed));
           dislike.setImageResource(R.drawable.ic_dislike_unselected);
-
+          layout_dislike.setBackground(getDrawable(R.drawable.border_button_unpressed));
           /**
            * Add product to liked products list
            */
@@ -159,11 +176,12 @@ public class ActivityProductView extends AppCompatActivity {
     /**
      * Click on dislike Button
      */
-    dislike.setOnClickListener(new View.OnClickListener() {
+    layout_dislike.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         if (clicked_dilike == false && clicked_like == false) {
           dislike.setImageResource(R.drawable.ic_dislike_selected);
+          layout_dislike.setBackground(getDrawable(R.drawable.border_button_pressed));
           clicked_dilike = true;
 
           /**
@@ -176,6 +194,7 @@ public class ActivityProductView extends AppCompatActivity {
         } else if (clicked_dilike == true && clicked_like == false) {
           clicked_dilike = false;
           dislike.setImageResource(R.drawable.ic_dislike_unselected);
+          layout_dislike.setBackground(getDrawable(R.drawable.border_button_unpressed));
 
           /**
            * Delete product from disliked products list
@@ -188,8 +207,9 @@ public class ActivityProductView extends AppCompatActivity {
           clicked_dilike = true;
           clicked_like = false;
           dislike.setImageResource(R.drawable.ic_dislike_selected);
+          layout_dislike.setBackground(getDrawable(R.drawable.border_button_pressed));
           like.setImageResource(R.drawable.ic_like_unselect);
-
+          layout_like.setBackground(getDrawable(R.drawable.border_button_unpressed));
           /**
            * Add product to disliked products list
            */

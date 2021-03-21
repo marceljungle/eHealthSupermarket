@@ -1,140 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".ActivityProductView">
 
-  <LinearLayout
-    android:id="@+id/LinearLayout0"
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
 
-    <ScrollView
+    <ImageView
+      android:id="@+id/imageView_product"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="392dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
-      <LinearLayout
-        android:id="@+id/LinearLayout_ScrollVertical"
-        android:layout_width="match_parent"
+    <TextView
+      android:id="@+id/textGenericName"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Patatas fritas receta campesina Lay´s"
+      android:textColor="@color/black"
+      android:textSize="20sp"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginTop="5dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/imageView_product" />
+
+    <TextView
+      android:id="@+id/textQuantity"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Paquete 160 g"
+      android:textSize="15sp"
+      android:layout_marginHorizontal="10dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/textGenericName" />
+    <View
+      android:id="@+id/line_quantity"
+      android:layout_width="fill_parent"
+      android:layout_height="1dp"
+      android:background="#D1CDCD"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginVertical="10dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/textQuantity" />
+
+    <TextView
+      android:id="@+id/compatibilidad"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="COMPATIBILIDAD:"
+      android:textSize="20sp"
+      android:textColor="@color/black"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginVertical="5dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/line_quantity" />
+
+    <TextView
+      android:id="@+id/result_compatibilidad"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="APTO/NO APTO"
+      android:textSize="20sp"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginBottom="5dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/compatibilidad" />
+
+    <View
+      android:id="@+id/linea_compatibility"
+      android:layout_width="fill_parent"
+      android:layout_height="1dp"
+      android:background="#D1CDCD"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginVertical="10dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/result_compatibilidad" />
+
+    <LinearLayout
+      android:id="@+id/layout_like"
+      android:layout_width="200dp"
+      android:layout_height="60dp"
+      android:orientation="vertical"
+      android:layout_marginHorizontal="5dp"
+      android:layout_marginVertical="10dp"
+      android:background="@drawable/border_button_unpressed"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/linea_compatibility"
+      android:clickable="true">
+
+      <ImageView
+        android:id="@+id/button_addFav"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/ic_like_unselect"
+        android:layout_gravity="center"
+        android:layout_marginVertical="20dp"
+        android:clickable="false" />
+    </LinearLayout>
 
-        <LinearLayout
-          android:id="@+id/LinearLayout_Images"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:layout_marginBottom="10dp">
+    <LinearLayout
+      android:id="@+id/layout_dislike"
+      android:layout_width="200dp"
+      android:layout_height="60dp"
+      android:orientation="vertical"
+      android:layout_marginHorizontal="5dp"
+      android:layout_marginVertical="10dp"
+      android:background="@drawable/border_button_unpressed"
+      app:layout_constraintStart_toEndOf="@id/layout_like"
+      app:layout_constraintTop_toBottomOf="@+id/linea_compatibility"
+      android:clickable="true">
 
-          <ImageView
-            android:id="@+id/imageView_product"
-            android:layout_width="match_parent"
-            android:layout_height="392dp" />
-        </LinearLayout>
+      <ImageView
+        android:id="@+id/button_addFav2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_dislike_unselected"
+        android:layout_gravity="center"
+        android:layout_marginVertical="20dp"
+        android:clickable="false" />
+    </LinearLayout>
+    <TextView
+      android:id="@+id/titleInformationText"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Información importante"
+      android:textColor="@color/black"
+      android:textSize="20sp"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginVertical="10dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/layout_like" />
 
-        <LinearLayout
-          android:id="@+id/LinearLayout_ProductName"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:layout_marginHorizontal="10dp"
-          android:layout_marginVertical="10dp"
-          android:orientation="vertical">
+    <TextView
+      android:id="@+id/textInformationText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/product_information"
+      android:textColor="@color/black"
+      android:textSize="15sp"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginVertical="10dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/titleInformationText" />
 
-          <TextView
-            android:id="@+id/textGenericName"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Patatas fritas receta campesina Lay´s"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+    <TextView
+      android:id="@+id/textFactoryAdress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Pol. Ind los arcos, calle 13"
+      android:textSize="15sp"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginVertical="10dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textInformationText" />
 
-          <TextView
-            android:id="@+id/textQuantity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Paquete 160 g"
-            android:textSize="20dp" />
-        </LinearLayout>
+    <TextView
+      android:id="@+id/textTelephone"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="92334223234"
+      android:textSize="15sp"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginVertical="10dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textFactoryAdress" />
 
-        <LinearLayout
-          android:id="@+id/LinearLayout_buttons"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginHorizontal="10dp"
-          android:layout_marginVertical="10dp"
-          android:orientation="vertical">
+    <LinearLayout
+      android:id="@+id/view_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#B6B5B5"
+      android:layout_marginVertical="10dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textTelephone">
 
-          <Button
-            android:id="@+id/button_addList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
-            android:text="Añadir a mi lista de la compra"
-            android:textColor="@color/black"
-            app:rippleColor="#000000" />
 
-          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+      <TextView
+        android:id="@+id/textNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
+        android:text="@string/product_information_1"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTelephone" />
 
-            <ImageView
-              android:id="@+id/button_addFav"
-              android:layout_width="wrap_content"
-              android:layout_height="match_parent"
-              android:background="@drawable/ic_like_unselect" />
-
-            <ImageView
-              android:id="@+id/button_addFav2"
-              android:layout_width="wrap_content"
-              android:layout_height="match_parent"
-              android:background="@drawable/ic_dislike_unselected" />
-          </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-          android:id="@+id/LinearLayout_productinformacion"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginHorizontal="10dp"
-          android:layout_marginVertical="10dp"
-          android:orientation="vertical">
-
-          <TextView
-            android:id="@+id/textInformationText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Información importante"
-            android:textSize="16dp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-          />
-
-          <TextView
-            android:id="@+id/textFactoryAdress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/product_information"
-            android:textSize="14dp" />
-
-          <TextView
-            android:id="@+id/textTelephone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#B6B5B5"
-            android:text="@string/product_information_1"
-            android:textSize="14dp"
-            android:layout_marginVertical="10dp" />
-        </LinearLayout>
-
-      </LinearLayout>
-    </ScrollView>
-
-  </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
