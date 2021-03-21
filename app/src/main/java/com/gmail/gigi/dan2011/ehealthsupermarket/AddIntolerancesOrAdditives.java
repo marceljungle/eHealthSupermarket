@@ -1,8 +1,11 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
+import com.gmail.gigi.dan2011.ehealthsupermarket.ui.intolerances.IntoleranceFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,6 +43,10 @@ public class AddIntolerancesOrAdditives extends AppCompatActivity {
   private SearchView searchView;
   private Map<String, Object> mapOfItems = new HashMap<>();
   private FirebaseUser user;
+  private Intent intent;
+
+
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,7 @@ public class AddIntolerancesOrAdditives extends AppCompatActivity {
     listShow.setHasFixedSize(true);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     listShow.setLayoutManager(linearLayoutManager);
+    intent = new Intent(AddIntolerancesOrAdditives.this, IntoleranceFragment.class);
   }
 
   @Override
@@ -80,8 +90,6 @@ public class AddIntolerancesOrAdditives extends AppCompatActivity {
     });
     return super.onCreateOptionsMenu(menu);
   }
-
-
 
   @Override
   public void onBackPressed() {
