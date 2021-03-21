@@ -4,7 +4,9 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,8 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddIntolerancesOrAdditivesAdapter extends
-    RecyclerView.Adapter<AddIntolerancesOrAdditivesAdapter.Holderview> {
+public class AddIntolerancesOrAdditivesXAdapter extends
+    RecyclerView.Adapter<AddIntolerancesOrAdditivesXAdapter.Holderview> {
 
   private final Map<String, Object> itemsListUntouchable;
   private Map<String, Object> itemsList = new HashMap<>();
@@ -26,7 +28,7 @@ public class AddIntolerancesOrAdditivesAdapter extends
   private FirebaseFirestore db;
   private AddIntolerancesOrAdditives addIntolerancesOrAdditives;
 
-  public AddIntolerancesOrAdditivesAdapter(Map<String, Object> itemsList, Context context,
+  public AddIntolerancesOrAdditivesXAdapter(Map<String, Object> itemsList, Context context,
       FirebaseUser user,
       FirebaseFirestore db) {
     this.itemsList = itemsList;
@@ -49,7 +51,7 @@ public class AddIntolerancesOrAdditivesAdapter extends
   @Override
   public Holderview onCreateViewHolder(ViewGroup parent, int viewType) {
     View layout = LayoutInflater.from(parent.getContext()).
-        inflate(R.layout.custom_intolerance_item, parent, false);
+        inflate(R.layout.custom_intolerance_item_x, parent, false);
     return new Holderview(layout);
   }
 
@@ -58,20 +60,15 @@ public class AddIntolerancesOrAdditivesAdapter extends
 
     holder.v_name.setText((String) itemsList.keySet().toArray()[position]);
     holder.v_image.setImageResource(R.drawable.ic_intolerances);
-    holder.itemView.setOnClickListener(new View.OnClickListener() {
+    holder.v_delete.setOnClickListener(new OnClickListener() {
       @Override
-      public void onClick(View view) {
+      public void onClick(View v) {
         if (itemsList.get(itemsList.keySet().toArray()[position]).getClass() == Intolerance.class) {
-
           db.collection("USERS").document(user.getUid())
-              .update("intolerances",
-                  FieldValue.arrayUnion(itemsList.get(itemsList.keySet().toArray()[position])));
-          addIntolerancesOrAdditives.finish();
+              .update("intolerances", FieldValue.arrayRemove(itemsList.keySet().toArray()[position]));
         } else {
           db.collection("USERS").document(user.getUid())
-              .update("additives",
-                  FieldValue.arrayUnion(itemsList.get(itemsList.keySet().toArray()[position])));
-          addIntolerancesOrAdditives.finish();
+              .update("unsupported_additives", FieldValue.arrayRemove(itemsList.keySet().toArray()[position]));
         }
       }
     });
@@ -95,11 +92,13 @@ public class AddIntolerancesOrAdditivesAdapter extends
 
     ImageView v_image;
     TextView v_name;
+    ImageButton v_delete;
 
     Holderview(View itemview) {
       super(itemview);
       v_image = (ImageView) itemview.findViewById(R.id.product_image);
       v_name = (TextView) itemView.findViewById(R.id.product_title);
+      v_delete = itemview.findViewById(R.id.delete_item);
     }
   }
 }
