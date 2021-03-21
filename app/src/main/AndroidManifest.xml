@@ -1,83 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gmail.gigi.dan2011.ehealthsupermarket">
+  package="com.gmail.gigi.dan2011.ehealthsupermarket">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:requestLegacyExternalStorage="true"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.EHealthSupermarket">
+    <activity android:name=".AddIntolerancesOrAdditives">
 
-    <uses-feature android:name="android.hardware.type.watch" />
+    </activity>
+    <activity android:name=".ActivityProductsListView" />
+    <activity
+      android:label="Productos"
+      android:name=".ui.list.MyListProducts"
+      android:theme="@style/Theme.EHealthSupermarket.NoActionBar" />
+    <activity android:name=".SignupActivity" />
+    <activity android:name=".ResetPasswordActivity" />
+    <activity android:name=".LoginActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity
+      android:label="@string/title_activity_android_camera2_a_p_i"
+      android:name=".AndroidCameraApi"
+      android:parentActivityName=".MainActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".MainActivity" />
+    </activity>
+    <activity
+      android:label=""
+      android:name=".ActivityProductView"
+      android:parentActivityName=".MainActivity">
 
-    <uses-feature android:name="android.hardware.camera2.full" />
+      <!-- The meta-data tag is required if you support API level 15 and lower -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".MainActivity" />
+    </activity>
+    <activity
+      android:label="Ajustes"
+      android:name=".AccountSettings"
+      android:parentActivityName=".MainActivity">
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.EHealthSupermarket">
-        <activity android:name=".ActivityProductsListView"></activity>
-        <activity
-            android:name=".ui.list.MyListProducts"
-            android:label="Productos"
-            android:theme="@style/Theme.EHealthSupermarket.NoActionBar" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+      <!-- The meta-data tag is required if you support API level 15 and lower -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".MainActivity" />
+    </activity>
+    <activity
+      android:label="Otra ventana xD"
+      android:name=".DisplayMessageActivity"
+      android:parentActivityName=".MainActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".AndroidCameraApi"
-            android:label="@string/title_activity_android_camera2_a_p_i"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
-            android:name=".ActivityProductView"
-            android:label=""
-            android:parentActivityName=".MainActivity">
+      <!-- The meta-data tag is required if you support API level 15 and lower -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".MainActivity" />
+    </activity> <!-- fixes abnormal behavior of the keyboard, when opened it was raising the bottom menu with it -->
+    <activity
+      android:name=".MainActivity"
+      android:windowSoftInputMode="adjustPan" />
 
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
-            android:name=".AccountSettings"
-            android:label="Ajustes"
-            android:parentActivityName=".MainActivity">
+    <meta-data
+      android:name="preloaded_fonts"
+      android:resource="@array/preloaded_fonts" />
+  </application>
+  <uses-feature android:name="android.hardware.type.watch" />
 
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
-            android:name=".DisplayMessageActivity"
-            android:label="Otra ventana xD"
-            android:parentActivityName=".MainActivity">
+  <uses-feature android:name="android.hardware.camera2.full" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.CAMERA" />
 
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity> <!-- fixes abnormal behavior of the keyboard, when opened it was raising the bottom menu with it -->
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan" />
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-    </application>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
