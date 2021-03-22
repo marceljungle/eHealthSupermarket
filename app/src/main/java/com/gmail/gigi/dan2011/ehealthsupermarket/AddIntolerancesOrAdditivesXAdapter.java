@@ -1,7 +1,5 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
+import com.gmail.gigi.dan2011.ehealthsupermarket.ui.intolerances.IntoleranceFragment;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,27 +22,19 @@ public class AddIntolerancesOrAdditivesXAdapter extends
 
   private final Map<String, Object> itemsListUntouchable;
   private Map<String, Object> itemsList = new HashMap<>();
-  private Context context;
   private FirebaseUser user;
   private FirebaseFirestore db;
-  private AddIntolerancesOrAdditives addIntolerancesOrAdditives;
+  private IntoleranceFragment intoleranceFragment;
 
-  public AddIntolerancesOrAdditivesXAdapter(Map<String, Object> itemsList, Context context,
+  public AddIntolerancesOrAdditivesXAdapter(Map<String, Object> itemsList,
+      IntoleranceFragment intoleranceFragment,
       FirebaseUser user,
       FirebaseFirestore db) {
     this.itemsList = itemsList;
-    this.context = context;
+    this.intoleranceFragment = intoleranceFragment;
     this.itemsListUntouchable = itemsList;
     this.user = user;
     this.db = db;
-    try {
-      if (!(((MainActivity) context).getClass() == MainActivity.class)) {
-        addIntolerancesOrAdditives = (AddIntolerancesOrAdditives) context;
-      }
-    } catch (Exception e) {
-      Log.d(this.getClass().getName(), "Controlled exception.");
-      addIntolerancesOrAdditives = (AddIntolerancesOrAdditives) context;
-    }
 
   }
 
@@ -65,10 +56,14 @@ public class AddIntolerancesOrAdditivesXAdapter extends
       public void onClick(View v) {
         if (itemsList.get(itemsList.keySet().toArray()[position]).getClass() == Intolerance.class) {
           db.collection("USERS").document(user.getUid())
-              .update("intolerances", FieldValue.arrayRemove(itemsList.keySet().toArray()[position]));
+              .update("intolerances",
+                  FieldValue.arrayRemove(itemsList.get(itemsList.keySet().toArray()[position])));
+          notifyItemRemoved(position);
+
         } else {
           db.collection("USERS").document(user.getUid())
-              .update("unsupported_additives", FieldValue.arrayRemove(itemsList.keySet().toArray()[position]));
+              .update("unsupported_additives",
+                  FieldValue.arrayRemove(itemsList.get(itemsList.keySet().toArray()[position])));
         }
       }
     });
@@ -100,5 +95,12 @@ public class AddIntolerancesOrAdditivesXAdapter extends
       v_name = (TextView) itemView.findViewById(R.id.product_title);
       v_delete = itemview.findViewById(R.id.delete_item);
     }
+  }
+
+
+  public void updateIntolerance(Map<String, Object> intoleranceList) {
+    this.itemsList = intoleranceList;
+    notifyDataSetChanged();
+
   }
 }

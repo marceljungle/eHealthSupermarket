@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
+import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +38,7 @@ public class ActivityProductView extends AppCompatActivity {
   private TextView textInformationText;
   private TextView textFactoryAdress;
   private TextView textTelephone;
+  private TextView result_compatibility;
 
   private ImageView like;
   private ImageView dislike;
@@ -43,7 +46,6 @@ public class ActivityProductView extends AppCompatActivity {
   private LinearLayout layout_dislike;
   private Boolean clicked_like = false;
   private Boolean clicked_dilike = false;
-
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class ActivityProductView extends AppCompatActivity {
     dislike = (ImageView) findViewById(R.id.button_addFav2);
     layout_like = (LinearLayout) findViewById(R.id.layout_like);
     layout_dislike = (LinearLayout) findViewById(R.id.layout_dislike);
+    result_compatibility = findViewById(R.id.result_compatibility);
 
     // Product clicked on the previous activity
     Product product = (Product) getIntent().getSerializableExtra("product");
@@ -74,13 +77,42 @@ public class ActivityProductView extends AppCompatActivity {
     textQuantity.setText(product.getPackaging() + "" + product.getQuantity());
     textInformationText.setText(product.getInformation_text());
     textFactoryAdress.setText(product.getFactory_address());
-    textTelephone.setText("Número de atención: " + product.getInformation_phone());
+    textTelephone.setText("Teléfono de atención: " + product.getInformation_phone());
 
     /**
-     * Check if the product is in the liked products list
+     * Check if the product contains user intolerances
      */
-    //TODO
-    
+
+    db.collection("USERS").document(user.getUid()).get().addOnCompleteListener(
+        new OnCompleteListener<DocumentSnapshot>() {
+          @Override
+          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            if (task.isSuccessful()) {
+              final ObjectMapper mapper = new ObjectMapper();
+              Map<String, Object> document = task.getResult().getData();
+              User userInfo = mapper.convertValue(document, User.class);
+              if ((userInfo.getIntolerances() != null && !userInfo.getIntolerances().isEmpty()) || (
+                  userInfo.getUnsupported_additives() != null && !userInfo
+                      .getUnsupported_additives().isEmpty())) {
+                for (Intolerance intolerance : userInfo.getIntolerances()) {
+                  if (product.getIntolerances().contains(intolerance)) {
+                    result_compatibility.setText(R.string.no_apto);
+                    result_compatibility.setTextColor(getColor(R.color.red));
+                    break;
+                  }
+                }
+                for (Additive additive : userInfo.getUnsupported_additives()) {
+                  if (product.getAdditives().contains(additive)) {
+                    result_compatibility.setText(R.string.no_apto);
+                    result_compatibility.setTextColor(getColor(R.color.red));
+                    break;
+                  }
+                }
+              }
+            }
+          }
+        });
+
     /**
      * Check if the product is in the liked products list
      */
