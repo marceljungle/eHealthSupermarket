@@ -8,13 +8,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.AddIntolerancesOrAdditives;
-import com.gmail.gigi.dan2011.ehealthsupermarket.AddIntolerancesOrAdditivesAdapter;
 import com.gmail.gigi.dan2011.ehealthsupermarket.AddIntolerancesOrAdditivesXAdapter;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
@@ -44,9 +42,6 @@ public class IntoleranceFragment extends Fragment {
   private Map<String, Object> mapOfItems = new HashMap<>();
   private FirebaseUser user;
   private FloatingActionButton floatingActionButton;
-  private FragmentTransaction ft;
-  private IntoleranceFragment actualFragment;
-  private IntoleranceFragment anotherFragment;
   private View rootView;
 
   /**
@@ -54,6 +49,7 @@ public class IntoleranceFragment extends Fragment {
    */
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
+
     user = FirebaseAuth.getInstance().getCurrentUser();
     intoleranceViewModel = new ViewModelProvider(this).get(IntoleranceViewModel.class);
     View root = inflater.inflate(R.layout.fragment_intolerances, container, false);
@@ -64,26 +60,25 @@ public class IntoleranceFragment extends Fragment {
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
     listShow.setLayoutManager(linearLayoutManager);
     floatingActionButton = root.findViewById(R.id.fabIntolerances);
-    ft = getParentFragmentManager().beginTransaction();
-    actualFragment = this;
-    anotherFragment = new IntoleranceFragment();
+
     floatingActionButton.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(getActivity(), AddIntolerancesOrAdditives.class);
-        onPause();
         startActivity(intent);
       }
     });
+
     rootView = root;
     return root;
   }
+
 
   @Override
   public void onResume() {
     super.onResume();
     importUserIntolerances(rootView);
-    importUserAdditives(rootView);
+    //importUserAdditives(rootView);
   }
 
   private void importUserAdditives(View root) {
@@ -101,15 +96,15 @@ public class IntoleranceFragment extends Fragment {
                 }
               } //TODO: change this as the intolerance method below
               addIntolerancesOrAdditivesAdapter = new AddIntolerancesOrAdditivesXAdapter(mapOfItems,
-                  root.getContext(), user, db);
+                  IntoleranceFragment.this, user, db);
               listShow.setAdapter(addIntolerancesOrAdditivesAdapter);
-              addIntolerancesOrAdditivesAdapter.notifyDataSetChanged();
+              //addIntolerancesOrAdditivesAdapter.notifyDataSetChanged();
             }
           }
         });
   }
 
-  private void importUserIntolerances(View root) {
+  public void importUserIntolerances(View root) {
     db.collection("USERS").document(user.getUid()).get()
         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
           @Override
@@ -127,7 +122,7 @@ public class IntoleranceFragment extends Fragment {
                 }
                 addIntolerancesOrAdditivesAdapter = new AddIntolerancesOrAdditivesXAdapter(
                     mapOfItems,
-                    root.getContext(), user, db);
+                    IntoleranceFragment.this, user, db);
                 listShow.setAdapter(addIntolerancesOrAdditivesAdapter);
                 addIntolerancesOrAdditivesAdapter.notifyDataSetChanged();
               }
@@ -135,5 +130,4 @@ public class IntoleranceFragment extends Fragment {
           }
         });
   }
-
 }

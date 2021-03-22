@@ -41,5 +41,6 @@
   <string name="go_to_intolerances">Ir a intolerancias</string>
   <string name="no_products_favorites">En este espacio se mostrarán sus productos favoritos</string>
   <string name="go_to_scanSection">Añade productos a tus favoritos</string>
-
+  <string name="apto">Este producto es apto para ti</string>
+  <string name="no_apto">Este producto no es apto para ti</string>
 </resources>
