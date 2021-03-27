@@ -74,12 +74,13 @@ public class HomeFragment extends Fragment {
     ImageButton product = (ImageButton) root.findViewById(R.id.imageFav1);
     ImageView imageProduct = (ImageView) root.findViewById(R.id.imageView_product);
 
-    /*Button to view the activity the contains all products 1*/
+    /*Button to view the activity the contains liked products*/
     Button viewMore = (Button) root.findViewById(R.id.button_viewMore);
     viewMore.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(getActivity(), ActivityProductsListView.class);
+        intent.putExtra("show", "likedProducts");
         startActivity(intent);
       }
     });
@@ -186,11 +187,11 @@ public class HomeFragment extends Fragment {
             List<Product> likedProducts = new ArrayList<>();
 
             List<Map<String, Object>> favProducts = new ArrayList<>();
-            try{
+            try {
               favProducts = (List) task.getResult()
                   .getData().get("liked_products");
               log.info("Obtained user liked products from Firebase!");
-            }catch(Exception e) {
+            } catch (Exception e) {
               log.error("User doesn't have liked products! User wrongly created..?");
             }
             for (Map<String, Object> mapProd : favProducts) {
