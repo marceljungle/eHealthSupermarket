@@ -69,7 +69,7 @@ public class AddIntolerancesOrAdditivesAdapter extends
           addIntolerancesOrAdditives.finish();
         } else {
           db.collection("USERS").document(user.getUid())
-              .update("additives",
+              .update("unsupported_additives",
                   FieldValue.arrayUnion(itemsList.get(itemsList.keySet().toArray()[position])));
           addIntolerancesOrAdditives.finish();
         }

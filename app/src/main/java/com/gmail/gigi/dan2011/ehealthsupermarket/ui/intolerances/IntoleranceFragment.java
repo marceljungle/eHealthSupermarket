@@ -1,19 +1,25 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.ui.intolerances;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.AddIntolerancesOrAdditives;
 import com.gmail.gigi.dan2011.ehealthsupermarket.AddIntolerancesOrAdditivesXAdapter;
+import com.gmail.gigi.dan2011.ehealthsupermarket.AddIntolerancesOrAdditivesXAdapter.ClickListener;
+import com.gmail.gigi.dan2011.ehealthsupermarket.AddIntolerancesOrAdditivesXAdapter.Holderview;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
@@ -24,6 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -53,8 +60,8 @@ public class IntoleranceFragment extends Fragment {
     user = FirebaseAuth.getInstance().getCurrentUser();
     intoleranceViewModel = new ViewModelProvider(this).get(IntoleranceViewModel.class);
     View root = inflater.inflate(R.layout.fragment_intolerances, container, false);
-    importUserIntolerances(root);
-    importUserAdditives(root);
+    importUserIntolerances();
+    importUserAdditives();
     listShow = root.findViewById(R.id.listshowIntolerances);
     listShow.setHasFixedSize(true);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -73,38 +80,40 @@ public class IntoleranceFragment extends Fragment {
     return root;
   }
 
-
   @Override
   public void onResume() {
     super.onResume();
-    importUserIntolerances(rootView);
-    //importUserAdditives(rootView);
+    importUserIntolerances();
+    importUserAdditives();
   }
 
-  private void importUserAdditives(View root) {
-    db.collection("USERS").document(user.getUid()).collection("unsupported_additives").get()
-        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+  private void importUserAdditives() {
+    mapOfItems = new HashMap<>();
+    db.collection("USERS").document(user.getUid()).get()
+        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
           @Override
-          public void onComplete(@NonNull Task<QuerySnapshot> task) {
+          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
             if (task.isSuccessful()) {
               final ObjectMapper mapper = new ObjectMapper();
-              for (QueryDocumentSnapshot document : task.getResult()) {
-                Map<String, Object> objectMap = document.getData();
-                Additive additive = mapper.convertValue(objectMap, Additive.class);
-                if (additive.getAdditive_name() != null && additive.getAdditive_name() != "") {
-                  mapOfItems.put(additive.getAdditive_name(), additive);
+              Map<String, Object> document = task.getResult().getData();
+              User userInfo = mapper.convertValue(document, User.class);
+              if (userInfo.getUnsupported_additives() != null && !userInfo
+                  .getUnsupported_additives().isEmpty()) {
+                for (Additive additive : userInfo.getUnsupported_additives()) {
+                  if (additive.getAdditive_name() != null
+                      && additive.getAdditive_name() != "") {
+                    mapOfItems.put(additive.getAdditive_name(), additive);
+                  }
                 }
-              } //TODO: change this as the intolerance method below
-              addIntolerancesOrAdditivesAdapter = new AddIntolerancesOrAdditivesXAdapter(mapOfItems,
-                  IntoleranceFragment.this, user, db);
-              listShow.setAdapter(addIntolerancesOrAdditivesAdapter);
-              //addIntolerancesOrAdditivesAdapter.notifyDataSetChanged();
+                addIntolerancesOrAdditivesAdapter.notifyDataSetChanged();
+              }
             }
           }
         });
   }
 
-  public void importUserIntolerances(View root) {
+  public void importUserIntolerances() {
+    mapOfItems = new HashMap<>();
     db.collection("USERS").document(user.getUid()).get()
         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
           @Override
@@ -120,12 +129,35 @@ public class IntoleranceFragment extends Fragment {
                     mapOfItems.put(intolerance.getIntolerance_name(), intolerance);
                   }
                 }
-                addIntolerancesOrAdditivesAdapter = new AddIntolerancesOrAdditivesXAdapter(
-                    mapOfItems,
-                    IntoleranceFragment.this, user, db);
-                listShow.setAdapter(addIntolerancesOrAdditivesAdapter);
-                addIntolerancesOrAdditivesAdapter.notifyDataSetChanged();
               }
+              addIntolerancesOrAdditivesAdapter = new AddIntolerancesOrAdditivesXAdapter(
+                  mapOfItems,
+                  getContext(), user, db);
+              addIntolerancesOrAdditivesAdapter.setOnItemClickListener(new ClickListener() {
+                @Override
+                public void onItemClick(int position, View v) {
+                  if (mapOfItems.keySet().toArray().length != 0) {
+                    if (mapOfItems.get(mapOfItems.keySet().toArray()[position]).getClass()
+                        == Intolerance.class) {
+                      db.collection("USERS").document(user.getUid())
+                          .update("intolerances",
+                              FieldValue.arrayRemove(
+                                  mapOfItems.get(mapOfItems.keySet().toArray()[position])));
+                      importUserIntolerances();
+                      importUserAdditives();
+                    }else {
+                      db.collection("USERS").document(user.getUid())
+                          .update("unsupported_additives",
+                              FieldValue.arrayRemove(
+                                  mapOfItems.get(mapOfItems.keySet().toArray()[position])));
+                      importUserAdditives();
+                      importUserIntolerances();
+                    }
+                  }
+                }
+              });
+              listShow.setAdapter(addIntolerancesOrAdditivesAdapter);
+              addIntolerancesOrAdditivesAdapter.notifyDataSetChanged();
             }
           }
         });
