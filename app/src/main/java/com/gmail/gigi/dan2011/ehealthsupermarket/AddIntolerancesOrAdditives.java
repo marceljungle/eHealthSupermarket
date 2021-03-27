@@ -54,7 +54,6 @@ public class AddIntolerancesOrAdditives extends AppCompatActivity {
     listShow.setHasFixedSize(true);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     listShow.setLayoutManager(linearLayoutManager);
-    intent = new Intent(AddIntolerancesOrAdditives.this, IntoleranceFragment.class);
   }
 
   @Override

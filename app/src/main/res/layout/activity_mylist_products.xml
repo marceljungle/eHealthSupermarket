@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.list.MyListProducts">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/fragment_mylist_layout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
+    <ListView
+      android:id="@+id/main_list_mylist"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:clickable="true"
+      android:drawSelectorOnTop="false"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"></ListView>
 
-    <com.google.android.material.appbar.CollapsingToolbarLayout
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/purple_500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:layout_width="380dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@color/purple_500"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.001"
-            app:mt_hint="Buscar productos..."
-            app:mt_maxSuggestionsCount="10"
-            app:mt_speechMode="true"
-            app:mt_placeholder="Buscar productos..."
-            app:mt_placeholderColor="@color/buledark"></com.mancj.materialsearchbar.MaterialSearchBar>
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fab_mylist"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+      android:layout_marginBottom="675dp"
+      android:layout_marginEnd="355dp"
+      android:layout_gravity="end|bottom"
+      android:contentDescription="@string/list_add"
+      android:src="@drawable/baseline_add_black_24dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

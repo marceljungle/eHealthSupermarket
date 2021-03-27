@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
   private TextView[] basedInIntolerancesQuantity = new TextView[5];
   private LinearLayout noFavorites;
   private LinearLayout noBasedInIntolerances;
+  private View rootView;
 
   /**
    * Represents an example of javadoc in a function.
@@ -175,7 +176,14 @@ public class HomeFragment extends Fragment {
 
     showFavorites(root);
     // showBasedInIntolerances(root);
+    rootView = root;
     return root;
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    showFavorites(rootView);
   }
 
   private void showFavorites(View root) {
