@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -207,6 +208,7 @@ public class HomeFragment extends Fragment {
     Integer filledLayouts = likedProducts.size();
     Collections.shuffle(likedProducts);
     if (!likedProducts.isEmpty()) {
+      Intent in = new Intent(getActivity(), ActivityProductView.class);
       for (int i = 0; i < filledLayouts; i++) {
         switch (i) {
           case 0:
@@ -218,6 +220,13 @@ public class HomeFragment extends Fragment {
             favNames[0].setText(likedProducts.get(0).getGeneric_name());
             favQuantity[0].setText(
                 likedProducts.get(0).getPackaging() + " " + likedProducts.get(0).getQuantity());
+            favorites[0].setOnClickListener(new OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                in.putExtra("product", likedProducts.get(0));
+                startActivity(in);
+              }
+            });
             break;
           case 1:
             favorites[1].setVisibility(View.VISIBLE);
@@ -228,6 +237,13 @@ public class HomeFragment extends Fragment {
             favNames[1].setText(likedProducts.get(1).getGeneric_name());
             favQuantity[1].setText(
                 likedProducts.get(1).getPackaging() + " " + likedProducts.get(1).getQuantity());
+            favorites[1].setOnClickListener(new OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                in.putExtra("product", likedProducts.get(1));
+                startActivity(in);
+              }
+            });
             break;
           case 2:
             favorites[2].setVisibility(View.VISIBLE);
@@ -238,6 +254,13 @@ public class HomeFragment extends Fragment {
             favNames[2].setText(likedProducts.get(2).getGeneric_name());
             favQuantity[2].setText(
                 likedProducts.get(2).getPackaging() + " " + likedProducts.get(2).getQuantity());
+            favorites[2].setOnClickListener(new OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                in.putExtra("product", likedProducts.get(2));
+                startActivity(in);
+              }
+            });
             break;
           case 3:
             favorites[3].setVisibility(View.VISIBLE);
@@ -248,6 +271,13 @@ public class HomeFragment extends Fragment {
             favNames[3].setText(likedProducts.get(3).getGeneric_name());
             favQuantity[3].setText(
                 likedProducts.get(3).getPackaging() + " " + likedProducts.get(3).getQuantity());
+            favorites[3].setOnClickListener(new OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                in.putExtra("product", likedProducts.get(3));
+                startActivity(in);
+              }
+            });
             break;
           case 4:
             favorites[4].setVisibility(View.VISIBLE);
@@ -258,6 +288,13 @@ public class HomeFragment extends Fragment {
             favNames[4].setText(likedProducts.get(4).getGeneric_name());
             favQuantity[4].setText(
                 likedProducts.get(4).getPackaging() + " " + likedProducts.get(4).getQuantity());
+            favorites[4].setOnClickListener(new OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                in.putExtra("product", likedProducts.get(4));
+                startActivity(in);
+              }
+            });
 
             break;
           default:

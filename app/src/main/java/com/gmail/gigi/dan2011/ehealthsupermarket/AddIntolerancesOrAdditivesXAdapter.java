@@ -1,17 +1,14 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
-import com.gmail.gigi.dan2011.ehealthsupermarket.ui.intolerances.IntoleranceFragment;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.List;
@@ -24,20 +21,22 @@ public class AddIntolerancesOrAdditivesXAdapter extends
   private Map<String, Object> itemsList = new HashMap<>();
   private FirebaseUser user;
   private FirebaseFirestore db;
-  private IntoleranceFragment intoleranceFragment;
+  private Context context;
+  private ClickListener clickListener;
 
-  public AddIntolerancesOrAdditivesXAdapter(Map<String, Object> itemsList,
-      IntoleranceFragment intoleranceFragment,
+
+  public AddIntolerancesOrAdditivesXAdapter(
+      Map<String,
+          Object> itemsList,
+      Context context,
       FirebaseUser user,
       FirebaseFirestore db) {
     this.itemsList = itemsList;
-    this.intoleranceFragment = intoleranceFragment;
+    this.context = context;
     this.itemsListUntouchable = itemsList;
     this.user = user;
     this.db = db;
-
   }
-
 
   @Override
   public Holderview onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,25 +47,16 @@ public class AddIntolerancesOrAdditivesXAdapter extends
 
   @Override
   public void onBindViewHolder(Holderview holder, final int position) {
+    holder.bindData((String) itemsList.keySet().toArray()[position]);
+  }
 
-    holder.v_name.setText((String) itemsList.keySet().toArray()[position]);
-    holder.v_image.setImageResource(R.drawable.ic_intolerances);
-    holder.v_delete.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if (itemsList.get(itemsList.keySet().toArray()[position]).getClass() == Intolerance.class) {
-          db.collection("USERS").document(user.getUid())
-              .update("intolerances",
-                  FieldValue.arrayRemove(itemsList.get(itemsList.keySet().toArray()[position])));
-          notifyItemRemoved(position);
+  public String getItem(int position) {
+    return (itemsList.keySet().toArray() != null) ? (String) itemsList.keySet().toArray()[position]
+        : null;
+  }
 
-        } else {
-          db.collection("USERS").document(user.getUid())
-              .update("unsupported_additives",
-                  FieldValue.arrayRemove(itemsList.get(itemsList.keySet().toArray()[position])));
-        }
-      }
-    });
+  public void setOnItemClickListener(ClickListener clickListener) {
+    this.clickListener = clickListener;
   }
 
 
@@ -83,24 +73,39 @@ public class AddIntolerancesOrAdditivesXAdapter extends
     notifyDataSetChanged();
   }
 
-  class Holderview extends RecyclerView.ViewHolder {
+  public class Holderview extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    ImageView v_image;
-    TextView v_name;
-    ImageButton v_delete;
+    public ImageView v_image;
+    public TextView v_name;
+    public ImageButton v_delete;
 
     Holderview(View itemview) {
       super(itemview);
       v_image = (ImageView) itemview.findViewById(R.id.product_image);
-      v_name = (TextView) itemView.findViewById(R.id.product_title);
+      v_name = (TextView) itemview.findViewById(R.id.product_title);
       v_delete = itemview.findViewById(R.id.delete_item);
+      if (clickListener != null) {
+        v_delete.setOnClickListener(this);
+        //itemView.setOnClickListener(this);
+      }
+    }
+
+    public void bindData(final String name) {
+      v_image.setImageResource(R.drawable.ic_intolerances);
+      v_name.setText(name);
+    }
+
+    @Override
+    public void onClick(View v) {
+      if (clickListener != null) {
+        clickListener.onItemClick(getAdapterPosition(), v);
+      }
     }
   }
 
+  public interface ClickListener {
 
-  public void updateIntolerance(Map<String, Object> intoleranceList) {
-    this.itemsList = intoleranceList;
-    notifyDataSetChanged();
-
+    void onItemClick(int position, View v);
   }
+
 }
