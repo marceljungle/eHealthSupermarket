@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductView;
+import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductsListView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.AndroidCameraApi;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
@@ -31,6 +34,7 @@ public class ScanFragment extends Fragment {
   private FirebaseUser user;
   private MaterialButton qrButton; // or Button type if not working
   private MaterialButton smartButton;
+  private Button viewAll;
   //private CamPollingThread camPollingThread;
 
   /**
@@ -46,8 +50,11 @@ public class ScanFragment extends Fragment {
     // Get the id of the views
     qrButton = root.findViewById(R.id.qrButton);
     smartButton = root.findViewById(R.id.smartButton);
+    viewAll = root.findViewById(R.id.button_viewAll);
 
-    //Click on QR Button
+    /**
+     * Click on QR Button.
+     */
     qrButton.setOnClickListener(qrOnclickListener);
 
     smartButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +64,18 @@ public class ScanFragment extends Fragment {
         startActivity(act);
       }
     });
+    /**
+     * Click on View All button.
+     */
+    viewAll.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(getActivity(), ActivityProductsListView.class);
+        intent.putExtra("show", "allProducts");
+        startActivity(intent);
+      }
+    });
+
     return root;
   }
 
