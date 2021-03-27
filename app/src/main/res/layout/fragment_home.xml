@@ -87,7 +87,8 @@
                 android:layout_height="150dp"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/productImage"
-                android:scaleType="fitCenter"></ImageButton>
+                android:scaleType="fitCenter"
+                android:clickable="false"></ImageButton>
               <TextView
                 android:id="@+id/nameFav1"
                 android:layout_width="150dp"
@@ -116,7 +117,7 @@
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/productImage"
                 android:scaleType="fitCenter"
-                android:src="@drawable/papafrita"></ImageButton>
+                android:clickable="false"></ImageButton>
               <TextView
                 android:id="@+id/nameFav2"
                 android:layout_width="150dp"
@@ -145,7 +146,7 @@
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/productImage"
                 android:scaleType="fitCenter"
-                android:src="@drawable/papafrita"></ImageButton>
+                android:clickable="false"></ImageButton>
               <TextView
                 android:id="@+id/nameFav3"
                 android:layout_width="150dp"
@@ -174,7 +175,7 @@
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/productImage"
                 android:scaleType="fitCenter"
-                android:src="@drawable/papafrita"></ImageButton>
+                android:clickable="false"></ImageButton>
               <TextView
                 android:id="@+id/nameFav4"
                 android:layout_width="150dp"
@@ -203,7 +204,7 @@
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/productImage"
                 android:scaleType="fitCenter"
-                android:src="@drawable/papafrita"></ImageButton>
+                android:clickable="false"></ImageButton>
               <TextView
                 android:id="@+id/nameFav5"
                 android:layout_width="150dp"
@@ -312,8 +313,7 @@
                 android:layout_height="150dp"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/productImage"
-                android:scaleType="fitCenter"
-                android:src="@drawable/papafrita"></ImageButton>
+                android:scaleType="fitCenter"></ImageButton>
               <TextView
                 android:id="@+id/nameIntBased1"
                 android:layout_width="150dp"
@@ -341,8 +341,7 @@
                 android:layout_height="150dp"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/productImage"
-                android:scaleType="fitCenter"
-                android:src="@drawable/papafrita"></ImageButton>
+                android:scaleType="fitCenter"></ImageButton>
               <TextView
                 android:id="@+id/nameIntBased2"
                 android:layout_width="150dp"
@@ -370,8 +369,7 @@
                 android:layout_height="150dp"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/productImage"
-                android:scaleType="fitCenter"
-                android:src="@drawable/papafrita"></ImageButton>
+                android:scaleType="fitCenter"></ImageButton>
               <TextView
                 android:id="@+id/nameIntBased3"
                 android:layout_width="150dp"
@@ -399,8 +397,7 @@
                 android:layout_height="150dp"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/productImage"
-                android:scaleType="fitCenter"
-                android:src="@drawable/papafrita"></ImageButton>
+                android:scaleType="fitCenter"></ImageButton>
               <TextView
                 android:id="@+id/nameIntBased4"
                 android:layout_width="150dp"
@@ -428,8 +425,7 @@
                 android:layout_height="150dp"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/productImage"
-                android:scaleType="fitCenter"
-                android:src="@drawable/papafrita"></ImageButton>
+                android:scaleType="fitCenter"></ImageButton>
               <TextView
                 android:id="@+id/nameIntBased5"
                 android:layout_width="150dp"

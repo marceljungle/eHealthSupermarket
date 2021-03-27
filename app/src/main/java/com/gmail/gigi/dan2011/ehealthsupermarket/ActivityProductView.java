@@ -23,7 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import java.util.Map;
 
-//import androidx.fragment.app.Fragment;
 
 /**
  * Javadoc comment.
@@ -39,7 +38,6 @@ public class ActivityProductView extends AppCompatActivity {
   private TextView textFactoryAdress;
   private TextView textTelephone;
   private TextView result_compatibility;
-
   private ImageView like;
   private ImageView dislike;
   private LinearLayout layout_like;
@@ -56,16 +54,16 @@ public class ActivityProductView extends AppCompatActivity {
     user = FirebaseAuth.getInstance().getCurrentUser();
 
     // Get the id of the views
-    imageProduct = (ImageView) findViewById(R.id.imageView_product);
-    textGenericName = (TextView) findViewById(R.id.textGenericName);
-    textQuantity = (TextView) findViewById(R.id.textQuantity);
-    textInformationText = (TextView) findViewById(R.id.textInformationText);
-    textFactoryAdress = (TextView) findViewById(R.id.textFactoryAdress);
-    textTelephone = (TextView) findViewById(R.id.textTelephone);
-    like = (ImageView) findViewById(R.id.button_addFav);
-    dislike = (ImageView) findViewById(R.id.button_addFav2);
-    layout_like = (LinearLayout) findViewById(R.id.layout_like);
-    layout_dislike = (LinearLayout) findViewById(R.id.layout_dislike);
+    imageProduct = findViewById(R.id.imageView_product);
+    textGenericName = findViewById(R.id.textGenericName);
+    textQuantity = findViewById(R.id.textQuantity);
+    textInformationText = findViewById(R.id.textInformationText);
+    textFactoryAdress = findViewById(R.id.textFactoryAdress);
+    textTelephone = findViewById(R.id.textTelephone);
+    like = findViewById(R.id.button_addFav);
+    dislike = findViewById(R.id.button_addFav2);
+    layout_like = findViewById(R.id.layout_like);
+    layout_dislike = findViewById(R.id.layout_dislike);
     result_compatibility = findViewById(R.id.result_compatibility);
 
     // Product clicked on the previous activity
