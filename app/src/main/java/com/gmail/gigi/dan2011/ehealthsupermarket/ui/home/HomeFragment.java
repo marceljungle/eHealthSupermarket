@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,12 +47,14 @@ public class HomeFragment extends Fragment {
   private Logger log = LoggerFactory.getLogger(HomeFragment.class);
   private LinearLayout[] favorites = new LinearLayout[5];
   private LinearLayout[] basedInIntolerances = new LinearLayout[5];
-  private ImageButton[] favImageButtons = new ImageButton[5];
-  private ImageButton[] basedInIntolerancesImageButtons = new ImageButton[5];
+  private ImageView[] favImageButtons = new ImageView[5];
+  private ImageView[] basedInIntolerancesImageButtons = new ImageView[5];
   private TextView[] favNames = new TextView[5];
   private TextView[] basedInIntolerancesNames = new TextView[5];
   private TextView[] favQuantity = new TextView[5];
   private TextView[] basedInIntolerancesQuantity = new TextView[5];
+  private ImageView rectangle1;
+  private ImageView rectangle2;
   private LinearLayout noFavorites;
   private LinearLayout noBasedInIntolerances;
   private View rootView;
@@ -73,7 +74,7 @@ public class HomeFragment extends Fragment {
     View root = inflater.inflate(R.layout.fragment_home, container, false);
 
     /*  Button to view the activity that contains the product information.*/
-    ImageButton product = (ImageButton) root.findViewById(R.id.imageFav1);
+    ImageView product = (ImageView) root.findViewById(R.id.imageFav1);
     ImageView imageProduct = (ImageView) root.findViewById(R.id.imageView_product);
 
     /*Button to view the activity the contains liked products*/
@@ -114,7 +115,6 @@ public class HomeFragment extends Fragment {
           }
         });
 */
-
 
     /*
     AÑADE UN PRODUCTO A LA COLECCION PRODUCTS CON UN IDENTIFICADOR ESPECÍFICO
@@ -174,8 +174,15 @@ public class HomeFragment extends Fragment {
     noFavorites = root.findViewById(R.id.noFavoriteProducts);
     noBasedInIntolerances = root.findViewById(R.id.noBasedInIntoleranceProducts);
 
+    rectangle1 = root.findViewById(R.id.image_rectangle1);
+    rectangle2 = root.findViewById(R.id.image_rectangle2);
+    String url_rectangle1 = "https://storage.googleapis.com/mercadona_online_prod_static/chocopascua2.jpg";
+    String url_rectangle2 = "https://storage.googleapis.com/mercadona_online_prod_static/torrijas21.jpg";
+    Picasso.get().load(url_rectangle1).fit().centerCrop().into(rectangle1);
+    Picasso.get().load(url_rectangle2).fit().centerCrop().into(rectangle2);
+
     showFavorites(root);
-    // showBasedInIntolerances(root);
+    //showBasedInIntolerances(root);
     rootView = root;
     return root;
   }
@@ -217,7 +224,6 @@ public class HomeFragment extends Fragment {
     Integer filledLayouts = likedProducts.size();
     Collections.shuffle(likedProducts);
     if (!likedProducts.isEmpty()) {
-      Intent in = new Intent(getActivity(), ActivityProductView.class);
       for (int i = 0; i < filledLayouts; i++) {
         switch (i) {
           case 0:
@@ -232,6 +238,7 @@ public class HomeFragment extends Fragment {
             favorites[0].setOnClickListener(new OnClickListener() {
               @Override
               public void onClick(View v) {
+                Intent in = new Intent(getActivity(), ActivityProductView.class);
                 in.putExtra("product", likedProducts.get(0));
                 startActivity(in);
               }
@@ -249,6 +256,7 @@ public class HomeFragment extends Fragment {
             favorites[1].setOnClickListener(new OnClickListener() {
               @Override
               public void onClick(View v) {
+                Intent in = new Intent(getActivity(), ActivityProductView.class);
                 in.putExtra("product", likedProducts.get(1));
                 startActivity(in);
               }
@@ -266,6 +274,7 @@ public class HomeFragment extends Fragment {
             favorites[2].setOnClickListener(new OnClickListener() {
               @Override
               public void onClick(View v) {
+                Intent in = new Intent(getActivity(), ActivityProductView.class);
                 in.putExtra("product", likedProducts.get(2));
                 startActivity(in);
               }
@@ -283,6 +292,7 @@ public class HomeFragment extends Fragment {
             favorites[3].setOnClickListener(new OnClickListener() {
               @Override
               public void onClick(View v) {
+                Intent in = new Intent(getActivity(), ActivityProductView.class);
                 in.putExtra("product", likedProducts.get(3));
                 startActivity(in);
               }
@@ -300,6 +310,7 @@ public class HomeFragment extends Fragment {
             favorites[4].setOnClickListener(new OnClickListener() {
               @Override
               public void onClick(View v) {
+                Intent in = new Intent(getActivity(), ActivityProductView.class);
                 in.putExtra("product", likedProducts.get(4));
                 startActivity(in);
               }
@@ -307,6 +318,7 @@ public class HomeFragment extends Fragment {
 
             break;
           default:
+            //TODO MODIFICAR ESTA PARTE PORQUE CUANDO HAY MAS DE 5 FAVORITOS SE OCULTAN TODOS
             favorites[0].setVisibility(View.GONE);
             favorites[1].setVisibility(View.GONE);
             favorites[2].setVisibility(View.GONE);
@@ -412,6 +424,7 @@ public class HomeFragment extends Fragment {
                     + basedIntoIntolerancesProducts.get(4).getQuantity());
             break;
           default:
+
             favorites[0].setVisibility(View.GONE);
             favorites[1].setVisibility(View.GONE);
             favorites[2].setVisibility(View.GONE);
