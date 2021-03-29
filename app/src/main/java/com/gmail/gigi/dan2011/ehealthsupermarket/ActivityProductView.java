@@ -49,7 +49,8 @@ public class ActivityProductView extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_productview);
-
+    // Product clicked on the previous activity
+    Product product = (Product) getIntent().getSerializableExtra("product");
     // Get current user
     user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -66,11 +67,9 @@ public class ActivityProductView extends AppCompatActivity {
     layout_dislike = findViewById(R.id.layout_dislike);
     result_compatibility = findViewById(R.id.result_compatibility);
 
-    // Product clicked on the previous activity
-    Product product = (Product) getIntent().getSerializableExtra("product");
-
+    String url = product.getImage().toString();
     //Set the view of the product with the data obtained
-    Picasso.get().load(product.getImage()).into(imageProduct);
+    Picasso.get().load(url).into(imageProduct);
     textGenericName.setText(product.getGeneric_name());
     textQuantity.setText(product.getPackaging() + "" + product.getQuantity());
     textInformationText.setText(product.getInformation_text());

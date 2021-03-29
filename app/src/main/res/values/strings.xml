@@ -44,4 +44,12 @@
   <string name="go_to_scanSection">Añade productos a tus favoritos</string>
   <string name="apto">Este producto es apto para ti</string>
   <string name="no_apto">Este producto no es apto para ti</string>
+  <string name="discover_the_new">Descubre lo nuevo</string>
+  <string name="new_without_lactosa">Lo nuevo sin lactosa</string>
+  <string name="new_without_fructosa">Lo nuevo sin fructosa</string>
+  <string name="content_rectangle1">content_rectangle1</string>
+  <string name="content_rectangle2">content_rectangle2</string>
+  <string name="email">Email</string>
+  <string name="contrasena">Contraseña</string>
+  <string name="registrar">Registrar</string>
 </resources>
