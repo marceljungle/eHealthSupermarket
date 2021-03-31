@@ -185,7 +185,8 @@
             android:backgroundTint="@color/white"
             android:clickable="false"
             android:contentDescription="@string/productImage"
-            android:scaleType="fitCenter"></ImageView>
+            android:scaleType="fitCenter"
+            ></ImageView>
           <TextView
             android:id="@+id/nameFav1"
             android:layout_width="150dp"

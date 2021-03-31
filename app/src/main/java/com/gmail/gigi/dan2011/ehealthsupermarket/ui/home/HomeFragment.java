@@ -73,10 +73,6 @@ public class HomeFragment extends Fragment {
     homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
     View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-    /*  Button to view the activity that contains the product information.*/
-    ImageView product = (ImageView) root.findViewById(R.id.imageFav1);
-    ImageView imageProduct = (ImageView) root.findViewById(R.id.imageView_product);
-
     /*Button to view the activity the contains liked products*/
     Button viewMore = (Button) root.findViewById(R.id.button_viewMore);
     viewMore.setOnClickListener(new View.OnClickListener() {
@@ -88,14 +84,6 @@ public class HomeFragment extends Fragment {
       }
     });
 
-    product.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            Intent in = new Intent(getActivity(), ActivityProductView.class);
-            startActivity(in);
-          }
-        });
 
     favorites[0] = root.findViewById(R.id.favorite1);
     favorites[1] = root.findViewById(R.id.favorite2);
