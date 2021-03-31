@@ -74,7 +74,6 @@
   </application>
   <uses-feature android:name="android.hardware.camera2.full" />
 
-  <uses-feature android:name="android.hardware.type.watch" />
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
