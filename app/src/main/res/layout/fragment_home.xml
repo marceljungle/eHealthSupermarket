@@ -296,12 +296,12 @@
           android:visibility="visible"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent">
-          <ImageButton
+          <ImageView
             android:id="@+id/imgIntBased1"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:scaleType="fitCenter"></ImageButton>
+            android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameIntBased1"
             android:layout_width="150dp"
@@ -324,12 +324,12 @@
           app:layout_constraintBottom_toBottomOf="@id/intBased1"
           app:layout_constraintStart_toEndOf="@id/intBased1"
           app:layout_constraintTop_toTopOf="@id/intBased1">
-          <ImageButton
+          <ImageView
             android:id="@+id/imgIntBased2"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:scaleType="fitCenter"></ImageButton>
+            android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameIntBased2"
             android:layout_width="150dp"
@@ -352,12 +352,12 @@
           app:layout_constraintBottom_toBottomOf="@id/intBased2"
           app:layout_constraintStart_toEndOf="@id/intBased2"
           app:layout_constraintTop_toTopOf="@id/intBased2">
-          <ImageButton
+          <ImageView
             android:id="@+id/imgIntBased3"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:scaleType="fitCenter"></ImageButton>
+            android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameIntBased3"
             android:layout_width="150dp"
@@ -380,12 +380,12 @@
           app:layout_constraintBottom_toBottomOf="@id/intBased3"
           app:layout_constraintStart_toEndOf="@id/intBased3"
           app:layout_constraintTop_toTopOf="@id/intBased3">
-          <ImageButton
+          <ImageView
             android:id="@+id/imgIntBased4"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:scaleType="fitCenter"></ImageButton>
+            android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameIntBased4"
             android:layout_width="150dp"
@@ -408,12 +408,12 @@
           app:layout_constraintBottom_toBottomOf="@id/intBased4"
           app:layout_constraintStart_toEndOf="@id/intBased4"
           app:layout_constraintTop_toTopOf="@id/intBased4">
-          <ImageButton
+          <ImageView
             android:id="@+id/imgIntBased5"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:scaleType="fitCenter"></ImageButton>
+            android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameIntBased5"
             android:layout_width="150dp"
