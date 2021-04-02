@@ -8,12 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Javadoc comment.
  */
-public class CustomAdapter extends BaseAdapter {
+public class CustomAdapter extends BaseAdapter implements Serializable {
 
   private ArrayList<RowItem> singleRow;
   private LayoutInflater thisInflater;

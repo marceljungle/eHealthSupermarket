@@ -1,11 +1,22 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.ui.list;
 
-class RowItem {
+import java.io.Serializable;
 
+class RowItem implements Serializable {
+
+  private String id;
   private String heading;
   private String subHeading;
   private int smallImageName;
   private int bigImageName;
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public void setHeading(String theHeading) {
     this.heading = theHeading;
