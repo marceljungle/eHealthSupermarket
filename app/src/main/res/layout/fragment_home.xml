@@ -1,116 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  android:layout_height="match_parent">
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <TextView
-      android:id="@+id/title_home"
-      android:textStyle="bold"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginHorizontal="10dp"
-      android:layout_marginVertical="2dp"
-      android:text="@string/home_label"
-      android:textColor="#000000"
-      android:textSize="30sp"
-      android:padding="10dp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
-    <HorizontalScrollView
-      android:id="@+id/horizontalScroll1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:layout_constraintTop_toBottomOf="@id/title_home"
-      app:layout_constraintStart_toStartOf="parent">
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <LinearLayout
-          android:id="@+id/rectangle1"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:backgroundTint="@color/white"
-          android:layout_marginStart="5dp"
-          android:orientation="vertical"
-          android:visibility="visible"
-          android:padding="2dp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent">
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/discover_the_new"
-            android:textSize="15sp"
-            android:layout_marginStart="15dp"
-            android:textColor="@color/black" />
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_without_lactosa"
-            android:textSize="22sp"
-            android:layout_marginStart="15dp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-          <ImageView
-            android:id="@+id/image_rectangle1"
-            android:layout_width="380dp"
-            android:layout_height="180dp"
-            android:layout_marginStart="15dp"
-            android:contentDescription="@string/content_rectangle1" />
-        </LinearLayout>
-        <LinearLayout
-          android:id="@+id/rectangle2"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:backgroundTint="@color/white"
-          android:orientation="vertical"
-          android:visibility="visible"
-          android:layout_marginStart="5dp"
-          app:layout_constraintStart_toEndOf="@id/rectangle1"
-          app:layout_constraintTop_toTopOf="parent">
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/discover_the_new"
-            android:textSize="15sp"
-            android:layout_marginStart="15dp"
-            android:textColor="@color/black" />
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_without_fructosa"
-            android:textSize="25sp"
-            android:layout_marginStart="15dp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-          <ImageView
-            android:id="@+id/image_rectangle2"
-            android:layout_width="380dp"
-            android:layout_height="180dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="25dp"
-            android:contentDescription="@string/content_rectangle2" />
-        </LinearLayout>
-      </androidx.constraintlayout.widget.ConstraintLayout>
-    </HorizontalScrollView>
-    <TextView
-      android:id="@+id/your_favourites"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/favouritesProduct"
-      android:textSize="22sp"
-      android:layout_marginStart="25dp"
-      android:layout_marginTop="30dp"
-      android:textColor="@color/black"
-      android:textStyle="bold"
-      app:layout_constraintTop_toBottomOf="@id/horizontalScroll1"
-      app:layout_constraintStart_toStartOf="parent" />
     <Button
       android:id="@+id/button_viewMore"
       style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -122,39 +19,100 @@
       android:text="@string/show_more"
       android:textColor="@color/black"
       android:textSize="12sp"
+      app:layout_constraintBottom_toBottomOf="@id/your_favourites"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="@id/your_favourites"
-      app:layout_constraintBottom_toBottomOf="@id/your_favourites" />
-    <LinearLayout
-      android:id="@+id/noBasedInIntoleranceProducts"
-      android:layout_width="match_parent"
+      app:layout_constraintTop_toTopOf="@id/your_favourites" />
+    <Button
+      android:id="@+id/button_viewMore1"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
+      android:layout_marginEnd="10dp"
+      android:layout_gravity="end"
+      android:backgroundTint="@color/white"
+      android:text="@string/show_more"
+      android:textColor="@color/black"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toBottomOf="@id/your_products_based_intolerance"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="@id/your_products_based_intolerance" />
+    <HorizontalScrollView
+      android:id="@+id/horizontalScroll1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/horizontalScroll3"
-      app:layout_constraintBottom_toBottomOf="@id/horizontalScroll3"
-      android:visibility="gone">
-      <Button
-        android:id="@+id/button"
+      app:layout_constraintTop_toBottomOf="@id/title_home">
+      <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:backgroundTint="@color/white"
-        android:text="@string/go_to_intolerances"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
-      <TextView
-        android:id="@+id/textView8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:text="@string/no_products_based_in_intolerances"
-        android:textColor="@color/black"
-        android:textSize="22sp" />
-    </LinearLayout>
+        android:layout_height="wrap_content">
+        <LinearLayout
+          android:id="@+id/rectangle1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="5dp"
+          android:padding="2dp"
+          android:backgroundTint="@color/white"
+          android:orientation="vertical"
+          android:visibility="visible"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+          <ImageView
+            android:id="@+id/image_rectangle1"
+            android:layout_width="380dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="15dp"
+            android:contentDescription="@string/content_rectangle1" />
+          <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/new_without_lactosa"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/discover_the_new"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+        </LinearLayout>
+        <LinearLayout
+          android:id="@+id/rectangle2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="5dp"
+          android:backgroundTint="@color/white"
+          android:orientation="vertical"
+          android:visibility="visible"
+          app:layout_constraintStart_toEndOf="@id/rectangle1"
+          app:layout_constraintTop_toTopOf="parent">
+          <ImageView
+            android:id="@+id/image_rectangle2"
+            android:layout_width="380dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="25dp"
+            android:contentDescription="@string/content_rectangle2" />
+          <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/new_without_fructosa"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/discover_the_new"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+        </LinearLayout>
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </HorizontalScrollView>
     <HorizontalScrollView
       android:id="@+id/horizontalScroll2"
       android:layout_width="match_parent"
@@ -173,30 +131,27 @@
           android:background="@drawable/customborder"
           android:backgroundTint="@color/white"
           android:clickable="true"
+          android:focusable="true"
           android:orientation="vertical"
           android:visibility="visible"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          android:focusable="true">
+          app:layout_constraintTop_toTopOf="parent">
           <ImageView
             android:id="@+id/imageFav1"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
             android:clickable="false"
-            android:contentDescription="@string/productImage"
             android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameFav1"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/productName"
             android:textColor="#000000"></TextView>
           <TextView
             android:id="@+id/quantityFav1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/productWeigth"></TextView>
+            android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <LinearLayout
           android:id="@+id/favorite2"
@@ -206,30 +161,27 @@
           android:background="@drawable/customborder"
           android:backgroundTint="@color/white"
           android:clickable="true"
+          android:focusable="true"
           android:orientation="vertical"
           android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/favorite1"
           app:layout_constraintStart_toEndOf="@id/favorite1"
-          app:layout_constraintTop_toTopOf="@id/favorite1"
-          android:focusable="true">
+          app:layout_constraintTop_toTopOf="@id/favorite1">
           <ImageView
             android:id="@+id/imageFav2"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/productImage"
             android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameFav2"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/productName"
             android:textColor="#000000"></TextView>
           <TextView
             android:id="@+id/quantityFav2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/productWeigth"></TextView>
+            android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <LinearLayout
           android:id="@+id/favorite3"
@@ -239,30 +191,27 @@
           android:background="@drawable/customborder"
           android:backgroundTint="@color/white"
           android:clickable="true"
+          android:focusable="true"
           android:orientation="vertical"
           android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/favorite2"
           app:layout_constraintStart_toEndOf="@id/favorite2"
-          app:layout_constraintTop_toTopOf="@id/favorite2"
-          android:focusable="true">
+          app:layout_constraintTop_toTopOf="@id/favorite2">
           <ImageView
             android:id="@+id/imageFav3"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/productImage"
             android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameFav3"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/productName"
             android:textColor="#000000"></TextView>
           <TextView
             android:id="@+id/quantityFav3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/productWeigth"></TextView>
+            android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <LinearLayout
           android:id="@+id/favorite4"
@@ -272,30 +221,27 @@
           android:background="@drawable/customborder"
           android:backgroundTint="@color/white"
           android:clickable="true"
+          android:focusable="true"
           android:orientation="vertical"
           android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/favorite3"
           app:layout_constraintStart_toEndOf="@id/favorite3"
-          app:layout_constraintTop_toTopOf="@id/favorite3"
-          android:focusable="true">
+          app:layout_constraintTop_toTopOf="@id/favorite3">
           <ImageView
             android:id="@+id/imageFav4"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/productImage"
             android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameFav4"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/productName"
             android:textColor="#000000"></TextView>
           <TextView
             android:id="@+id/quantityFav4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/productWeigth"></TextView>
+            android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <LinearLayout
           android:id="@+id/favorite5"
@@ -305,59 +251,30 @@
           android:background="@drawable/customborder"
           android:backgroundTint="@color/white"
           android:clickable="true"
+          android:focusable="true"
           android:orientation="vertical"
           android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/favorite4"
           app:layout_constraintStart_toEndOf="@id/favorite4"
-          app:layout_constraintTop_toTopOf="@id/favorite4"
-          android:focusable="true">
+          app:layout_constraintTop_toTopOf="@id/favorite4">
           <ImageView
             android:id="@+id/imageFav5"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/productImage"
             android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameFav5"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/productName"
             android:textColor="#000000"></TextView>
           <TextView
             android:id="@+id/quantityFav5"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/productWeigth"></TextView>
+            android:layout_height="wrap_content"></TextView>
         </LinearLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>
     </HorizontalScrollView>
-    <TextView
-      android:id="@+id/your_products_based_intolerance"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/intolerancesBased"
-      android:textSize="22sp"
-      android:layout_marginStart="25dp"
-      android:layout_marginTop="30dp"
-      android:textColor="@color/black"
-      android:textStyle="bold"
-      app:layout_constraintTop_toBottomOf="@id/horizontalScroll2"
-      app:layout_constraintStart_toStartOf="parent" />
-    <Button
-      android:id="@+id/button_viewMore1"
-      style="@style/Widget.MaterialComponents.Button.TextButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="10dp"
-      android:layout_gravity="end"
-      android:backgroundTint="@color/white"
-      android:text="@string/show_more"
-      android:textColor="@color/black"
-      android:textSize="12sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="@id/your_products_based_intolerance"
-      app:layout_constraintBottom_toBottomOf="@id/your_products_based_intolerance" />
     <HorizontalScrollView
       android:id="@+id/horizontalScroll3"
       android:layout_width="match_parent"
@@ -379,24 +296,21 @@
           android:visibility="visible"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent">
-          <ImageButton
+          <ImageView
             android:id="@+id/imgIntBased1"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/productImage"
-            android:scaleType="fitCenter"></ImageButton>
+            android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameIntBased1"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/productName"
             android:textColor="#000000"></TextView>
           <TextView
             android:id="@+id/quantityIntBased1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/productWeigth"></TextView>
+            android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <LinearLayout
           android:id="@+id/intBased2"
@@ -407,27 +321,24 @@
           android:backgroundTint="@color/white"
           android:orientation="vertical"
           android:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="@id/intBased1"
           app:layout_constraintStart_toEndOf="@id/intBased1"
-          app:layout_constraintTop_toTopOf="@id/intBased1"
-          app:layout_constraintBottom_toBottomOf="@id/intBased1">
-          <ImageButton
+          app:layout_constraintTop_toTopOf="@id/intBased1">
+          <ImageView
             android:id="@+id/imgIntBased2"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/productImage"
-            android:scaleType="fitCenter"></ImageButton>
+            android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameIntBased2"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/productName"
             android:textColor="#000000"></TextView>
           <TextView
             android:id="@+id/quantityIntBased2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/productWeigth"></TextView>
+            android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <LinearLayout
           android:id="@+id/intBased3"
@@ -438,27 +349,24 @@
           android:backgroundTint="@color/white"
           android:orientation="vertical"
           android:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="@id/intBased2"
           app:layout_constraintStart_toEndOf="@id/intBased2"
-          app:layout_constraintTop_toTopOf="@id/intBased2"
-          app:layout_constraintBottom_toBottomOf="@id/intBased2">
-          <ImageButton
+          app:layout_constraintTop_toTopOf="@id/intBased2">
+          <ImageView
             android:id="@+id/imgIntBased3"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/productImage"
-            android:scaleType="fitCenter"></ImageButton>
+            android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameIntBased3"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/productName"
             android:textColor="#000000"></TextView>
           <TextView
             android:id="@+id/quantityIntBased3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/productWeigth"></TextView>
+            android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <LinearLayout
           android:id="@+id/intBased4"
@@ -469,27 +377,24 @@
           android:backgroundTint="@color/white"
           android:orientation="vertical"
           android:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="@id/intBased3"
           app:layout_constraintStart_toEndOf="@id/intBased3"
-          app:layout_constraintTop_toTopOf="@id/intBased3"
-          app:layout_constraintBottom_toBottomOf="@id/intBased3">
-          <ImageButton
+          app:layout_constraintTop_toTopOf="@id/intBased3">
+          <ImageView
             android:id="@+id/imgIntBased4"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/productImage"
-            android:scaleType="fitCenter"></ImageButton>
+            android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameIntBased4"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/productName"
             android:textColor="#000000"></TextView>
           <TextView
             android:id="@+id/quantityIntBased4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/productWeigth"></TextView>
+            android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <LinearLayout
           android:id="@+id/intBased5"
@@ -500,39 +405,66 @@
           android:backgroundTint="@color/white"
           android:orientation="vertical"
           android:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="@id/intBased4"
           app:layout_constraintStart_toEndOf="@id/intBased4"
-          app:layout_constraintTop_toTopOf="@id/intBased4"
-          app:layout_constraintBottom_toBottomOf="@id/intBased4">
-          <ImageButton
+          app:layout_constraintTop_toTopOf="@id/intBased4">
+          <ImageView
             android:id="@+id/imgIntBased5"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/productImage"
-            android:scaleType="fitCenter"></ImageButton>
+            android:scaleType="fitCenter"></ImageView>
           <TextView
             android:id="@+id/nameIntBased5"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/productName"
             android:textColor="#000000"></TextView>
           <TextView
             android:id="@+id/quantityIntBased5"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/productWeigth"></TextView>
+            android:layout_height="wrap_content"></TextView>
         </LinearLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>
     </HorizontalScrollView>
+    <LinearLayout
+      android:id="@+id/noBasedInIntoleranceProducts"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/horizontalScroll3"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/horizontalScroll3">
+      <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/go_to_intolerances"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+      <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/no_products_based_in_intolerances"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+    </LinearLayout>
     <LinearLayout
       android:id="@+id/noFavoriteProducts"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/horizontalScroll2"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="@id/horizontalScroll2"
-      android:visibility="gone">
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/horizontalScroll2">
       <Button
         android:id="@+id/button44"
         android:layout_width="wrap_content"
@@ -555,5 +487,43 @@
         android:textColor="@color/black"
         android:textSize="22sp" />
     </LinearLayout>
+    <TextView
+      android:id="@+id/title_home"
+      android:textStyle="bold"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="10dp"
+      android:layout_marginVertical="2dp"
+      android:padding="10dp"
+      android:text="@string/home_label"
+      android:textColor="#000000"
+      android:textSize="30sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+      android:id="@+id/your_favourites"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="30dp"
+      android:layout_marginStart="25dp"
+      android:text="@string/favouritesProduct"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/horizontalScroll1" />
+    <TextView
+      android:id="@+id/your_products_based_intolerance"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="30dp"
+      android:layout_marginStart="25dp"
+      android:text="@string/intolerancesBased"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/horizontalScroll2" />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -1,10 +1,10 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import androidx.annotation.NonNull;
@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
+import com.gmail.gigi.dan2011.ehealthsupermarket.MyListAdapter.ClickListener;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -94,7 +94,7 @@ public class AddProduct2MyList extends AppCompatActivity {
     return filteredModeList;
   }
 
-
+  /* Get all products from db */
   private void importProducts(Context context) {
     db.collection("PRODUCTS").get()
         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -112,6 +112,16 @@ public class AddProduct2MyList extends AppCompatActivity {
               }
               myListAdapter = new MyListAdapter(productList,
                   context, user, db);
+              myListAdapter.setOnItemClickListener(new ClickListener() {
+                @Override
+                public void onItemClick(int position, View v) {
+                  productList.get(position); // this is the item that we need to add to firebase
+                  //TODO: update db with the new added product
+
+                  //import again all the data
+                  importProducts(context);
+                }
+              });
               listShow.setAdapter(myListAdapter);
               myListAdapter.notifyDataSetChanged();
             }

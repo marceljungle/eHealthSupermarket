@@ -13,6 +13,7 @@ public class Intolerance implements Serializable {
   private String intolerance_name;
   private String about;
   private List<String> ingredientsInvolved;
+  private List<String> ingredients_involved;
 
   public Intolerance() {
   }
@@ -45,6 +46,14 @@ public class Intolerance implements Serializable {
 
   public void setIntolerance_name(String intolerance_name) {
     this.intolerance_name = intolerance_name;
+  }
+
+  public List<String> getIngredients_involved() {
+    return ingredientsInvolved;
+  }
+
+  public void setIngredients_involved(List<String> ingredients_involved) {
+    this.ingredientsInvolved = ingredients_involved;
   }
 
   public String getAbout() {

@@ -51,6 +51,8 @@ public class MyListFragment extends Fragment {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent bigFlagIntent = new Intent(getContext(), MyListProducts.class);
+        // TODO: here we need to pass to the next activity the reference of the item we clicked on
+        bigFlagIntent.putExtra("listItem",(RowItem)adapter.getItem(position)); // Pass this item to the next activity
         startActivity(bigFlagIntent);
       }
     });
