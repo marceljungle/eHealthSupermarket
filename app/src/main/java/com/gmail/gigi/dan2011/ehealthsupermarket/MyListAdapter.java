@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,9 +12,7 @@ import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MyListAdapter extends
     RecyclerView.Adapter<MyListAdapter.Holderview> {
@@ -43,7 +40,7 @@ public class MyListAdapter extends
   @Override
   public Holderview onCreateViewHolder(ViewGroup parent, int viewType) {
     View layout = LayoutInflater.from(parent.getContext()).
-        inflate(R.layout.custom_intolerance_item_x, parent, false);
+        inflate(R.layout.custom_intolerance_item, parent, false);
     return new Holderview(layout);
   }
 
@@ -78,17 +75,17 @@ public class MyListAdapter extends
 
     public ImageView v_image;
     public TextView v_name;
-    public ImageButton v_delete;
+    // public ImageButton v_delete;
 
     Holderview(View itemview) {
       super(itemview);
       v_image = (ImageView) itemview.findViewById(R.id.product_image);
       v_name = (TextView) itemview.findViewById(R.id.product_title);
-      v_delete = itemview.findViewById(R.id.delete_item);
+      /*v_delete = itemview.findViewById(R.id.delete_item);
       if (clickListener != null) {
         v_delete.setOnClickListener(this);
         //itemView.setOnClickListener(this);
-      }
+      }*/
     }
 
     public void bindData(final String name) {
