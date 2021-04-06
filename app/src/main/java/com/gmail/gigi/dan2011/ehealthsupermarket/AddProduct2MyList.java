@@ -41,7 +41,7 @@ public class AddProduct2MyList extends AppCompatActivity {
     setContentView(R.layout.activity_add_product2_my_list);
     user = FirebaseAuth.getInstance().getCurrentUser();
     importProducts(this);
-    listShow = findViewById(R.id.listshow);
+    listShow = findViewById(R.id.listshowAdd2MyList);
     listShow.setHasFixedSize(true);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     listShow.setLayoutManager(linearLayoutManager);
@@ -104,11 +104,14 @@ public class AddProduct2MyList extends AppCompatActivity {
               final ObjectMapper mapper = new ObjectMapper();
               for (QueryDocumentSnapshot document : task.getResult()) {
                 Map<String, Object> objectMap = document.getData();
-                Product product = mapper.convertValue(objectMap, Product.class);
-                if (product.getProduct_name() != null
-                    && product.getProduct_name() != "") {
-                  productList.add(product);
+                if(objectMap.get("id") == null && objectMap.get("ingredients") == null) {
+                  Product product = mapper.convertValue(objectMap, Product.class);
+                  if (product.getProduct_name() != null
+                      && product.getProduct_name() != "") {
+                    productList.add(product);
+                  }
                 }
+
               }
               myListAdapter = new MyListAdapter(productList,
                   context, user, db);
