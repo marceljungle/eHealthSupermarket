@@ -102,9 +102,11 @@ public class MyListFragment extends Fragment {
 
 
   /* A function which we call to add elements to the main list of items. */
-  private void fillArrayList(String heading, String subHeading, int smallImg, int bigImg) {
+  private void fillArrayList(String id, String heading, String subHeading, int smallImg,
+      int bigImg) {
 
     RowItem row = new RowItem();
+    row.setId(id);
     row.setListName(heading);
     row.setSubHeading(subHeading);
     row.setSmallImageName(smallImg);
@@ -199,7 +201,7 @@ public class MyListFragment extends Fragment {
       //Add list to ShoppingLists colection
       db.collection("SHOPPINGLISTS").document(id).set(list);
 
-      fillArrayList(editTxt.getEditText().getText().toString(), date,
+      fillArrayList(id, editTxt.getEditText().getText().toString(), date,
           R.drawable.ic_intolerances, R.drawable.ic_intolerances);
       // next thing you have to do is check if your adapter has changed
       adapter.notifyDataSetChanged();

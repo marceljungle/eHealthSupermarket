@@ -127,11 +127,13 @@ public class AddProduct2MyList extends AppCompatActivity {
                   db.collection("SHOPPINGLISTS").document(idList).update("productsInTheList",
                       FieldValue.arrayUnion(productList.get(position)));
                   //import again all the data
-                  importProducts(context);
+                  //importProducts(context);
+                  finish();
                 }
               });
               listShow.setAdapter(myListAdapter);
               myListAdapter.notifyDataSetChanged();
+
             }
           }
         });
