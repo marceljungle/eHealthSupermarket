@@ -10,13 +10,14 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.EHealthSupermarket">
-    <activity android:name=".AddProduct2MyList"></activity>
+    <activity
+      android:name=".AddProduct2MyList"
+      android:label="@string/add_products_to_your_list"></activity>
     <activity android:name=".AddIntolerancesOrAdditives"></activity>
     <activity android:name=".ActivityProductsListView" />
     <activity
       android:label="Productos"
-      android:name=".ui.list.MyListProducts"
-      android:theme="@style/Theme.EHealthSupermarket.NoActionBar" />
+      android:name=".ui.list.MyListProducts" />
     <activity android:name=".SignupActivity" />
     <activity android:name=".ResetPasswordActivity" />
     <activity android:name=".LoginActivity">

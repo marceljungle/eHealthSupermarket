@@ -14,11 +14,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.gmail.gigi.dan2011.ehealthsupermarket.R;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.AccountSettings;
+import com.gmail.gigi.dan2011.ehealthsupermarket.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Javadoc comment.
@@ -34,6 +47,10 @@ public class MyListFragment extends Fragment {
   private Dialog myDialog;
   private MyListViewModel mylistViewModel;
   private ListView individual_row;
+  private FirebaseFirestore db = FirebaseFirestore.getInstance();
+  private FirebaseUser user;
+  private SimpleDateFormat dateFormat;
+  private String date;
 
 
   /* Stuff in this function will be executed when the fragment View is creating.
@@ -44,6 +61,9 @@ public class MyListFragment extends Fragment {
     mylistViewModel = new ViewModelProvider(this).get(MyListViewModel.class);
     View root = inflater.inflate(R.layout.fragment_mylist, container, false);
 
+    // Get current user
+    user = FirebaseAuth.getInstance().getCurrentUser();
+
     individual_row = root.findViewById(R.id.main_list);
     adapter = new CustomAdapter(getContext(), arrayList);
     individual_row.setAdapter(adapter);
@@ -51,20 +71,43 @@ public class MyListFragment extends Fragment {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent bigFlagIntent = new Intent(getContext(), MyListProducts.class);
-        // TODO: here we need to pass to the next activity the reference of the item we clicked on
-        bigFlagIntent.putExtra("listItem",(RowItem)adapter.getItem(position)); // Pass this item to the next activity
+        bigFlagIntent.putExtra("listItem",
+            (RowItem) adapter.getItem(position)); // Pass this item to the next activity
         startActivity(bigFlagIntent);
       }
     });
+
+    final ObjectMapper mapper = new ObjectMapper();
+    db.collection("SHOPPINGLISTS").get().addOnCompleteListener(
+        new OnCompleteListener<QuerySnapshot>() {
+          @Override
+          public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            if (task.isSuccessful()) {
+              Map<String, Object> lists = new HashMap<>();
+              RowItem list = new RowItem();
+              for (QueryDocumentSnapshot document : task.getResult()) {
+                lists = document.getData();
+                list = mapper.convertValue(lists, RowItem.class);
+                list.setSmallImageName(R.drawable.ic_intolerances);
+                arrayList.add(list);
+              }
+              adapter.notifyDataSetChanged();
+            }
+          }
+        });
+
     return root;
   }
   ////////////////////////////////////////////
 
 
   /* A function which we call to add elements to the main list of items. */
-  private void fillArrayList(String heading, String subHeading, int smallImg, int bigImg) {
+  private void fillArrayList(String id, String heading, String subHeading, int smallImg,
+      int bigImg) {
+
     RowItem row = new RowItem();
-    row.setHeading(heading);
+    row.setId(id);
+    row.setListName(heading);
     row.setSubHeading(subHeading);
     row.setSmallImageName(smallImg);
     row.setBigImageName(bigImg);
@@ -149,9 +192,16 @@ public class MyListFragment extends Fragment {
     // Here, you set the data in your ListView
     list.setAdapter(adapter);
     btn.setOnClickListener(view1 -> {
-      // this line adds the data of your EditText and puts in your array
-      //arrayList.add(editTxt.getText().toString()); // fix this
-      fillArrayList(editTxt.getEditText().getText().toString(), "20-02-2021",
+
+      dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+      date = dateFormat.format(Calendar.getInstance().getTime());
+      String id = UUID.randomUUID().toString();
+      RowItem list = new RowItem(id, editTxt.getEditText().getText().toString(), date, 0,
+          0, new ArrayList<>());
+      //Add list to ShoppingLists colection
+      db.collection("SHOPPINGLISTS").document(id).set(list);
+
+      fillArrayList(id, editTxt.getEditText().getText().toString(), date,
           R.drawable.ic_intolerances, R.drawable.ic_intolerances);
       // next thing you have to do is check if your adapter has changed
       adapter.notifyDataSetChanged();

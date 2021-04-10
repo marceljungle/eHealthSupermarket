@@ -129,20 +129,33 @@ public class HomeFragment extends Fragment {
         new OnCompleteListener<DocumentSnapshot>() {
           @Override
           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-            List<Product> likedProducts = new ArrayList<>();
+            Runnable runnable = new Runnable() {
+              @Override
+              public void run() {
+                List<Product> likedProducts = new ArrayList<>();
 
-            List<Map<String, Object>> favProducts = new ArrayList<>();
-            try {
-              favProducts = (List) task.getResult()
-                  .getData().get("liked_products");
-              log.info("Obtained user liked products from Firebase!");
-            } catch (Exception e) {
-              log.error("User doesn't have liked products! User wrongly created..?");
-            }
-            for (Map<String, Object> mapProd : favProducts) {
-              likedProducts.add(mapper.convertValue(mapProd, Product.class));
-            }
-            showFavorites2(root, likedProducts);
+                List<Map<String, Object>> favProducts = new ArrayList<>();
+                try {
+                  favProducts = (List) task.getResult()
+                      .getData().get("liked_products");
+                  log.info("Obtained user liked products from Firebase!");
+                } catch (Exception e) {
+                  log.error("User doesn't have liked products! User wrongly created..?");
+                }
+                for (Map<String, Object> mapProd : favProducts) {
+                  likedProducts.add(mapper.convertValue(mapProd, Product.class));
+                }
+
+                root.post(new Runnable() {
+                  @Override
+                  public void run() {
+                    showFavorites2(root, likedProducts);
+                  }
+                });
+
+              }
+            };
+            new Thread(runnable).start();
           }
         });
   }
@@ -162,7 +175,8 @@ public class HomeFragment extends Fragment {
             favImageButtons[0] = root.findViewById(R.id.imageFav1);
             favNames[0] = root.findViewById(R.id.nameFav1);
             favQuantity[0] = root.findViewById(R.id.quantityFav1);
-            Picasso.get().load(likedProducts.get(0).getImage()).into(favImageButtons[0]);
+            Picasso.get().load(likedProducts.get(0).getImage()).fit().centerCrop()
+                .into(favImageButtons[0]);
             favNames[0].setText(likedProducts.get(0).getGeneric_name());
             favQuantity[0].setText(
                 likedProducts.get(0).getPackaging() + " " + likedProducts.get(0).getQuantity());
@@ -180,7 +194,8 @@ public class HomeFragment extends Fragment {
             favImageButtons[1] = root.findViewById(R.id.imageFav2);
             favNames[1] = root.findViewById(R.id.nameFav2);
             favQuantity[1] = root.findViewById(R.id.quantityFav2);
-            Picasso.get().load(likedProducts.get(1).getImage()).into(favImageButtons[1]);
+            Picasso.get().load(likedProducts.get(1).getImage()).fit().centerCrop()
+                .into(favImageButtons[1]);
             favNames[1].setText(likedProducts.get(1).getGeneric_name());
             favQuantity[1].setText(
                 likedProducts.get(1).getPackaging() + " " + likedProducts.get(1).getQuantity());
@@ -198,7 +213,8 @@ public class HomeFragment extends Fragment {
             favImageButtons[2] = root.findViewById(R.id.imageFav3);
             favNames[2] = root.findViewById(R.id.nameFav3);
             favQuantity[2] = root.findViewById(R.id.quantityFav3);
-            Picasso.get().load(likedProducts.get(2).getImage()).into(favImageButtons[2]);
+            Picasso.get().load(likedProducts.get(2).getImage()).fit().centerCrop()
+                .into(favImageButtons[2]);
             favNames[2].setText(likedProducts.get(2).getGeneric_name());
             favQuantity[2].setText(
                 likedProducts.get(2).getPackaging() + " " + likedProducts.get(2).getQuantity());
@@ -216,7 +232,8 @@ public class HomeFragment extends Fragment {
             favImageButtons[3] = root.findViewById(R.id.imageFav4);
             favNames[3] = root.findViewById(R.id.nameFav4);
             favQuantity[3] = root.findViewById(R.id.quantityFav4);
-            Picasso.get().load(likedProducts.get(3).getImage()).into(favImageButtons[3]);
+            Picasso.get().load(likedProducts.get(3).getImage()).fit().centerCrop()
+                .into(favImageButtons[3]);
             favNames[3].setText(likedProducts.get(3).getGeneric_name());
             favQuantity[3].setText(
                 likedProducts.get(3).getPackaging() + " " + likedProducts.get(3).getQuantity());
@@ -234,7 +251,8 @@ public class HomeFragment extends Fragment {
             favImageButtons[4] = root.findViewById(R.id.imageFav5);
             favNames[4] = root.findViewById(R.id.nameFav5);
             favQuantity[4] = root.findViewById(R.id.quantityFav5);
-            Picasso.get().load(likedProducts.get(4).getImage()).into(favImageButtons[4]);
+            Picasso.get().load(likedProducts.get(4).getImage()).fit().centerCrop()
+                .into(favImageButtons[4]);
             favNames[4].setText(likedProducts.get(4).getGeneric_name());
             favQuantity[4].setText(
                 likedProducts.get(4).getPackaging() + " " + likedProducts.get(4).getQuantity());
@@ -300,6 +318,7 @@ public class HomeFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                   @Override
                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
                     Map<String, Object> objectMap = new HashMap<>();
                     Product product = new Product();
                     if (task.isSuccessful()) {
@@ -311,7 +330,8 @@ public class HomeFragment extends Fragment {
                           log.debug(
                               "Failed to get product, maybe is empty or it have the 'id' attribute");
                         }
-                        if (!objectMap.containsKey("id") && !objectMap.containsKey("ingredients")) {
+                        if (!objectMap.containsKey("id") && !objectMap
+                            .containsKey("ingredients")) {
                           product = mapper.convertValue(objectMap, Product.class);
                         }
                         if (product.getProduct_name() != null
@@ -320,17 +340,23 @@ public class HomeFragment extends Fragment {
                         }
                       }
                     }
+
                     List<Product> whiteListedProducts = new ArrayList<>();
-                    for (Intolerance e : intolerances) {
+                    for (
+                        Intolerance e : intolerances) {
                       whiteListedProducts.addAll(
                           allProducts.stream()
-                              .filter(productExp -> !productExp.getIntolerances().contains(e))
+                              .filter(
+                                  productExp -> !productExp.getIntolerances().contains(e))
                               .collect(
                                   Collectors.toList()));
                     }
-                    whiteListedProducts = new ArrayList<>(
+                    List<Product> whiteListedProducts1 = new ArrayList<>(
                         new HashSet<>(whiteListedProducts));
-                    showBasedInIntolerances2(root, whiteListedProducts);
+
+                    showBasedInIntolerances2(root, whiteListedProducts1);
+
+
                   }
                 });
           }
@@ -353,7 +379,7 @@ public class HomeFragment extends Fragment {
             basedInIntolerancesImageButtons[0] = root.findViewById(R.id.imgIntBased1);
             basedInIntolerancesNames[0] = root.findViewById(R.id.nameIntBased1);
             basedInIntolerancesQuantity[0] = root.findViewById(R.id.quantityIntBased1);
-            Picasso.get().load(basedIntoIntolerancesProducts.get(0).getImage())
+            Picasso.get().load(basedIntoIntolerancesProducts.get(0).getImage()).fit().centerCrop()
                 .into(basedInIntolerancesImageButtons[0]);
             basedInIntolerancesNames[0]
                 .setText(basedIntoIntolerancesProducts.get(0).getGeneric_name());
@@ -374,7 +400,7 @@ public class HomeFragment extends Fragment {
             basedInIntolerancesImageButtons[1] = root.findViewById(R.id.imgIntBased2);
             basedInIntolerancesNames[1] = root.findViewById(R.id.nameIntBased2);
             basedInIntolerancesQuantity[1] = root.findViewById(R.id.quantityIntBased2);
-            Picasso.get().load(basedIntoIntolerancesProducts.get(1).getImage())
+            Picasso.get().load(basedIntoIntolerancesProducts.get(1).getImage()).fit().centerCrop()
                 .into(basedInIntolerancesImageButtons[1]);
             basedInIntolerancesNames[1]
                 .setText(basedIntoIntolerancesProducts.get(1).getGeneric_name());
@@ -395,7 +421,7 @@ public class HomeFragment extends Fragment {
             basedInIntolerancesImageButtons[2] = root.findViewById(R.id.imgIntBased3);
             basedInIntolerancesNames[2] = root.findViewById(R.id.nameIntBased3);
             basedInIntolerancesQuantity[2] = root.findViewById(R.id.quantityIntBased3);
-            Picasso.get().load(basedIntoIntolerancesProducts.get(2).getImage())
+            Picasso.get().load(basedIntoIntolerancesProducts.get(2).getImage()).fit().centerCrop()
                 .into(basedInIntolerancesImageButtons[2]);
             basedInIntolerancesNames[2]
                 .setText(basedIntoIntolerancesProducts.get(2).getGeneric_name());
@@ -416,7 +442,7 @@ public class HomeFragment extends Fragment {
             basedInIntolerancesImageButtons[3] = root.findViewById(R.id.imgIntBased4);
             basedInIntolerancesNames[3] = root.findViewById(R.id.nameIntBased4);
             basedInIntolerancesQuantity[3] = root.findViewById(R.id.quantityIntBased4);
-            Picasso.get().load(basedIntoIntolerancesProducts.get(3).getImage())
+            Picasso.get().load(basedIntoIntolerancesProducts.get(3).getImage()).fit().centerCrop()
                 .into(basedInIntolerancesImageButtons[3]);
             basedInIntolerancesNames[3]
                 .setText(basedIntoIntolerancesProducts.get(3).getGeneric_name());
@@ -437,7 +463,7 @@ public class HomeFragment extends Fragment {
             basedInIntolerancesImageButtons[4] = root.findViewById(R.id.imgIntBased5);
             basedInIntolerancesNames[4] = root.findViewById(R.id.nameIntBased5);
             basedInIntolerancesQuantity[4] = root.findViewById(R.id.quantityIntBased5);
-            Picasso.get().load(basedIntoIntolerancesProducts.get(4).getImage())
+            Picasso.get().load(basedIntoIntolerancesProducts.get(4).getImage()).fit().centerCrop()
                 .into(basedInIntolerancesImageButtons[4]);
             basedInIntolerancesNames[4]
                 .setText(basedIntoIntolerancesProducts.get(4).getGeneric_name());

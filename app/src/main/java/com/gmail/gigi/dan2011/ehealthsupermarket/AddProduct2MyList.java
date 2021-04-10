@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -34,6 +35,8 @@ public class AddProduct2MyList extends AppCompatActivity {
   private SearchView searchView;
   private List<Product> productList = new ArrayList<>();
   private FirebaseUser user;
+  private String idList;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class AddProduct2MyList extends AppCompatActivity {
     setContentView(R.layout.activity_add_product2_my_list);
     user = FirebaseAuth.getInstance().getCurrentUser();
     importProducts(this);
+    idList = (String) getIntent().getSerializableExtra("idList");
     listShow = findViewById(R.id.listshowAdd2MyList);
     listShow.setHasFixedSize(true);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -104,7 +108,7 @@ public class AddProduct2MyList extends AppCompatActivity {
               final ObjectMapper mapper = new ObjectMapper();
               for (QueryDocumentSnapshot document : task.getResult()) {
                 Map<String, Object> objectMap = document.getData();
-                if(objectMap.get("id") == null && objectMap.get("ingredients") == null) {
+                if (objectMap.get("id") == null && objectMap.get("ingredients") == null) {
                   Product product = mapper.convertValue(objectMap, Product.class);
                   if (product.getProduct_name() != null
                       && product.getProduct_name() != "") {
@@ -115,18 +119,21 @@ public class AddProduct2MyList extends AppCompatActivity {
               }
               myListAdapter = new MyListAdapter(productList,
                   context, user, db);
+
               myListAdapter.setOnItemClickListener(new ClickListener() {
                 @Override
                 public void onItemClick(int position, View v) {
-                  productList.get(position); // this is the item that we need to add to firebase
-                  //TODO: update db with the new added product
 
+                  db.collection("SHOPPINGLISTS").document(idList).update("productsInTheList",
+                      FieldValue.arrayUnion(productList.get(position)));
                   //import again all the data
-                  importProducts(context);
+                  //importProducts(context);
+                  finish();
                 }
               });
               listShow.setAdapter(myListAdapter);
               myListAdapter.notifyDataSetChanged();
+
             }
           }
         });

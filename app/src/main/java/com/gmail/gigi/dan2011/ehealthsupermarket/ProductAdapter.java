@@ -56,7 +56,7 @@ public class ProductAdapter extends BaseAdapter {
     Product item = (Product) getItem(position);
 
     this.productId = item.getProduct_id();
-    Picasso.get().load(item.getImage()).into(imageProduct);
+    Picasso.get().load(item.getImage()).fit().centerCrop().into(imageProduct);
     nameProduct.setText(item.getGeneric_name());
     quantityProduct.setText(item.getPackaging() + " " + item.getQuantity());
 
