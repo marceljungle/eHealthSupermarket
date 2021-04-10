@@ -106,19 +106,22 @@ public class ActivityProductsListView extends AppCompatActivity {
             for (Map<String, Object> mapProd : favProducts) {
               arrayList.add(mapper.convertValue(mapProd, Product.class));
             }
+            
             gridView = (GridView) findViewById(R.id.grid);
             adapter = new ProductAdapter(ActivityProductsListView.this, arrayList);
             gridView.setAdapter(adapter);
             //click on product
             //View root = getLayoutInflater().inflate(R.layout.grid_item_product, null);
             gridView = findViewById(R.id.grid);
-            Intent intent = new Intent(ActivityProductsListView.this, ActivityProductView.class);
+            Intent intent = new Intent(ActivityProductsListView.this,
+                ActivityProductView.class);
             gridView.setOnItemClickListener(new OnItemClickListener() {
               @Override
               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 adapter.getView(position, view, parent);
                 List<Product> product1 = arrayList.stream()
-                    .filter(product -> product.getProduct_id() == adapter.productGetId()).collect(
+                    .filter(product -> product.getProduct_id() == adapter.productGetId())
+                    .collect(
                         Collectors.toList());
                 if (!product1.isEmpty()) {
                   intent.putExtra("product", product1.get(0));
@@ -127,10 +130,8 @@ public class ActivityProductsListView extends AppCompatActivity {
                 startActivity(intent);
               }
             });
-
           }
         });
-
   }
 
   /**
