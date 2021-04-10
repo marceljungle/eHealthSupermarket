@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
@@ -75,17 +76,16 @@ public class MyListAdapter extends
 
     public ImageView v_image;
     public TextView v_name;
-    // public ImageButton v_delete;
+    public RelativeLayout v_layout;
 
     Holderview(View itemview) {
       super(itemview);
       v_image = (ImageView) itemview.findViewById(R.id.product_image);
       v_name = (TextView) itemview.findViewById(R.id.product_title);
-      /*v_delete = itemview.findViewById(R.id.delete_item);
+      v_layout = itemview.findViewById(R.id.item_layout);
       if (clickListener != null) {
-        v_delete.setOnClickListener(this);
-        //itemView.setOnClickListener(this);
-      }*/
+        v_layout.setOnClickListener(this);
+      }
     }
 
     public void bindData(final String name) {

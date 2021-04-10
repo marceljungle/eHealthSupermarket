@@ -55,7 +55,7 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
       ImageView theImage = (ImageView) convertView.findViewById(R.id.imageView_product);
       RowItem currentRow = (RowItem) getItem(position);
 
-      theHeading.setText(currentRow.getHeading());
+      theHeading.setText(currentRow.getListName());
       theSubHeading.setText(currentRow.getSubHeading());
       theImage.setImageResource(currentRow.getSmallImageName());
     }

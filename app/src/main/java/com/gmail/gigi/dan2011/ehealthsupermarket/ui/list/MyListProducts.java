@@ -29,6 +29,7 @@ public class MyListProducts extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(getApplicationContext(), AddProduct2MyList.class);
+        intent.putExtra("idList", item.getId());
         startActivity(intent);
       }
     });
