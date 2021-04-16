@@ -21,7 +21,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +67,6 @@ public class MyListProducts extends AppCompatActivity {
     });
 
     importProductsShoppingList(item);
-
   }
 
   @Override
@@ -76,9 +77,21 @@ public class MyListProducts extends AppCompatActivity {
 
   public void importProductsShoppingList(RowItem item) {
 
-    arrayList = new ArrayList<>();
-
     final ObjectMapper mapper = new ObjectMapper();
+
+
+/*    // add userid to mylists
+    db.collection("SHOPPINGLISTS").whereEqualTo("idUser", UserID).get().addOnCompleteListener(
+        new OnCompleteListener<QuerySnapshot>() {
+          @Override
+          public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+          }
+        });*/
+
+
+
+
 
     db.collection("SHOPPINGLISTS").document(item.getId()).get().addOnCompleteListener(
         new OnCompleteListener<DocumentSnapshot>() {
@@ -86,6 +99,7 @@ public class MyListProducts extends AppCompatActivity {
           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
             List<Map<String, Object>> products = (List) task.getResult().getData()
                 .get("productsInTheList");
+            arrayList = new ArrayList<>();
             for (Map<String, Object> mapProd : products) {
               arrayList.add(mapper.convertValue(mapProd, Product.class));
             }
