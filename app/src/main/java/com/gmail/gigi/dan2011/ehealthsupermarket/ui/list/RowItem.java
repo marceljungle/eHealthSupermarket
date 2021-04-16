@@ -12,20 +12,30 @@ public class RowItem implements Serializable {
   private int smallImageName;
   private int bigImageName;
   private List<Product> productsInTheList;
+  private String idUser;
 
 
   public RowItem(String id, String listName, String subHeading, int smallImageName,
       int bigImageName,
-      List<Product> productsInTheList) {
+      List<Product> productsInTheList, String idUser) {
     this.id = id;
     this.listName = listName;
     this.subHeading = subHeading;
     this.smallImageName = smallImageName;
     this.bigImageName = bigImageName;
     this.productsInTheList = productsInTheList;
+    this.idUser = idUser;
   }
 
   public RowItem() {
+  }
+
+  public String getIdUser() {
+    return idUser;
+  }
+
+  public void setIdUser(String idUser) {
+    this.idUser = idUser;
   }
 
   public String getId() {

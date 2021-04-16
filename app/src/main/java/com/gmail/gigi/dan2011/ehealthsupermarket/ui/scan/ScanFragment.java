@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
@@ -12,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductView;
-import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductsListView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.AndroidCameraApi;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
@@ -50,7 +48,6 @@ public class ScanFragment extends Fragment {
     // Get the id of the views
     qrButton = root.findViewById(R.id.qrButton);
     smartButton = root.findViewById(R.id.smartButton);
-    viewAll = root.findViewById(R.id.button_viewAll);
 
     /**
      * Click on QR Button.
@@ -62,17 +59,6 @@ public class ScanFragment extends Fragment {
       public void onClick(View v) {
         Intent act = new Intent(getActivity(), AndroidCameraApi.class);
         startActivity(act);
-      }
-    });
-    /**
-     * Click on View All button.
-     */
-    viewAll.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent(getActivity(), ActivityProductsListView.class);
-        intent.putExtra("show", "allProducts");
-        startActivity(intent);
       }
     });
 
