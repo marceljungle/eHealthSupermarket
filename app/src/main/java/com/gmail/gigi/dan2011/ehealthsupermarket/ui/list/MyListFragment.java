@@ -78,23 +78,24 @@ public class MyListFragment extends Fragment {
     });
 
     final ObjectMapper mapper = new ObjectMapper();
-    db.collection("SHOPPINGLISTS").get().addOnCompleteListener(
-        new OnCompleteListener<QuerySnapshot>() {
-          @Override
-          public void onComplete(@NonNull Task<QuerySnapshot> task) {
-            if (task.isSuccessful()) {
-              Map<String, Object> lists = new HashMap<>();
-              RowItem list = new RowItem();
-              for (QueryDocumentSnapshot document : task.getResult()) {
-                lists = document.getData();
-                list = mapper.convertValue(lists, RowItem.class);
-                list.setSmallImageName(R.drawable.ic_intolerances);
-                arrayList.add(list);
+    db.collection("SHOPPINGLISTS").whereEqualTo("idUser", user.getUid()).get()
+        .addOnCompleteListener(
+            new OnCompleteListener<QuerySnapshot>() {
+              @Override
+              public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                  Map<String, Object> lists = new HashMap<>();
+                  RowItem list = new RowItem();
+                  for (QueryDocumentSnapshot document : task.getResult()) {
+                    lists = document.getData();
+                    list = mapper.convertValue(lists, RowItem.class);
+                    list.setSmallImageName(R.drawable.ic_intolerances);
+                    arrayList.add(list);
+                  }
+                  adapter.notifyDataSetChanged();
+                }
               }
-              adapter.notifyDataSetChanged();
-            }
-          }
-        });
+            });
 
     return root;
   }
@@ -197,7 +198,7 @@ public class MyListFragment extends Fragment {
       date = dateFormat.format(Calendar.getInstance().getTime());
       String id = UUID.randomUUID().toString();
       RowItem list = new RowItem(id, editTxt.getEditText().getText().toString(), date, 0,
-          0, new ArrayList<>());
+          0, new ArrayList<>(), user.getUid());
       //Add list to ShoppingLists colection
       db.collection("SHOPPINGLISTS").document(id).set(list);
 
