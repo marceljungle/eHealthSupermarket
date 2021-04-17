@@ -99,7 +99,7 @@ public class AddProduct2MyList extends AppCompatActivity {
     }
     if (query.length() > 2) {
       filteredModeList.add(0,
-          new Product(null, query, query, null, null, null, null, null, null, null, null, null,
+          new Product("CUSTOM","Añadir \"" + query + "\"", query, null, null, null, null, null, null, null, null, null,
               null,
               null));
     }
@@ -151,9 +151,13 @@ public class AddProduct2MyList extends AppCompatActivity {
                             myListAdapter.setOnItemClickListener(new ClickListener() {
                               @Override
                               public void onItemClick(int position, View v) {
-
+                                Product productClicked = myListAdapter.getProduct(position);
+                                if(productClicked.getProduct_id() == "CUSTOM") {
+                                  productClicked.setProduct_name(productClicked.getGeneric_name());
+                                }
                                 db.collection("SHOPPINGLISTS").document(idList).update("productsInTheList",
-                                    FieldValue.arrayUnion(myListAdapter.getProduct(position)));
+                                    FieldValue.arrayUnion(productClicked));
+
                                 //import again all the data
                                 //importProducts(context);
                                 finish();
