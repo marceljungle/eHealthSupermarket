@@ -95,6 +95,14 @@ public class AddProduct2MyList extends AppCompatActivity {
         filteredModeList.add(model);
       }
     }
+    if (query.length() > 2) {
+      filteredModeList.add(0,
+          new Product(null, query, query, null, null, null, null, null, null, null, null, null,
+              null,
+              null));
+    }
+
+    //productList = filteredModeList;
     return filteredModeList;
   }
 
@@ -125,7 +133,7 @@ public class AddProduct2MyList extends AppCompatActivity {
                 public void onItemClick(int position, View v) {
 
                   db.collection("SHOPPINGLISTS").document(idList).update("productsInTheList",
-                      FieldValue.arrayUnion(productList.get(position)));
+                      FieldValue.arrayUnion(myListAdapter.getProduct(position)));
                   //import again all the data
                   //importProducts(context);
                   finish();

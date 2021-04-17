@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.AccountSettings;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
+import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -88,9 +90,9 @@ public class MyListFragment extends Fragment {
                   RowItem list = new RowItem();
                   for (QueryDocumentSnapshot document : task.getResult()) {
                     lists = document.getData();
-                    list = mapper.convertValue(lists, RowItem.class);
-                    list.setSmallImageName(R.drawable.ic_intolerances);
-                    arrayList.add(list);
+                      list = mapper.convertValue(lists, RowItem.class);
+                      list.setSmallImageName(R.drawable.ic_intolerances);
+                      arrayList.add(list);
                   }
                   adapter.notifyDataSetChanged();
                 }

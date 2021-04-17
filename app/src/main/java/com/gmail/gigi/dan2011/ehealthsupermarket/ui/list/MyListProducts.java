@@ -79,20 +79,6 @@ public class MyListProducts extends AppCompatActivity {
 
     final ObjectMapper mapper = new ObjectMapper();
 
-
-/*    // add userid to mylists
-    db.collection("SHOPPINGLISTS").whereEqualTo("idUser", UserID).get().addOnCompleteListener(
-        new OnCompleteListener<QuerySnapshot>() {
-          @Override
-          public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-          }
-        });*/
-
-
-
-
-
     db.collection("SHOPPINGLISTS").document(item.getId()).get().addOnCompleteListener(
         new OnCompleteListener<DocumentSnapshot>() {
           @Override
@@ -108,7 +94,7 @@ public class MyListProducts extends AppCompatActivity {
               @Override
               public void onItemClick(int position, View v) {
                 db.collection("SHOPPINGLISTS").document(item.getId()).update("productsInTheList",
-                    FieldValue.arrayRemove(arrayList.get(position)));
+                    FieldValue.arrayRemove(adapter.getProduct(position)));
                 importProductsShoppingList(item);
               }
             });

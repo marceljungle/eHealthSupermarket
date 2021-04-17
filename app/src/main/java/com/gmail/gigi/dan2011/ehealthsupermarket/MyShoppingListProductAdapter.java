@@ -49,6 +49,10 @@ public class MyShoppingListProductAdapter extends
         : null;
   }
 
+  public Product getProduct(int position) {
+    return productList.get(position);
+  }
+
   public void setOnItemClickListener(ClickListener clickListener) {
     this.clickListener = clickListener;
   }
@@ -58,7 +62,7 @@ public class MyShoppingListProductAdapter extends
   public int getItemCount() {
     return productList.size();
   }
-  
+
 
   public class Holderview extends RecyclerView.ViewHolder implements View.OnClickListener {
 

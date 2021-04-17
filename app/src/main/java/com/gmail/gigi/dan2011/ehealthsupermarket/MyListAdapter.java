@@ -55,6 +55,10 @@ public class MyListAdapter extends
         : null;
   }
 
+  public Product getProduct(int position) {
+    return productList.get(position);
+  }
+
   public void setOnItemClickListener(ClickListener clickListener) {
     this.clickListener = clickListener;
   }
