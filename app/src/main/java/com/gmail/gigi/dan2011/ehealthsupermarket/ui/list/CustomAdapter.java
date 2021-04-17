@@ -10,20 +10,21 @@ import android.widget.TextView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Javadoc comment.
  */
 public class CustomAdapter extends BaseAdapter implements Serializable {
 
-  private ArrayList<RowItem> singleRow;
+  public List<RowItem> singleRow;
   private LayoutInflater thisInflater;
 
 
   /**
    * Javadoc comment.
    */
-  public CustomAdapter(Context context, ArrayList<RowItem> aaRow) {
+  public CustomAdapter(Context context, List<RowItem> aaRow) {
 
     this.singleRow = aaRow;
     thisInflater = (LayoutInflater.from(context));
@@ -36,7 +37,7 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
   }
 
   @Override
-  public Object getItem(int position) {
+  public RowItem getItem(int position) {
     return singleRow.get(position);
   }
 
@@ -61,4 +62,5 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
     }
     return convertView;
   }
+
 }

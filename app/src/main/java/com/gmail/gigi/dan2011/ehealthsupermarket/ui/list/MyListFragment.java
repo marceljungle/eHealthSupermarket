@@ -1,12 +1,16 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.ui.list;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,7 +21,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.AccountSettings;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
+import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,10 +33,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -42,15 +51,15 @@ public class MyListFragment extends Fragment {
   private TextInputLayout editTxt;
   private ListView list;
   private Button btn;
-  private ArrayList<RowItem> arrayList = new ArrayList<>();
+  private List<RowItem> arrayList = new ArrayList<>();
   private CustomAdapter adapter;
   private Dialog myDialog;
-  private MyListViewModel mylistViewModel;
   private ListView individual_row;
   private FirebaseFirestore db = FirebaseFirestore.getInstance();
   private FirebaseUser user;
   private SimpleDateFormat dateFormat;
   private String date;
+  private Dialog removeDialog;
 
 
   /* Stuff in this function will be executed when the fragment View is creating.
@@ -58,7 +67,6 @@ public class MyListFragment extends Fragment {
    *  use them in this class, that's why it's returning the View. */
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    mylistViewModel = new ViewModelProvider(this).get(MyListViewModel.class);
     View root = inflater.inflate(R.layout.fragment_mylist, container, false);
 
     // Get current user
@@ -67,6 +75,14 @@ public class MyListFragment extends Fragment {
     individual_row = root.findViewById(R.id.main_list);
     adapter = new CustomAdapter(getContext(), arrayList);
     individual_row.setAdapter(adapter);
+    individual_row.setOnItemLongClickListener(new OnItemLongClickListener() {
+      @Override
+      public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        ShowDeleteDialog(view, position);
+        return true;
+      }
+    });
+
     individual_row.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -77,6 +93,14 @@ public class MyListFragment extends Fragment {
       }
     });
 
+    importLists();
+
+    return root;
+  }
+  ////////////////////////////////////////////
+
+  private void importLists() {
+    arrayList.clear();
     final ObjectMapper mapper = new ObjectMapper();
     db.collection("SHOPPINGLISTS").whereEqualTo("idUser", user.getUid()).get()
         .addOnCompleteListener(
@@ -96,10 +120,8 @@ public class MyListFragment extends Fragment {
                 }
               }
             });
-
-    return root;
   }
-  ////////////////////////////////////////////
+
 
 
   /* A function which we call to add elements to the main list of items. */
@@ -116,26 +138,6 @@ public class MyListFragment extends Fragment {
   }
   ////////////////////////////////////////////
 
-
-  /* Opens new activity when pressed
-  @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-      FloatingActionButton fab = getView().findViewById(R.id.fab);
-      fab.setOnClickListener(lambView -> {
-          Intent intent = new Intent(getContext(), AccountSettings.class);
-          startActivity(intent);
-      });
-      myDialog = new Dialog(getContext());
-  }
-  ////////////////////////////////////////////
-
-
-
-
-
-
-
-  */
   /* Stuff in this function will be executed when the View is already created.
    *  In this case we handle the floating button which creates the popup window which
    *  adds elements to the main list. In this case it's a good question why not to add this body
@@ -147,6 +149,7 @@ public class MyListFragment extends Fragment {
       ShowPopup(view);
     });
     myDialog = new Dialog(getContext(), R.style.CustomDialogTheme);
+    removeDialog = new Dialog(getContext(), R.style.CustomDialogTheme);
 
 
   }
@@ -211,9 +214,44 @@ public class MyListFragment extends Fragment {
     ////////////////////////////////////////////
   }
 
-  public void ShowRowNewWindow(View v) {
-    Intent intent = new Intent(getContext(), AccountSettings.class);
-    startActivity(intent);
+  public void ShowDeleteDialog(View v, int position) {
+
+    /* This part is dedicated to the dialog and some of its buttons
+     * basically sets the content view and handles the closing action. */
+    TextView text_close;
+    Button btnClose;
+    removeDialog.setContentView(R.layout.fragment_mylist_remove_popup);
+    text_close = (TextView) removeDialog.findViewById(R.id.txtclose);
+    text_close.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        removeDialog.dismiss();
+      }
+    });
+    btnClose = (Button) removeDialog.findViewById(R.id.btnCancel);
+    btnClose.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        removeDialog.dismiss();
+      }
+    });
+    /*      myDialog.getWindow().setLayout(350, 200);*/
+    removeDialog.show();
+    ////////////////////////////////////////////
+
+    list = (ListView) getView().findViewById(R.id.main_list);
+    btn = (Button) removeDialog.findViewById(R.id.btnAdd);
+    // Here, you set the data in your ListView
+    list.setAdapter(adapter);
+    btn.setOnClickListener(view1 -> {
+      db.collection("SHOPPINGLISTS").document(adapter.getItem(position).getId()).delete();
+      adapter.singleRow.remove(adapter.getItem(position));
+      adapter = new CustomAdapter(getContext(), arrayList);
+      individual_row.setAdapter(adapter);
+      adapter.notifyDataSetChanged();
+      removeDialog.dismiss();
+    });
+    ////////////////////////////////////////////
   }
 
   ////////////////////////////////////////////

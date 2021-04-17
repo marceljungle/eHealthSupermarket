@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.MyListAdapter.ClickListener;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
+import com.gmail.gigi.dan2011.ehealthsupermarket.ui.list.RowItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -95,47 +97,80 @@ public class AddProduct2MyList extends AppCompatActivity {
         filteredModeList.add(model);
       }
     }
+    if (query.length() > 2) {
+      filteredModeList.add(0,
+          new Product("CUSTOM","Añadir \"" + query + "\"", query, null, null, null, null, null, null, null, null, null,
+              null,
+              null));
+    }
+
+    //productList = filteredModeList;
     return filteredModeList;
   }
 
-  /* Get all products from db */
+  /* Get all products from db except user's */
   private void importProducts(Context context) {
-    db.collection("PRODUCTS").get()
-        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-          @Override
-          public void onComplete(@NonNull Task<QuerySnapshot> task) {
-            if (task.isSuccessful()) {
-              final ObjectMapper mapper = new ObjectMapper();
-              for (QueryDocumentSnapshot document : task.getResult()) {
-                Map<String, Object> objectMap = document.getData();
-                if (objectMap.get("id") == null && objectMap.get("ingredients") == null) {
-                  Product product = mapper.convertValue(objectMap, Product.class);
-                  if (product.getProduct_name() != null
-                      && product.getProduct_name() != "") {
-                    productList.add(product);
+    final ObjectMapper mapper = new ObjectMapper();
+    db.collection("SHOPPINGLISTS").whereEqualTo("idUser", user.getUid()).get()
+        .addOnCompleteListener(
+            new OnCompleteListener<QuerySnapshot>() {
+              @Override
+              public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                  Map<String, Object> lists = new HashMap<>();
+                  RowItem list = new RowItem();
+                  List<Product> productsAlreadyInList = new ArrayList<>();
+                  for (QueryDocumentSnapshot document : task.getResult()) {
+                    lists = document.getData();
+                    list = mapper.convertValue(lists, RowItem.class);
+                    list.setSmallImageName(R.drawable.ic_intolerances);
+                    productsAlreadyInList = list.getProductsInTheList();
                   }
-                }
+                  List<Product> finalProductsAlreadyInList = productsAlreadyInList;
+                  db.collection("PRODUCTS").get()
+                      .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                          if (task.isSuccessful()) {
+                            final ObjectMapper mapper = new ObjectMapper();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                              Map<String, Object> objectMap = document.getData();
+                                Product product = mapper.convertValue(objectMap, Product.class);
+                                if (product.getProduct_name() != null
+                                    && product.getProduct_name() != "") {
+                                  if (!finalProductsAlreadyInList.contains(product)) {
+                                    productList.add(product);
+                                  }
 
+                                }
+
+                            }
+                            myListAdapter = new MyListAdapter(productList,
+                                context, user, db);
+
+                            myListAdapter.setOnItemClickListener(new ClickListener() {
+                              @Override
+                              public void onItemClick(int position, View v) {
+                                Product productClicked = myListAdapter.getProduct(position);
+                                if(productClicked.getProduct_id() == "CUSTOM") {
+                                  productClicked.setProduct_name(productClicked.getGeneric_name());
+                                }
+                                db.collection("SHOPPINGLISTS").document(idList).update("productsInTheList",
+                                    FieldValue.arrayUnion(productClicked));
+
+                                //import again all the data
+                                //importProducts(context);
+                                finish();
+                              }
+                            });
+                            listShow.setAdapter(myListAdapter);
+                            myListAdapter.notifyDataSetChanged();
+
+                          }
+                        }
+                      });
+                }
               }
-              myListAdapter = new MyListAdapter(productList,
-                  context, user, db);
-
-              myListAdapter.setOnItemClickListener(new ClickListener() {
-                @Override
-                public void onItemClick(int position, View v) {
-
-                  db.collection("SHOPPINGLISTS").document(idList).update("productsInTheList",
-                      FieldValue.arrayUnion(productList.get(position)));
-                  //import again all the data
-                  //importProducts(context);
-                  finish();
-                }
-              });
-              listShow.setAdapter(myListAdapter);
-              myListAdapter.notifyDataSetChanged();
-
-            }
-          }
-        });
+            });
   }
 }
