@@ -36,7 +36,7 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
   }
 
   @Override
-  public Object getItem(int position) {
+  public RowItem getItem(int position) {
     return singleRow.get(position);
   }
 
@@ -61,4 +61,5 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
     }
     return convertView;
   }
+
 }

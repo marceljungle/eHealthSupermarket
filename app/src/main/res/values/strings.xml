@@ -54,4 +54,6 @@
   <string name="registrar">Registrar</string>
   <string name="ad_product_list">Add product</string>
   <string name="add_products_to_your_list">Añade productos a tu lista</string>
+  <string name="est_seguro_que_desea_borrar_la_lista">¿Está seguro que desea borrar la lista?</string>
+  <string name="remove_item">Borrar</string>
 </resources>
