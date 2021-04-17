@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -50,7 +51,7 @@ public class MyListFragment extends Fragment {
   private TextInputLayout editTxt;
   private ListView list;
   private Button btn;
-  private ArrayList<RowItem> arrayList = new ArrayList<>();
+  private List<RowItem> arrayList = new ArrayList<>();
   private CustomAdapter adapter;
   private Dialog myDialog;
   private ListView individual_row;
@@ -115,7 +116,6 @@ public class MyListFragment extends Fragment {
                     list.setSmallImageName(R.drawable.ic_intolerances);
                     arrayList.add(list);
                   }
-                  System.out.println(arrayList);
                   adapter.notifyDataSetChanged();
                 }
               }
@@ -245,7 +245,10 @@ public class MyListFragment extends Fragment {
     list.setAdapter(adapter);
     btn.setOnClickListener(view1 -> {
       db.collection("SHOPPINGLISTS").document(adapter.getItem(position).getId()).delete();
-      importLists();
+      adapter.singleRow.remove(adapter.getItem(position));
+      adapter = new CustomAdapter(getContext(), arrayList);
+      individual_row.setAdapter(adapter);
+      adapter.notifyDataSetChanged();
       removeDialog.dismiss();
     });
     ////////////////////////////////////////////
