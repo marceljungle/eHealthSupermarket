@@ -200,12 +200,12 @@ public class MyListFragment extends Fragment {
       dateFormat = new SimpleDateFormat("dd/MM/yyyy");
       date = dateFormat.format(Calendar.getInstance().getTime());
       String id = UUID.randomUUID().toString();
-      RowItem list = new RowItem(id, editTxt.getEditText().getText().toString(), date, 0,
+      RowItem list = new RowItem(id, editTxt.getEditText().getText().toString(), "Creada el "+date, 0,
           0, new ArrayList<>(), user.getUid());
       //Add list to ShoppingLists colection
       db.collection("SHOPPINGLISTS").document(id).set(list);
 
-      fillArrayList(id, editTxt.getEditText().getText().toString(), date,
+      fillArrayList(id, editTxt.getEditText().getText().toString(),"Creada el "+ date,
           R.drawable.ic_intolerances, R.drawable.ic_intolerances);
       // next thing you have to do is check if your adapter has changed
       adapter.notifyDataSetChanged();
