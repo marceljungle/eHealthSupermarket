@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class MyShoppingListProductAdapter extends
@@ -41,7 +42,8 @@ public class MyShoppingListProductAdapter extends
 
   @Override
   public void onBindViewHolder(Holderview holder, final int position) {
-    holder.bindData(productList.get(position).getProduct_name());
+    holder.bindData(productList.get(position).getProduct_name(),
+        productList.get(position).getImage());
   }
 
   public String getItem(int position) {
@@ -72,8 +74,8 @@ public class MyShoppingListProductAdapter extends
 
     Holderview(View itemview) {
       super(itemview);
-      v_image = (ImageView) itemview.findViewById(R.id.product_image);
-      v_name = (TextView) itemview.findViewById(R.id.product_title);
+      v_image = itemview.findViewById(R.id.product_image);
+      v_name = itemview.findViewById(R.id.product_title);
       v_delete = itemview.findViewById(R.id.delete_item);
       if (clickListener != null) {
         v_delete.setOnClickListener(this);
@@ -81,8 +83,12 @@ public class MyShoppingListProductAdapter extends
       }
     }
 
-    public void bindData(final String name) {
-      v_image.setImageResource(R.drawable.ic_intolerances);
+    public void bindData(final String name, String image) {
+      if(image == null) {
+        v_image.setImageResource(R.drawable.ic_intolerances);
+      }else{
+        Picasso.get().load(image).fit().centerCrop().into(v_image);
+      }
       v_name.setText(name);
     }
 

@@ -50,7 +50,6 @@ public class MyListProducts extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     listShow.setLayoutManager(linearLayoutManager);
 
-    //TODO: search in db for the list with the rowitem id? maybe other attributes?
     item = (RowItem) getIntent().getSerializableExtra("listItem");
 
     actionBar = getSupportActionBar();

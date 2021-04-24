@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class MyListAdapter extends
 
   @Override
   public void onBindViewHolder(Holderview holder, final int position) {
-    holder.bindData(productList.get(position).getProduct_name());
+    holder.bindData(productList.get(position).getProduct_name(), productList.get(position).getImage());
   }
 
   public String getItem(int position) {
@@ -92,8 +93,12 @@ public class MyListAdapter extends
       }
     }
 
-    public void bindData(final String name) {
-      v_image.setImageResource(R.drawable.ic_intolerances);
+    public void bindData(final String name, String image) {
+      if(image == null) {
+        v_image.setImageResource(R.drawable.ic_intolerances);
+      }else{
+        Picasso.get().load(image).fit().centerCrop().into(v_image);
+      }
       v_name.setText(name);
     }
 
