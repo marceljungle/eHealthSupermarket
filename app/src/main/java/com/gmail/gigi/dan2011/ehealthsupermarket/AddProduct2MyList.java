@@ -53,6 +53,7 @@ public class AddProduct2MyList extends AppCompatActivity {
     listShow.setLayoutManager(linearLayoutManager);
   }
 
+
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.searchfile, menu);
@@ -111,6 +112,8 @@ public class AddProduct2MyList extends AppCompatActivity {
   /* Get all products from db except user's */
   private void importProducts(Context context) {
     final ObjectMapper mapper = new ObjectMapper();
+    // TODO: IMPORTANT THIS ONLY LOOKS FOR THE FIRST LIST WHICH MATCH WITH THAT QUERRY
+    // TODO: SO IT LEADS TO A BAD BEHAVIOR WHEN A USER HAS 2 OR MORE LISTS
     db.collection("SHOPPINGLISTS").whereEqualTo("idUser", user.getUid()).get()
         .addOnCompleteListener(
             new OnCompleteListener<QuerySnapshot>() {
