@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.gmail.gigi.dan2011.ehealthsupermarket.ui.home.HomeFragment"
+        android:label="@string/home_label"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_mylist"
+        android:name="com.gmail.gigi.dan2011.ehealthsupermarket.ui.list.MyListFragment"
+        android:label="@string/mylistLabel"
+        tools:layout="@layout/fragment_mylist" />
+
+    <fragment
+        android:id="@+id/navigation_scan"
+        android:name="com.gmail.gigi.dan2011.ehealthsupermarket.ui.scan.ScanFragment"
+        android:label="@string/scanLabel"
+        tools:layout="@layout/fragment_scan" />
+
+    <fragment
+        android:id="@+id/navigation_intolerances"
+        android:name="com.gmail.gigi.dan2011.ehealthsupermarket.ui.intolerances.IntoleranceFragment"
+        android:label="@string/intolerancesLabel"
+        tools:layout="@layout/fragment_intolerances" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.gmail.gigi.dan2011.ehealthsupermarket.ui.account.AccountFragment"
+        android:label="@string/accountLabel"
+        tools:layout="@layout/fragment_account" />
+
+</navigation>
