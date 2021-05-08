@@ -56,4 +56,5 @@
   <string name="add_products_to_your_list">Añade productos a tu lista</string>
   <string name="est_seguro_que_desea_borrar_la_lista">¿Está seguro que desea borrar la lista?</string>
   <string name="remove_item">Borrar</string>
+  <string name="predecir">Predecir</string>
 </resources>

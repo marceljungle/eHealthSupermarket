@@ -98,13 +98,16 @@ public class ActivityProductView extends AppCompatActivity {
                     break;
                   }
                 }
-                for (Additive additive : userInfo.getUnsupported_additives()) {
-                  if (product.getAdditives().contains(additive)) {
-                    result_compatibility.setText(R.string.no_apto);
-                    result_compatibility.setTextColor(getColor(R.color.red));
-                    break;
+                if(product.getAdditives()!=null) {
+                  for (Additive additive : userInfo.getUnsupported_additives()) {
+                    if (product.getAdditives().contains(additive)) {
+                      result_compatibility.setText(R.string.no_apto);
+                      result_compatibility.setTextColor(getColor(R.color.red));
+                      break;
+                    }
                   }
                 }
+
               }
             }
           }

@@ -2,7 +2,9 @@ package com.gmail.gigi.dan2011.ehealthsupermarket;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -20,25 +22,48 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Base64;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Javadoc comment.
@@ -67,7 +92,9 @@ public class AndroidCameraApi extends AppCompatActivity {
   private static final int REQUEST_CAMERA_PERMISSION = 200;
   private Handler mmBackgroundHandler;
   private HandlerThread mmBackgroundThread;
-  private CamPollingThread pollingThread;
+  private Button takePictureButton;
+  private Context context;
+  private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -88,14 +115,18 @@ public class AndroidCameraApi extends AppCompatActivity {
     textureView = (TextureView) findViewById(R.id.texture);
     assert textureView != null;
     textureView.setSurfaceTextureListener(textureListener);
-    pollingThread = new CamPollingThread(this);
-    pollingThread.start();
-
+    takePictureButton = findViewById(R.id.takePicture);
+    context = this;
+    takePictureButton.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        takePicture();
+      }
+    });
   }
 
   @Override
   public void onBackPressed() {
-    pollingThread.stopThread = false;
     finish();
   }
 
@@ -169,6 +200,80 @@ public class AndroidCameraApi extends AppCompatActivity {
     }
   }
 
+
+
+
+
+
+
+  private void uploadBitmap(final byte[] buffer) {
+
+    final String tags = "image";
+    String url="http://ehealtsupermarket.duckdns.org/api/predict2";
+    VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
+        new Response.Listener<NetworkResponse>() {
+          @Override
+          public void onResponse(NetworkResponse response) {
+            String dataRes = "";
+            try {
+              dataRes = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+            } catch (UnsupportedEncodingException e) {
+              e.printStackTrace();
+            }
+            //FIND PRODUCT IN THE FIREBASE DATABASE
+            Intent intent = new Intent(context, ActivityProductView.class);
+            db.collection("PRODUCTS").document(dataRes).get().addOnSuccessListener(
+                new OnSuccessListener<DocumentSnapshot>() {
+                  @Override
+                  public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    Product product = documentSnapshot.toObject(Product.class);
+                    intent.putExtra("product", product);
+                    startActivity(intent);
+                  }
+                });
+            //JSONObject obj = new JSONObject(new String(response.data));
+            //Toast.makeText(getApplicationContext(), dataRes, Toast.LENGTH_LONG)
+            //    .show();
+
+          }
+        },
+        new Response.ErrorListener() {
+          @Override
+          public void onErrorResponse(VolleyError error) {
+            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+          }
+        }) {
+
+
+      @Override
+      protected Map<String, String> getParams() throws AuthFailureError {
+        Map<String, String> params = new HashMap<>();
+        params.put("myImage", Base64.encodeToString(buffer, Base64.NO_WRAP));
+        return params;
+      }
+
+
+//            @Override
+//            protected Map<String, byte[]> getByteData() {
+//                Map<String, byte[]> params = new HashMap<>();
+//                params.put("content", getFileDataFromDrawable(bitmap));
+//                return params;
+//            }
+    };
+
+
+    Volley.newRequestQueue(this).add(volleyMultipartRequest);
+  }
+
+
+
+
+
+
+
+
+
+
   protected void takePicture() {
     if (null == cameraDevice) {
       Log.e(TAG, "cameraDevice is null");
@@ -210,9 +315,15 @@ public class AndroidCameraApi extends AppCompatActivity {
               Image image = null;
               try {
                 image = reader.acquireLatestImage();
+
                 ByteBuffer buffer = image.getPlanes()[0].getBuffer();
                 byte[] bytes = new byte[buffer.capacity()];
                 buffer.get(bytes);
+                //
+                uploadBitmap(bytes);
+                //
+
+
                 save(bytes);
 
               } catch (FileNotFoundException e) {

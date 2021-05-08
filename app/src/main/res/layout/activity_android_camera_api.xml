@@ -5,9 +5,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.gmail.gigi.dan2011.ehealthsupermarket.AndroidCameraApi">
+    <Button
+      android:id="@+id/takePicture"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="65dp"
+      android:layout_marginStart="150dp"
+      android:layout_marginEnd="150dp"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentStart="true"
+      android:text="@string/predecir" />
     <TextureView
-        android:id="@+id/texture"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"/>
+      android:id="@+id/texture"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="2dp"
+      android:layout_alignParentTop="true" />
 </RelativeLayout>
