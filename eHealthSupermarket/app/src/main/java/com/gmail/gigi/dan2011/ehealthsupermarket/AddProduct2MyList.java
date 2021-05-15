@@ -30,7 +30,6 @@ import java.util.Map;
 
 public class AddProduct2MyList extends AppCompatActivity {
 
-
   private RecyclerView listShow;
   private FirebaseFirestore db = FirebaseFirestore.getInstance();
   private MyListAdapter myListAdapter;
@@ -39,14 +38,13 @@ public class AddProduct2MyList extends AppCompatActivity {
   private FirebaseUser user;
   private String idList;
 
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_add_product2_my_list);
     user = FirebaseAuth.getInstance().getCurrentUser();
-    importProducts(this);
     idList = (String) getIntent().getSerializableExtra("idList");
+    importProducts(this);
     listShow = findViewById(R.id.listshowAdd2MyList);
     listShow.setHasFixedSize(true);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -112,9 +110,7 @@ public class AddProduct2MyList extends AppCompatActivity {
   /* Get all products from db except user's */
   private void importProducts(Context context) {
     final ObjectMapper mapper = new ObjectMapper();
-    // TODO: IMPORTANT THIS ONLY LOOKS FOR THE FIRST LIST WHICH MATCH WITH THAT QUERRY
-    // TODO: SO IT LEADS TO A BAD BEHAVIOR WHEN A USER HAS 2 OR MORE LISTS
-    db.collection("SHOPPINGLISTS").whereEqualTo("idUser", user.getUid()).get()
+    db.collection("SHOPPINGLISTS").whereEqualTo("id", idList).get()
         .addOnCompleteListener(
             new OnCompleteListener<QuerySnapshot>() {
               @Override
@@ -144,9 +140,7 @@ public class AddProduct2MyList extends AppCompatActivity {
                                   if (!finalProductsAlreadyInList.contains(product)) {
                                     productList.add(product);
                                   }
-
                                 }
-
                             }
                             myListAdapter = new MyListAdapter(productList,
                                 context, user, db);
