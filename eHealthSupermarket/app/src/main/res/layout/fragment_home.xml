@@ -63,6 +63,7 @@
             android:layout_marginStart="15dp"
             android:contentDescription="@string/content_rectangle1" />
           <TextView
+            android:id="@+id/title_rectangle1"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,6 +72,7 @@
             android:textColor="@color/black"
             android:textSize="22sp" />
           <TextView
+            android:id="@+id/subtitle_rectangle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -96,6 +98,7 @@
             android:layout_marginEnd="25dp"
             android:contentDescription="@string/content_rectangle2" />
           <TextView
+            android:id="@+id/title_rectangle2"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,6 +107,7 @@
             android:textColor="@color/black"
             android:textSize="25sp" />
           <TextView
+            android:id="@+id/subtitle_rectangle2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"

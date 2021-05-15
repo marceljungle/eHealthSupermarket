@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Featured;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
+import com.google.android.gms.common.Feature;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.zxing.common.StringUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,12 +66,41 @@ public class ActivityProductsListView extends AppCompatActivity {
      * If type is basedInTheIntolerances --> show products based in the intolerances of the user
      */
 
-    if (type.equals("likedProducts")) {
+    if (type!=null && type.equals("likedProducts")) {
       actionToLikedproducts(user);
-    } else if (type.equals("allProducts")) {
+    } else if (type!=null && type.equals("allProducts")) {
       actionToAllProducts(user);
+    }else {
+      Bundle args = getIntent().getBundleExtra("featuredProducts");
+      ArrayList<Product> products = (ArrayList<Product>) args.getSerializable("ARRAYLIST");
+      arrayList = products;
+      actionToFeaturedProducts();
     }
 
+  }
+
+  private void actionToFeaturedProducts() {
+    gridView = (GridView) findViewById(R.id.grid);
+    adapter = new ProductAdapter(ActivityProductsListView.this, arrayList);
+    gridView.setAdapter(adapter);
+    //click on product
+    //View root = getLayoutInflater().inflate(R.layout.grid_item_product, null);
+    gridView = findViewById(R.id.grid);
+    Intent intent = new Intent(ActivityProductsListView.this, ActivityProductView.class);
+    gridView.setOnItemClickListener(new OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        adapter.getView(position, view, parent);
+        List<Product> product1 = arrayList.stream()
+            .filter(product -> product.getProduct_id() == adapter.productGetId()).collect(
+                Collectors.toList());
+        if (!product1.isEmpty()) {
+          intent.putExtra("product", product1.get(0));
+        }
+        //System.out.println("---------------------------------" + product1.get(0).getImage());
+        startActivity(intent);
+      }
+    });
   }
 
   // this event will enable the back
