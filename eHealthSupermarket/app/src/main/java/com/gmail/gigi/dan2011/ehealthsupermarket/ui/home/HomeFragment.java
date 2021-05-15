@@ -94,18 +94,6 @@ public class HomeFragment extends Fragment {
 
     //createFeatured();
 
-
-    /*Button to view the activity the contains liked products*/
-    Button viewMore = (Button) root.findViewById(R.id.button_viewMore);
-    viewMore.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent(getActivity(), ActivityProductsListView.class);
-        intent.putExtra("show", "likedProducts");
-        startActivity(intent);
-      }
-    });
-
     favorites[0] = root.findViewById(R.id.favorite1);
     favorites[1] = root.findViewById(R.id.favorite2);
     favorites[2] = root.findViewById(R.id.favorite3);
@@ -149,7 +137,7 @@ public class HomeFragment extends Fragment {
               product = mapper.convertValue(productmap, Product.class);
             } catch (Exception e) {
             }
-            if(product.getIntolerances()!=null) {
+            if (product.getIntolerances() != null) {
               if (product.getIntolerances().stream().anyMatch(
                   intolerance -> !intolerance.getIntolerance_name().toLowerCase()
                       .contains("fructosa"))) {
@@ -214,6 +202,17 @@ public class HomeFragment extends Fragment {
   }
 
   private void showFavorites2(View root, List<Product> likedProducts) {
+
+    /*Button to view the activity the contains liked products*/
+    Button viewMore = (Button) root.findViewById(R.id.button_viewMore);
+    viewMore.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(getActivity(), ActivityProductsListView.class);
+        intent.putExtra("show", "likedProducts");
+        startActivity(intent);
+      }
+    });
 
     Integer filledLayouts = likedProducts.size();
     if (filledLayouts > 5) {
@@ -353,20 +352,33 @@ public class HomeFragment extends Fragment {
           @Override
           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
             List<Intolerance> intolerances = new ArrayList<>();
+            List<Additive> additives = new ArrayList<>();
+
             List<Product> allProducts = new ArrayList<>();
+            List<Additive> allAdditives = new ArrayList<>();
+
             List<Map<String, Object>> intoleranceList = new ArrayList<>();
+            List<Map<String, Object>> additiveList = new ArrayList<>();
             try {
               intoleranceList = (List) task.getResult()
                   .getData().get("intolerances");
-              log.info("Obtained user liked products from Firebase!");
+
+              additiveList = (List) task.getResult()
+                  .getData().get("unsupported_additives");
+              log.info("Obtained user info from Firebase!");
             } catch (Exception e) {
-              log.error("User doesn't have liked products! User wrongly created..?");
+              log.error(
+                  "User doesn't have info of products! User wrongly created..?");
             }
+
             for (Map<String, Object> mapIntolerance : intoleranceList) {
               intolerances.add(mapper.convertValue(mapIntolerance, Intolerance.class));
             }
+            for (Map<String, Object> mapAdditive : additiveList) {
+              additives.add(mapper.convertValue(mapAdditive, Additive.class));
+            }
 
-            // let's get all products :D
+            // let's get all products
             db.collection("PRODUCTS").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                   @Override
@@ -395,18 +407,32 @@ public class HomeFragment extends Fragment {
                     }
 
                     List<Product> whiteListedProducts = new ArrayList<>();
-                    for (
-                        Intolerance e : intolerances) {
-                      whiteListedProducts.addAll(
-                          allProducts.stream()
-                              .filter(
-                                  productExp -> !productExp.getIntolerances().contains(e))
-                              .collect(
-                                  Collectors.toList()));
+                    boolean toAdd = false;
+                    for (Product p : allProducts) {
+                      if (p.getIntolerances() == null || intolerances.isEmpty() || Collections
+                          .disjoint(p.getIntolerances(), intolerances)) {
+                        toAdd = true;
+                      }else {
+                        toAdd = false;
+                      }
+
+                      if (p.getAdditives() == null || additives.isEmpty() || Collections
+                          .disjoint(p.getAdditives(), additives)) {
+                        toAdd = toAdd && true;
+
+                      }else {
+                        toAdd = false;
+                      }
+
+                      if (toAdd) {
+                        whiteListedProducts.add(p);
+                      } else {
+                        continue;
+                      }
                     }
+
                     List<Product> whiteListedProducts1 = new ArrayList<>(
                         new HashSet<>(whiteListedProducts));
-
                     showBasedInIntolerances2(root, whiteListedProducts1);
 
 
@@ -418,6 +444,20 @@ public class HomeFragment extends Fragment {
 
   private void showBasedInIntolerances2(View root,
       List<Product> basedIntoIntolerancesProducts) {
+
+    /*Button to view the activity the contains basedIntoInIntolerances products*/
+    Button viewMore1 = (Button) root.findViewById(R.id.button_viewMore1);
+    viewMore1.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(getActivity(), ActivityProductsListView.class);
+        Bundle args = new Bundle();
+        args.putSerializable("show", (Serializable) "basedInIntolerances");
+        args.putSerializable("ARRAYLIST", (Serializable) basedIntoIntolerancesProducts);
+        intent.putExtra("basedInIntolerances", args);
+        startActivity(intent);
+      }
+    });
 
     Integer filledLayouts = basedIntoIntolerancesProducts.size();
     if (filledLayouts > 5) {
@@ -595,7 +635,8 @@ public class HomeFragment extends Fragment {
           featured_images[0] = root.findViewById(R.id.image_rectangle1);
           featured_titles[0] = root.findViewById(R.id.title_rectangle1);
           featured_subtitles[0] = root.findViewById(R.id.subtitle_rectangle1);
-          Picasso.get().load(featuredList.get(0).getFeatured_image()).fit().centerCrop().into(featured_images[0]);
+          Picasso.get().load(featuredList.get(0).getFeatured_image()).fit().centerCrop()
+              .into(featured_images[0]);
           featured_titles[0].setText(featuredList.get(0).getFeatured_title());
           featured_subtitles[0].setText(featuredList.get(0).getFeatured_subtitle());
           featuredLayouts[0].setOnClickListener(new OnClickListener() {
@@ -603,7 +644,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
               Intent in = new Intent(getActivity(), ActivityProductsListView.class);
               Bundle args = new Bundle();
-              args.putSerializable("ARRAYLIST",(Serializable)featuredList.get(0).getFeatured_products());
+              args.putSerializable("ARRAYLIST",
+                  (Serializable) featuredList.get(0).getFeatured_products());
               in.putExtra("featuredProducts", args);
               startActivity(in);
             }
@@ -615,14 +657,16 @@ public class HomeFragment extends Fragment {
           featured_subtitles[1] = root.findViewById(R.id.subtitle_rectangle2);
           featured_titles[1].setText(featuredList.get(1).getFeatured_title());
           featured_subtitles[1].setText(featuredList.get(1).getFeatured_subtitle());
-          Picasso.get().load(featuredList.get(1).getFeatured_image()).fit().centerCrop().into(featured_images[1]);
+          Picasso.get().load(featuredList.get(1).getFeatured_image()).fit().centerCrop()
+              .into(featured_images[1]);
           featuredLayouts[1].setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
               Intent in = new Intent(getActivity(), ActivityProductsListView.class);
-              in.putExtra("show","featuredProducts");
+              in.putExtra("show", "featuredProducts");
               Bundle args = new Bundle();
-              args.putSerializable("ARRAYLIST",(Serializable)featuredList.get(1).getFeatured_products());
+              args.putSerializable("ARRAYLIST",
+                  (Serializable) featuredList.get(1).getFeatured_products());
               in.putExtra("featuredProducts", args);
               startActivity(in);
             }

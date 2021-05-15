@@ -60,22 +60,55 @@ public class ActivityProductsListView extends AppCompatActivity {
     //Get the type of the view to show
     String type = (String) getIntent().getSerializableExtra("show");
 
+    String anotherType = (String) getIntent().getBundleExtra("basedInIntolerances")
+        .getSerializable("show");
+
     /**
      * If type is allProducts --> show all products in the view
      * If type is likedProducts --> show liked products in the view
      * If type is basedInTheIntolerances --> show products based in the intolerances of the user
      */
 
-    if (type!=null && type.equals("likedProducts")) {
+    if (type != null && type.equals("likedProducts")) {
       actionToLikedproducts(user);
-    } else if (type!=null && type.equals("allProducts")) {
+    } else if (type != null && type.equals("allProducts")) {
       actionToAllProducts(user);
-    }else {
+    } else if (anotherType != null && anotherType.equals("basedInIntolerances")) {
+      Bundle args = getIntent().getBundleExtra("basedInIntolerances");
+      ArrayList<Product> products = (ArrayList<Product>) args.getSerializable("ARRAYLIST");
+      arrayList = products;
+      actionToBasedInIntolerances();
+    } else {
       Bundle args = getIntent().getBundleExtra("featuredProducts");
       ArrayList<Product> products = (ArrayList<Product>) args.getSerializable("ARRAYLIST");
       arrayList = products;
       actionToFeaturedProducts();
     }
+
+  }
+
+  private void actionToBasedInIntolerances() {
+    gridView = (GridView) findViewById(R.id.grid);
+    adapter = new ProductAdapter(ActivityProductsListView.this, arrayList);
+    gridView.setAdapter(adapter);
+    //click on product
+    //View root = getLayoutInflater().inflate(R.layout.grid_item_product, null);
+    gridView = findViewById(R.id.grid);
+    Intent intent = new Intent(ActivityProductsListView.this, ActivityProductView.class);
+    gridView.setOnItemClickListener(new OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        adapter.getView(position, view, parent);
+        List<Product> product1 = arrayList.stream()
+            .filter(product -> product.getProduct_id() == adapter.productGetId()).collect(
+                Collectors.toList());
+        if (!product1.isEmpty()) {
+          intent.putExtra("product", product1.get(0));
+        }
+        //System.out.println("---------------------------------" + product1.get(0).getImage());
+        startActivity(intent);
+      }
+    });
 
   }
 
@@ -138,7 +171,7 @@ public class ActivityProductsListView extends AppCompatActivity {
             for (Map<String, Object> mapProd : favProducts) {
               arrayList.add(mapper.convertValue(mapProd, Product.class));
             }
-            
+
             gridView = (GridView) findViewById(R.id.grid);
             adapter = new ProductAdapter(ActivityProductsListView.this, arrayList);
             gridView.setAdapter(adapter);
