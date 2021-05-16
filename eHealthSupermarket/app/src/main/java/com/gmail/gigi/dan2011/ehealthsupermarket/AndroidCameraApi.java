@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -19,7 +18,6 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Base64;
@@ -33,28 +31,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -62,11 +52,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
- * Javadoc comment.
+ * Camera API which use Camera2API.
  */
 public class AndroidCameraApi extends AppCompatActivity {
 
@@ -84,10 +72,8 @@ public class AndroidCameraApi extends AppCompatActivity {
   private String cameraId;
   protected CameraDevice cameraDevice;
   protected CameraCaptureSession cameraCaptureSessions;
-  protected CaptureRequest captureRequest;
   protected CaptureRequest.Builder captureRequestBuilder;
   private Size imageDimension;
-  private ImageReader imageReader;
   private static final int REQUEST_CAMERA_PERMISSION = 200;
   private Handler mmBackgroundHandler;
   private HandlerThread mmBackgroundThread;
@@ -286,7 +272,8 @@ public class AndroidCameraApi extends AppCompatActivity {
               ByteBuffer buffer = image.getPlanes()[0].getBuffer();
               byte[] bytes = new byte[buffer.capacity()];
               buffer.get(bytes);
-              Toast.makeText(AndroidCameraApi.this, "Procesando imagen...", Toast.LENGTH_SHORT).show();
+              Toast.makeText(AndroidCameraApi.this, "Procesando imagen...", Toast.LENGTH_SHORT)
+                  .show();
               uploadBitmap(bytes);
               image.close();
             }
@@ -399,7 +386,7 @@ public class AndroidCameraApi extends AppCompatActivity {
       if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
         // close the app
         Toast.makeText(AndroidCameraApi.this,
-            "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG)
+            "Perdona!, no puedes usar la app sin aceptar los permisos solicitados", Toast.LENGTH_LONG)
             .show();
         finish();
       }
