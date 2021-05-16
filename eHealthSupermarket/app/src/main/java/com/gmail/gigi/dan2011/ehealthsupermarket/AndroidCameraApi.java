@@ -392,17 +392,6 @@ public class AndroidCameraApi extends AppCompatActivity {
     }
   }
 
-  private void closeCamera() {
-    if (null != cameraDevice) {
-      cameraDevice.close();
-      cameraDevice = null;
-    }
-    if (null != imageReader) {
-      imageReader.close();
-      imageReader = null;
-    }
-  }
-
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
       @NonNull int[] grantResults) {
