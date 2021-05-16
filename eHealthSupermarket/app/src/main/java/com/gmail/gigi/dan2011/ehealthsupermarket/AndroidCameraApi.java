@@ -88,7 +88,6 @@ public class AndroidCameraApi extends AppCompatActivity {
   protected CaptureRequest.Builder captureRequestBuilder;
   private Size imageDimension;
   private ImageReader imageReader;
-  private File file;
   private static final int REQUEST_CAMERA_PERMISSION = 200;
   private Handler mmBackgroundHandler;
   private HandlerThread mmBackgroundThread;
@@ -178,7 +177,6 @@ public class AndroidCameraApi extends AppCompatActivity {
         public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request,
             TotalCaptureResult result) {
           super.onCaptureCompleted(session, request, result);
-          Toast.makeText(AndroidCameraApi.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
           createCameraPreview();
         }
       };
@@ -201,16 +199,12 @@ public class AndroidCameraApi extends AppCompatActivity {
   }
 
 
-
-
-
-
-
   private void uploadBitmap(final byte[] buffer) {
 
     final String tags = "image";
-    String url="http://ehealtsupermarket.duckdns.org/api/predict2";
-    VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
+    String url = "http://ehealtsupermarket.duckdns.org/api/predict2";
+    VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST,
+        url,
         new Response.Listener<NetworkResponse>() {
           @Override
           public void onResponse(NetworkResponse response) {
@@ -231,10 +225,6 @@ public class AndroidCameraApi extends AppCompatActivity {
                     startActivity(intent);
                   }
                 });
-            //JSONObject obj = new JSONObject(new String(response.data));
-            //Toast.makeText(getApplicationContext(), dataRes, Toast.LENGTH_LONG)
-            //    .show();
-
           }
         },
         new Response.ErrorListener() {
@@ -251,28 +241,10 @@ public class AndroidCameraApi extends AppCompatActivity {
         params.put("myImage", Base64.encodeToString(buffer, Base64.NO_WRAP));
         return params;
       }
-
-
-//            @Override
-//            protected Map<String, byte[]> getByteData() {
-//                Map<String, byte[]> params = new HashMap<>();
-//                params.put("content", getFileDataFromDrawable(bitmap));
-//                return params;
-//            }
     };
-
 
     Volley.newRequestQueue(this).add(volleyMultipartRequest);
   }
-
-
-
-
-
-
-
-
-
 
   protected void takePicture() {
     if (null == cameraDevice) {
@@ -305,48 +277,18 @@ public class AndroidCameraApi extends AppCompatActivity {
       // Orientation
       int rotation = getWindowManager().getDefaultDisplay().getRotation();
       captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-      final File file = new File(
-          Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-              + "/pic.jpg");
       ImageReader.OnImageAvailableListener readerListener =
           new ImageReader.OnImageAvailableListener() {
             @Override
             public void onImageAvailable(ImageReader reader) {
-              Image image = null;
-              try {
-                image = reader.acquireLatestImage();
-
-                ByteBuffer buffer = image.getPlanes()[0].getBuffer();
-                byte[] bytes = new byte[buffer.capacity()];
-                buffer.get(bytes);
-                //
-                uploadBitmap(bytes);
-                //
-
-
-                save(bytes);
-
-              } catch (FileNotFoundException e) {
-                e.printStackTrace();
-              } catch (IOException e) {
-                e.printStackTrace();
-              } finally {
-                if (image != null) {
-                  image.close();
-                }
-              }
-            }
-
-            private void save(byte[] bytes) throws IOException {
-              OutputStream output = null;
-              try {
-                output = new FileOutputStream(file);
-                output.write(bytes);
-              } finally {
-                if (null != output) {
-                  output.close();
-                }
-              }
+              Image image;
+              image = reader.acquireLatestImage();
+              ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+              byte[] bytes = new byte[buffer.capacity()];
+              buffer.get(bytes);
+              Toast.makeText(AndroidCameraApi.this, "Procesando imagen...", Toast.LENGTH_SHORT).show();
+              uploadBitmap(bytes);
+              image.close();
             }
           };
       reader.setOnImageAvailableListener(readerListener, mmBackgroundHandler);
@@ -356,7 +298,6 @@ public class AndroidCameraApi extends AppCompatActivity {
             public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request,
                 TotalCaptureResult result) {
               super.onCaptureCompleted(session, request, result);
-              Toast.makeText(AndroidCameraApi.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
               createCameraPreview();
             }
           };
