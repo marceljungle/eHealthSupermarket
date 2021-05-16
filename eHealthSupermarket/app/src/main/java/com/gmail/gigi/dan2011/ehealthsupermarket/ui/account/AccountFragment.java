@@ -49,17 +49,6 @@ public class AccountFragment extends Fragment {
         }
       }
     });
-
-
-
-    LinearLayout textRow = (LinearLayout) root.findViewById(R.id.testRow);
-    textRow.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-          Intent intent = new Intent(getActivity(), AddIntolerancesOrAdditives.class);
-          startActivity(intent);
-        }
-    });
     return root;
   }
 }

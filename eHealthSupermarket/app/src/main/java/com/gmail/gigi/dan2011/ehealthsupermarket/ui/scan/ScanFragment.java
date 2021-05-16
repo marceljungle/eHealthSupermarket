@@ -33,7 +33,6 @@ public class ScanFragment extends Fragment {
   private MaterialButton qrButton; // or Button type if not working
   private MaterialButton smartButton;
   private Button viewAll;
-  //private CamPollingThread camPollingThread;
 
   /**
    * Javadoc comment.

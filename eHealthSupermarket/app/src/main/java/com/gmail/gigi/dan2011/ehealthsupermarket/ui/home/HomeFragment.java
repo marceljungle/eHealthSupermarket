@@ -16,7 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductsListView;
@@ -26,6 +30,7 @@ import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Additive;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Featured;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Intolerance;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
+import com.gmail.gigi.dan2011.ehealthsupermarket.ui.intolerances.IntoleranceFragment;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ui.list.RowItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -77,6 +82,8 @@ public class HomeFragment extends Fragment {
   private LinearLayout noFavorites;
   private LinearLayout noBasedInIntolerances;
   private View rootView;
+  private Button goToBasedInIntolerances;
+  private Button goToScanProducts;
 
   /**
    * Represents an example of javadoc in a function.
@@ -91,8 +98,6 @@ public class HomeFragment extends Fragment {
 
     homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
     View root = inflater.inflate(R.layout.fragment_home, container, false);
-
-    //createFeatured();
 
     favorites[0] = root.findViewById(R.id.favorite1);
     favorites[1] = root.findViewById(R.id.favorite2);
@@ -115,6 +120,25 @@ public class HomeFragment extends Fragment {
     featuredLayouts[0] = root.findViewById(R.id.rectangle1);
     featuredLayouts[1] = root.findViewById(R.id.rectangle2);
 
+
+
+    goToBasedInIntolerances = root.findViewById(R.id.goToIntolerancesButton);
+    goToBasedInIntolerances.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_home_fragment_to_intolerances);
+      }
+    });
+
+    goToScanProducts = root.findViewById(R.id.goToScanButton);
+    goToScanProducts.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_home_fragment_to_scan);
+      }
+    });
+
+
     showFavorites(root);
     showBasedInIntolerances(root);
     showFeatured(root);
@@ -122,48 +146,16 @@ public class HomeFragment extends Fragment {
     return root;
   }
 
-  private void createFeatured() {
-    List<Product> arrayList = new ArrayList<>();
-    final ObjectMapper mapper = new ObjectMapper();
-    db.collection("PRODUCTS").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-      @Override
-      public void onComplete(@NonNull Task<QuerySnapshot> task) {
-        if (task.isSuccessful()) {
-          Map<String, Object> productmap = new HashMap<>();
-          Product product = new Product();
-          for (QueryDocumentSnapshot document : task.getResult()) {
-            productmap = document.getData();
-            try {
-              product = mapper.convertValue(productmap, Product.class);
-            } catch (Exception e) {
-            }
-            if (product.getIntolerances() != null) {
-              if (product.getIntolerances().stream().anyMatch(
-                  intolerance -> !intolerance.getIntolerance_name().toLowerCase()
-                      .contains("fructosa"))) {
-                arrayList.add(product);
-              }
-            }
-
-          }
-          String id = UUID.randomUUID().toString();
-          Featured featured = new Featured(id,
-              "https://storage.googleapis.com/mercadona_online_prod_static/torrijas21.jpg",
-              "Lo nuevo sin fructosa", "Nuevos productos", arrayList);
-          db.collection("FEATURED").document(id).set(featured);
-        }
-      }
-    });
-  }
-
-
   @Override
   public void onResume() {
     super.onResume();
     showFavorites(rootView);
+    showBasedInIntolerances(rootView);
+    showFeatured(rootView);
   }
 
   private void showFavorites(View root) {
+
     String userUid = user.getUid();
     final ObjectMapper mapper = new ObjectMapper();
     db.collection("USERS").document(userUid).get().addOnCompleteListener(
@@ -319,11 +311,12 @@ public class HomeFragment extends Fragment {
 
             break;
           default:
-            favorites[0].setVisibility(View.GONE);
+            favorites[0].setVisibility(View.INVISIBLE);
             favorites[1].setVisibility(View.GONE);
             favorites[2].setVisibility(View.GONE);
             favorites[3].setVisibility(View.GONE);
             favorites[4].setVisibility(View.GONE);
+            viewMore.setVisibility(View.GONE);
             noFavorites.setVisibility(View.VISIBLE);
             break;
         }
@@ -332,17 +325,19 @@ public class HomeFragment extends Fragment {
         favorites[i].setVisibility(View.GONE);
       }
     } else {
-      favorites[0].setVisibility(View.GONE);
+      favorites[0].setVisibility(View.INVISIBLE);
       favorites[1].setVisibility(View.GONE);
       favorites[2].setVisibility(View.GONE);
       favorites[3].setVisibility(View.GONE);
       favorites[4].setVisibility(View.GONE);
+      viewMore.setVisibility(View.GONE);
       noFavorites.setVisibility(View.VISIBLE);
     }
   }
 
 
   private void showBasedInIntolerances(View root) {
+
     String userUid = user.getUid();
     final ObjectMapper mapper = new ObjectMapper();
 
@@ -573,12 +568,13 @@ public class HomeFragment extends Fragment {
             });
             break;
           default:
-            favorites[0].setVisibility(View.GONE);
-            favorites[1].setVisibility(View.GONE);
-            favorites[2].setVisibility(View.GONE);
-            favorites[3].setVisibility(View.GONE);
-            favorites[4].setVisibility(View.GONE);
-            noFavorites.setVisibility(View.VISIBLE);
+            basedInIntolerances[0].setVisibility(View.INVISIBLE);
+            basedInIntolerances[1].setVisibility(View.GONE);
+            basedInIntolerances[2].setVisibility(View.GONE);
+            basedInIntolerances[3].setVisibility(View.GONE);
+            basedInIntolerances[4].setVisibility(View.GONE);
+            viewMore1.setVisibility(View.GONE);
+            noBasedInIntolerances.setVisibility(View.VISIBLE);
             break;
         }
       }
@@ -586,11 +582,12 @@ public class HomeFragment extends Fragment {
         basedInIntolerances[i].setVisibility(View.GONE);
       }
     } else {
-      basedInIntolerances[0].setVisibility(View.GONE);
+      basedInIntolerances[0].setVisibility(View.INVISIBLE);
       basedInIntolerances[1].setVisibility(View.GONE);
       basedInIntolerances[2].setVisibility(View.GONE);
       basedInIntolerances[3].setVisibility(View.GONE);
       basedInIntolerances[4].setVisibility(View.GONE);
+      viewMore1.setVisibility(View.GONE);
       noBasedInIntolerances.setVisibility(View.VISIBLE);
     }
   }
