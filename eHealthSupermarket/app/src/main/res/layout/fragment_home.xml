@@ -53,7 +53,6 @@
           android:padding="2dp"
           android:backgroundTint="@color/white"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent">
           <ImageView
@@ -87,7 +86,6 @@
           android:layout_marginStart="5dp"
           android:backgroundTint="@color/white"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintStart_toEndOf="@id/rectangle1"
           app:layout_constraintTop_toTopOf="parent">
           <ImageView
@@ -137,7 +135,6 @@
           android:clickable="true"
           android:focusable="true"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent">
           <ImageView
@@ -167,7 +164,6 @@
           android:clickable="true"
           android:focusable="true"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/favorite1"
           app:layout_constraintStart_toEndOf="@id/favorite1"
           app:layout_constraintTop_toTopOf="@id/favorite1">
@@ -197,7 +193,6 @@
           android:clickable="true"
           android:focusable="true"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/favorite2"
           app:layout_constraintStart_toEndOf="@id/favorite2"
           app:layout_constraintTop_toTopOf="@id/favorite2">
@@ -227,7 +222,6 @@
           android:clickable="true"
           android:focusable="true"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/favorite3"
           app:layout_constraintStart_toEndOf="@id/favorite3"
           app:layout_constraintTop_toTopOf="@id/favorite3">
@@ -257,7 +251,6 @@
           android:clickable="true"
           android:focusable="true"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/favorite4"
           app:layout_constraintStart_toEndOf="@id/favorite4"
           app:layout_constraintTop_toTopOf="@id/favorite4">
@@ -297,7 +290,6 @@
           android:background="@drawable/customborder"
           android:backgroundTint="@color/white"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent">
           <ImageView
@@ -324,7 +316,6 @@
           android:background="@drawable/customborder"
           android:backgroundTint="@color/white"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/intBased1"
           app:layout_constraintStart_toEndOf="@id/intBased1"
           app:layout_constraintTop_toTopOf="@id/intBased1">
@@ -352,7 +343,6 @@
           android:background="@drawable/customborder"
           android:backgroundTint="@color/white"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/intBased2"
           app:layout_constraintStart_toEndOf="@id/intBased2"
           app:layout_constraintTop_toTopOf="@id/intBased2">
@@ -380,7 +370,6 @@
           android:background="@drawable/customborder"
           android:backgroundTint="@color/white"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/intBased3"
           app:layout_constraintStart_toEndOf="@id/intBased3"
           app:layout_constraintTop_toTopOf="@id/intBased3">
@@ -408,7 +397,6 @@
           android:background="@drawable/customborder"
           android:backgroundTint="@color/white"
           android:orientation="vertical"
-          android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/intBased4"
           app:layout_constraintStart_toEndOf="@id/intBased4"
           app:layout_constraintTop_toTopOf="@id/intBased4">
@@ -436,18 +424,10 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/horizontalScroll3"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/horizontalScroll3">
-      <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:backgroundTint="@color/white"
-        android:text="@string/go_to_intolerances"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
+      app:layout_constraintTop_toBottomOf="@id/your_products_based_intolerance"
+      app:layout_constraintStart_toStartOf="@id/your_products_based_intolerance"
+      app:layout_constraintEnd_toEndOf="@id/your_products_based_intolerance"
+      >
       <TextView
         android:id="@+id/textView8"
         android:layout_width="match_parent"
@@ -458,7 +438,16 @@
         android:layout_marginRight="20dp"
         android:text="@string/no_products_based_in_intolerances"
         android:textColor="@color/black"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
+      <Button
+        android:id="@+id/goToIntolerancesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/go_to_intolerances"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
     </LinearLayout>
     <LinearLayout
       android:id="@+id/noFavoriteProducts"
@@ -466,19 +455,9 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/horizontalScroll2"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/horizontalScroll2">
-      <Button
-        android:id="@+id/button44"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:backgroundTint="@color/white"
-        android:gravity="start"
-        android:text="@string/go_to_scanSection"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
+      app:layout_constraintTop_toBottomOf="@id/your_favourites"
+      app:layout_constraintBottom_toTopOf="@id/your_products_based_intolerance"
+      >
       <TextView
         android:id="@+id/textView15"
         android:layout_width="match_parent"
@@ -489,7 +468,17 @@
         android:layout_marginRight="20dp"
         android:text="@string/no_products_favorites"
         android:textColor="@color/black"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
+      <Button
+        android:id="@+id/goToScanButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@color/white"
+        android:gravity="start"
+        android:text="@string/go_to_scanSection"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
     </LinearLayout>
     <TextView
       android:id="@+id/title_home"

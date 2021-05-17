@@ -40,8 +40,8 @@
   <string name="hello_world">Hello Square World!</string>
   <string name="no_products_based_in_intolerances">En este espacio se mostrarán productos basados en las intolerancias que sean configuradas en el apartado de intolerancias.</string>
   <string name="go_to_intolerances">Ir a intolerancias</string>
-  <string name="no_products_favorites">En este espacio se mostrarán sus productos favoritos</string>
-  <string name="go_to_scanSection">Añade productos a tus favoritos</string>
+  <string name="no_products_favorites">En este espacio se mostrarán sus productos favoritos, para añadirlos, ve a la sección de escaneo de nuestra app.  </string>
+  <string name="go_to_scanSection">Escanear</string>
   <string name="apto">Este producto es apto para ti</string>
   <string name="no_apto">Este producto no es apto para ti</string>
   <string name="discover_the_new">Descubre lo nuevo</string>

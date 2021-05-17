@@ -60,8 +60,13 @@ public class ActivityProductsListView extends AppCompatActivity {
     //Get the type of the view to show
     String type = (String) getIntent().getSerializableExtra("show");
 
-    String anotherType = (String) getIntent().getBundleExtra("basedInIntolerances")
-        .getSerializable("show");
+    String anotherType = "";
+    if (getIntent().getBundleExtra("basedInIntolerances") != null) {
+
+      anotherType = (String) getIntent().getBundleExtra("basedInIntolerances")
+          .getSerializable("show");
+    }
+
 
     /**
      * If type is allProducts --> show all products in the view
