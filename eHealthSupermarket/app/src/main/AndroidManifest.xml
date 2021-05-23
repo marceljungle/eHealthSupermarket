@@ -29,6 +29,9 @@
 
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".MainActivity" />
     </activity>
     <activity
       android:label="@string/title_activity_android_camera2_a_p_i"
@@ -59,16 +62,6 @@
         android:value=".MainActivity" />
     </activity>
     <activity
-      android:label="Otra ventana xD"
-      android:name=".DisplayMessageActivity"
-      android:parentActivityName=".MainActivity">
-
-      <!-- The meta-data tag is required if you support API level 15 and lower -->
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".MainActivity" />
-    </activity> <!-- fixes abnormal behavior of the keyboard, when opened it was raising the bottom menu with it -->
-    <activity
       android:name=".MainActivity"
       android:windowSoftInputMode="adjustPan" />
 
@@ -80,7 +73,6 @@
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
   <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

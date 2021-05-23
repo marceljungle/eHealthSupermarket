@@ -6,90 +6,70 @@
   android:layout_height="match_parent"
   tools:context=".LoginActivity">
 
-
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="30dp"
-    android:gravity="center"
-    android:orientation="vertical"
+  <ImageView
+    android:id="@+id/logoImageView"
+    android:layout_width="250dp"
+    android:layout_height="250dp"
+    android:layout_gravity="center"
+    android:contentDescription="@string/logo"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    android:layout_marginHorizontal="10dp">
+    app:layout_constraintVertical_bias="0.1"
+    app:srcCompat="@mipmap/logo" />
+  <EditText
+    android:id="@+id/emailEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="@string/email"
+    android:inputType="textEmailAddress"
+    app:layout_constraintTop_toBottomOf="@id/logoImageView"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:autofillHints="Esto es el problema" />
 
-    <ImageView
-      android:id="@+id/logoImageView"
-      android:layout_width="207dp"
-      android:layout_height="193dp"
-      android:layout_gravity="center"
-      app:srcCompat="@mipmap/logo" />
+  <EditText
+    android:id="@+id/passwordEditTextT"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:autofillHints="Contraseña"
+    android:inputType="textPassword"
+    android:hint="@string/contrase_a"
+    app:layout_constraintTop_toBottomOf="@id/emailEditText" />
 
-    <Space
-      android:layout_width="match_parent"
-      android:layout_height="97dp" />
+  <Button
+    android:id="@+id/reset_button"
+    style="@style/Widget.MaterialComponents.Button.TextButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/ha_olvidado_su_contrase_a"
+    android:textColor="@color/purple_200"
+    android:textSize="12sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/passwordEditTextT"
+    tools:backgroundTint="@color/white" />
+  <Button
+    android:id="@+id/logInButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/customborder"
+    android:text="@string/entrar"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/reset_button" />
 
-    <EditText
-      android:id="@+id/emailEditText"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:ems="10"
-      android:hint="@string/email"
-      android:inputType="textEmailAddress"
-      android:autofillHints="" />
+  <Button
+    android:id="@+id/signUpButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/registrase"
+    app:layout_constraintTop_toBottomOf="@id/logInButton"
+    app:layout_constraintStart_toStartOf="parent"
+    style="@style/Widget.MaterialComponents.Button.TextButton"
+    app:layout_constraintEnd_toEndOf="parent" />
 
-    <Space
-      android:layout_width="match_parent"
-      android:layout_height="40dp" />
 
-    <EditText
-      android:id="@+id/passwordEditTextT"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:ems="10"
-      android:hint="@string/contrasena"
-      android:inputType="textPassword"
-      android:autofillHints="" />
-
-    <Space
-      android:layout_width="match_parent"
-      android:layout_height="40dp" />
-
-    <Button
-      android:id="@+id/reset_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/button_forgot_password"
-      android:textColor="@color/purple_200"
-      android:visibility="visible"
-      tools:backgroundTint="@color/white" />
-
-    <Space
-      android:layout_width="match_parent"
-      android:layout_height="40dp" />
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="horizontal">
-
-      <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/registrar" />
-      <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
-      <Button
-        android:id="@+id/logInButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Acceder" />
-    </LinearLayout>
-  </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

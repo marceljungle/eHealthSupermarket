@@ -49,7 +49,6 @@
   <string name="new_without_fructosa">Lo nuevo sin fructosa</string>
   <string name="content_rectangle1">content_rectangle1</string>
   <string name="content_rectangle2">content_rectangle2</string>
-  <string name="email">Email</string>
   <string name="contrasena">Contraseña</string>
   <string name="registrar">Registrar</string>
   <string name="ad_product_list">Add product</string>
@@ -57,4 +56,14 @@
   <string name="est_seguro_que_desea_borrar_la_lista">¿Está seguro que desea borrar la lista?</string>
   <string name="remove_item">Borrar</string>
   <string name="predecir">Predecir</string>
+  <string name="logo">Logo</string>
+  <string name="ha_olvidado_su_contrase_a">¿Ha olvidado su contraseña?</string>
+  <string name="entrar">Entrar</string>
+  <string name="registrase">Registrase</string>
+  <string name="email">Email</string>
+  <string name="contrase_a">Contraseña</string>
+  <string name="enviar_email">Enviar email</string>
+  <string name="todo">TODO</string>
+  <string name="registrarse">REGISTRAR</string>
+  <string name="ya_tienes_una_cuenta_inicia_sesi_n">¿Ya tienes una cuenta? Inicia sesión.</string>
 </resources>

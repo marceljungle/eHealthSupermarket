@@ -42,7 +42,6 @@ public class AddIntolerancesOrAdditivesAdapter extends
       Log.d(this.getClass().getName(), "Controlled exception.");
       addIntolerancesOrAdditives = (AddIntolerancesOrAdditives) context;
     }
-
   }
 
 
