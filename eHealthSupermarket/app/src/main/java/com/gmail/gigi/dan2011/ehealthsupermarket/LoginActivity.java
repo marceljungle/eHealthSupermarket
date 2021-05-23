@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +33,11 @@ public class LoginActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    // calling the action bar
+    ActionBar actionBar = getSupportActionBar();
+    // showing the back button in action bar
+    actionBar.setDisplayHomeAsUpEnabled(false);
 
     // Get firebase authentication instance
     auth = FirebaseAuth.getInstance();
