@@ -85,7 +85,7 @@ public class MyShoppingListProductAdapter extends
 
     public void bindData(final String name, String image) {
       if(image == null) {
-        v_image.setImageResource(R.drawable.ic_intolerances);
+        v_image.setImageResource(R.drawable.baseline_fastfood_black_24dp);
       }else{
         Picasso.get().load(image).fit().centerCrop().into(v_image);
       }

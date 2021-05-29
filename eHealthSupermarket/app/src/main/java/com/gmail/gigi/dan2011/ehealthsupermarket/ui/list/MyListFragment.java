@@ -113,7 +113,7 @@ public class MyListFragment extends Fragment {
                   for (QueryDocumentSnapshot document : task.getResult()) {
                     lists = document.getData();
                     list = mapper.convertValue(lists, RowItem.class);
-                    list.setSmallImageName(R.drawable.ic_intolerances);
+                    list.setSmallImageName(R.drawable.outline_shopping_basket_black_48dp);
                     arrayList.add(list);
                   }
                   adapter.notifyDataSetChanged();
@@ -206,7 +206,7 @@ public class MyListFragment extends Fragment {
       db.collection("SHOPPINGLISTS").document(id).set(list);
 
       fillArrayList(id, editTxt.getEditText().getText().toString(),"Creada el "+ date,
-          R.drawable.ic_intolerances, R.drawable.ic_intolerances);
+          R.drawable.outline_shopping_basket_black_48dp, R.drawable.outline_shopping_basket_black_48dp);
       // next thing you have to do is check if your adapter has changed
       adapter.notifyDataSetChanged();
       myDialog.dismiss();

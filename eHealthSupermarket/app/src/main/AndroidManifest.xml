@@ -34,7 +34,7 @@
         android:value=".MainActivity" />
     </activity>
     <activity
-      android:label="@string/title_activity_android_camera2_a_p_i"
+      android:label="@string/Escaneo_con_IA"
       android:name=".AndroidCameraApi"
       android:parentActivityName=".MainActivity"
       android:theme="@style/Theme.AppCompat.NoActionBar">

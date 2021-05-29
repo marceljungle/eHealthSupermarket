@@ -1,73 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/popup_layout"
-    android:layout_width="350dp"
-    android:layout_height="200dp"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:padding="5dp">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/popup_layout"
+  android:layout_width="350dp"
+  android:layout_height="200dp"
+  android:layout_gravity="center"
+  android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtclose"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="end"
-        android:background="@drawable/cerclebackground"
-        android:gravity="center"
-        android:text="@string/close_text"
-        android:textColor="@color/purple_500"
-        android:textStyle="bold"
-        app:layout_constraintVertical_bias="0.002"></TextView>
+  <Button
+    android:id="@+id/btnAdd"
+    style="@style/Widget.MaterialComponents.Button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_marginEnd="15dp"
+    android:layout_gravity="start"
+    android:text="@string/add_list"
+    android:textColor="@color/white"
+    app:layout_constraintEnd_toStartOf="@id/btnCancel"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/name_of_list"></Button>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/name_of_list"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/enter_list_hint">
+  <Button
+    android:id="@+id/btnCancel"
+    style="@style/Widget.MaterialComponents.Button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_marginStart="15dp"
+    android:layout_gravity="end"
+    android:layout_toEndOf="@+id/btnAdd"
+    android:text="@string/cancel_list"
+    android:textColor="@color/white"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/btnAdd"
+    app:layout_constraintTop_toBottomOf="@id/name_of_list"></Button>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-    </RelativeLayout>
+  <TextView
+    android:id="@+id/txtclose"
+    android:textStyle="bold"
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:layout_gravity="end"
+    android:background="@drawable/cerclebackground"
+    android:gravity="center"
+    android:text="@string/close_text"
+    android:textColor="@color/purple_500"
+    app:layout_constraintEnd_toEndOf="@id/name_of_list"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintTop_toTopOf="parent"
+    ></TextView>
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/name_of_list"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="@string/enter_list_hint"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/txtclose">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center|bottom"
-        android:orientation="vertical">
+    <com.google.android.material.textfield.TextInputEditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/btnAdd"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:text="@string/add_list"
-            android:textColor="@color/white"></Button>
-
-        <Button
-            android:id="@+id/btnCancel"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_toEndOf="@+id/btnAdd"
-            android:text="@string/cancel_list"
-            android:textColor="@color/white"></Button>
-    </RelativeLayout>
-</LinearLayout>
+  </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

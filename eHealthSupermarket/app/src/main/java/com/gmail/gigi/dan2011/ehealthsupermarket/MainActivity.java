@@ -1,6 +1,8 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import java.util.Locale;
 
 /**
  * Javadoc comment.
@@ -24,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    Locale locale = new Locale("en");
+    Locale.setDefault(locale);
+    Configuration config = getBaseContext().getResources().getConfiguration();
+    config.setLocale(locale);
+    getBaseContext().getResources().updateConfiguration(config,
+        getBaseContext().getResources().getDisplayMetrics());
 
     //Get Auth Firebase reference
     auth = FirebaseAuth.getInstance();
