@@ -1,9 +1,12 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -13,6 +16,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
+import com.zeugmasolutions.localehelper.LocaleHelperApplicationDelegate;
 import java.util.Locale;
 
 /**
@@ -22,18 +27,25 @@ public class MainActivity extends AppCompatActivity {
 
   public static final String EXTRA_MESSAGE = "com.gmail.gigi.dan2011.ehealthsupermarket.MESSAGE";
   private FirebaseAuth auth;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    if(Locale.getDefault().getLanguage() == "es") {
+      Locale locale = new Locale("es", "ES");
+      Resources res = getResources();
+      DisplayMetrics dm = res.getDisplayMetrics();
+      Configuration conf = res.getConfiguration();
+      conf.setLocale(locale);
+      res.updateConfiguration(conf, dm);
+    }else if (Locale.getDefault().getLanguage() == "en") {
+      Locale locale = new Locale("en", "GB");
+      Resources res = getResources();
+      DisplayMetrics dm = res.getDisplayMetrics();
+      Configuration conf = res.getConfiguration();
+      conf.setLocale(locale);
+      res.updateConfiguration(conf, dm);
+    }
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    Locale locale = new Locale("en");
-    Locale.setDefault(locale);
-    Configuration config = getBaseContext().getResources().getConfiguration();
-    config.setLocale(locale);
-    getBaseContext().getResources().updateConfiguration(config,
-        getBaseContext().getResources().getDisplayMetrics());
-
     //Get Auth Firebase reference
     auth = FirebaseAuth.getInstance();
     //Get current user
@@ -55,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     /* Sets up a BottomNavigationView for use with a NavController */
     NavigationUI.setupWithNavController(navigationView, navController);
   }
-
 
   /**
    * Javadoc comment.

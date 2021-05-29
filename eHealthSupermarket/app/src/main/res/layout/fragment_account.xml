@@ -35,7 +35,7 @@
               android:layout_height="50dp"
 
               android:gravity="center_vertical"
-              android:text="Datos personales"
+              android:text="@string/datos_personales"
               android:textSize="18sp" />
 
         </LinearLayout>
@@ -71,7 +71,7 @@
               android:layout_height="50dp"
 
               android:gravity="center_vertical"
-              android:text="Idioma"
+              android:text="@string/idioma"
               android:textSize="18sp" />
 
         </LinearLayout>
@@ -107,7 +107,7 @@
               android:layout_height="50dp"
 
               android:gravity="center_vertical"
-              android:text="Ajustes"
+              android:text="@string/ajustes"
               android:textSize="18sp" />
 
         </LinearLayout>
@@ -143,7 +143,7 @@
               android:layout_height="50dp"
 
               android:gravity="center_vertical"
-              android:text="Ayuda"
+              android:text="@string/ayuda"
               android:textSize="18sp" />
 
         </LinearLayout>
@@ -179,7 +179,7 @@
               android:layout_height="50dp"
 
               android:gravity="center_vertical"
-              android:text="Sugerencias"
+              android:text="@string/sugerencias"
               android:textSize="18sp" />
 
         </LinearLayout>
@@ -217,7 +217,7 @@
               android:layout_height="50dp"
 
               android:gravity="center_vertical"
-              android:text="Cerrar sesión"
+              android:text="@string/cerrar_sesi_n"
               android:textSize="18sp" />
 
         </LinearLayout>

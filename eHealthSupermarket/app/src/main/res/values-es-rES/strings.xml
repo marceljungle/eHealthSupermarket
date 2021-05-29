@@ -57,4 +57,12 @@
   <string name="Escaneo_con_IA">Escaneo con IA</string>
   <string name="escaneo_qr">Escaneo QR</string>
   <string name="escaneo_con_ia">Escaneo con IA</string>
+  <string name="datos_personales">Datos personales</string>
+  <string name="idioma">Idioma</string>
+  <string name="ajustes">Ajustes</string>
+  <string name="ayuda">Ayuda</string>
+  <string name="sugerencias">Sugerencias</string>
+  <string name="cerrar_sesi_n">Cerrar sesión</string>
+  <string name="spanish">Español</string>
+  <string name="english">Inglés</string>
 </resources>
