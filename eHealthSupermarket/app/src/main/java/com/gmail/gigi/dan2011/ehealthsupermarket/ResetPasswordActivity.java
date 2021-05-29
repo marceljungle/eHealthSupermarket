@@ -40,7 +40,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
       public void onClick(View v) {
         //Get EditText value
         String email = inputEmail.getText().toString().trim();
-
         //Validate if email has been entered
         if (TextUtils.isEmpty(email)) {
           Toast.makeText(getApplicationContext(), "¡Introducir la dirección de correo electrónico!",
@@ -57,6 +56,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                   Toast.makeText(ResetPasswordActivity.this,
                       "Le hemos enviado instrucciones para restablecer su contraseña",
                       Toast.LENGTH_SHORT).show();
+                  finish();
                 } else {
                   Toast.makeText(ResetPasswordActivity.this,
                       "Error al enviar el correo electrónico de reinicio", Toast.LENGTH_SHORT)
