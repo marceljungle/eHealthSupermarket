@@ -71,4 +71,12 @@
   <string name="cerrar_sesi_n">Cerrar sesión</string>
   <string name="spanish">Spanish</string>
   <string name="english">English</string>
+  <string name="volver">Volver</string>
+  <string name="informaci_n_personal">Información personal</string>
+  <string name="nombre">Nombre</string>
+  <string name="m_vil">Móvil</string>
+  <string name="direcci_n">Dirección</string>
+  <string name="usuario">\@usuario</string>
+  <string name="correo">Correo</string>
+  <string name="Intolerancias">Intolerancias</string>
 </resources>

@@ -12,7 +12,11 @@
     android:supportsRtl="true"
     android:theme="@style/Theme.EHealthSupermarket"
     android:usesCleartextTraffic="true">
-    <activity android:name=".ui.account.Language"></activity>
+    <activity
+      android:name=".ProfileActivity"
+      android:theme="@style/AppTheme.ProfileTheme">
+    </activity>
+    <activity android:name=".ui.account.Language" />
     <activity
       android:label="@string/add_products_to_your_list"
       android:name=".AddProduct2MyList" />
@@ -73,10 +77,10 @@
   </application>
 
   <uses-feature android:name="android.hardware.camera2.full" />
-  <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.WAKE_LOCK" />
-
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>
