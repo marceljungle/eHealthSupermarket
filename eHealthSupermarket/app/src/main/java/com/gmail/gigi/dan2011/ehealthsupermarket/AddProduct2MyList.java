@@ -122,7 +122,7 @@ public class AddProduct2MyList extends AppCompatActivity {
                   for (QueryDocumentSnapshot document : task.getResult()) {
                     lists = document.getData();
                     list = mapper.convertValue(lists, RowItem.class);
-                    list.setSmallImageName(R.drawable.ic_intolerances);
+                    list.setSmallImageName(R.drawable.baseline_fastfood_black_24dp);
                     productsAlreadyInList = list.getProductsInTheList();
                   }
                   List<Product> finalProductsAlreadyInList = productsAlreadyInList;

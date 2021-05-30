@@ -94,29 +94,29 @@
 
     <LinearLayout
       android:id="@+id/layout_like"
-      android:layout_width="200dp"
+      android:layout_width="190dp"
       android:layout_height="60dp"
-      android:orientation="vertical"
       android:layout_marginHorizontal="5dp"
       android:layout_marginVertical="10dp"
       android:background="@drawable/border_button_unpressed"
+      android:clickable="true"
+      android:orientation="vertical"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/linea_compatibility"
-      android:clickable="true">
+      app:layout_constraintTop_toBottomOf="@+id/linea_compatibility">
 
       <ImageView
         android:id="@+id/button_addFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_like_unselect"
         android:layout_gravity="center"
         android:layout_marginVertical="20dp"
+        android:background="@drawable/ic_like_unselect"
         android:clickable="false" />
     </LinearLayout>
 
     <LinearLayout
       android:id="@+id/layout_dislike"
-      android:layout_width="200dp"
+      android:layout_width="190dp"
       android:layout_height="60dp"
       android:layout_marginTop="8dp"
       android:layout_marginEnd="3dp"
@@ -163,7 +163,6 @@
       android:layout_marginEnd="10dp"
       android:layout_marginHorizontal="10dp"
       android:layout_marginVertical="10dp"
-      android:text="@string/product_information"
       android:textColor="@color/black"
       android:textSize="15sp"
       app:layout_constraintEnd_toEndOf="parent"

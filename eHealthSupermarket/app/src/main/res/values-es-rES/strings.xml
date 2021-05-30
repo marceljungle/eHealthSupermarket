@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">eHealthSupermarket</string>
-
-
   <string name="home_label">Inicio</string>
   <string name="mylistLabel">Mis Listas</string>
   <string name="scanLabel">Escanear</string>
@@ -15,7 +14,7 @@
   <string name="recommendedProducts">Productos recomendados</string>
   <string name="list_add">Añadir lista</string>
   <string name="create_list">Crear una lista de compra</string>
-  <string name="enter_name">"Nombre: "</string>
+  <string name="enter_name">Nombre:</string>
   <string name="enter_list_hint">Nombre de la lista</string>
   <string name="add_list">Añadir</string>
   <string name="cancel_list">Cancelar</string>
@@ -26,17 +25,12 @@
   <string name="button_forgot_password">¿Has olvidado tu contraseña?</string>
   <string name="minimum_password">Contraseña demasiado corta, debe contener almenos 6 carácteres</string>
   <string name="auth_failed">Los datos no son correctos, revisa tu correo y contraseña o regístrate</string>
-
   <string name="all_products">Todos los productos:</string>
   <string name="title_activity_android_camera2_a_p_i">AndroidCamera2API</string>
-  <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
-  <string name="hello_world">Hello Square World!</string>
+  <string name="hello_world">Hello Round World!</string>
   <string name="no_products_based_in_intolerances">En este espacio se mostrarán productos basados en las intolerancias que sean configuradas en el apartado de intolerancias.</string>
   <string name="go_to_intolerances">Ir a intolerancias</string>
-  <string name="no_products_favorites">En este espacio se mostrarán sus productos favoritos, para añadirlos, ve a la sección de escaneo de nuestra app.  </string>
+  <string name="no_products_favorites">"En este espacio se mostrarán sus productos favoritos, para añadirlos, ve a la sección de escaneo de nuestra app.  "</string>
   <string name="go_to_scanSection">Escanear</string>
   <string name="apto">Este producto es apto para ti</string>
   <string name="no_apto">Este producto no es apto para ti</string>
@@ -69,14 +63,6 @@
   <string name="ayuda">Ayuda</string>
   <string name="sugerencias">Sugerencias</string>
   <string name="cerrar_sesi_n">Cerrar sesión</string>
-  <string name="spanish">Spanish</string>
-  <string name="english">English</string>
-  <string name="volver">Volver</string>
-  <string name="informaci_n_personal">Información personal</string>
-  <string name="nombre">Nombre</string>
-  <string name="m_vil">Móvil</string>
-  <string name="direcci_n">Dirección</string>
-  <string name="usuario">\@usuario</string>
-  <string name="correo">Correo</string>
-  <string name="Intolerancias">Intolerancias</string>
+  <string name="spanish">Español</string>
+  <string name="english">Inglés</string>
 </resources>

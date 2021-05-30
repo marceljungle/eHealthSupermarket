@@ -10,23 +10,28 @@
   <RelativeLayout
     android:id="@+id/item_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="59dp"
     android:padding="5dp">
 
     <ImageView
       android:id="@+id/product_image"
-      android:layout_width="100dp"
-      android:layout_height="80dp"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
       android:padding="0.75dp"
-      android:scaleType="centerCrop" />
-
+      android:scaleType="center" />
     <TextView
       android:id="@+id/product_title"
+      android:textStyle="bold"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_margin="10dp"
+      android:layout_marginTop="10dp"
+      android:layout_marginBottom="10dp"
+      android:layout_marginStart="10dp"
+      android:layout_marginEnd="10dp"
       android:layout_toRightOf="@+id/product_image"
       android:text="title"
-      android:textAppearance="?android:attr/textAppearanceSmall" />
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:textColor="#000000"
+      android:textSize="14sp" />
   </RelativeLayout>
 </androidx.cardview.widget.CardView>

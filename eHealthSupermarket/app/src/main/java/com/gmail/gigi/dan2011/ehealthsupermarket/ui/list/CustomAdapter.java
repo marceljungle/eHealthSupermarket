@@ -1,6 +1,7 @@
 package com.gmail.gigi.dan2011.ehealthsupermarket.ui.list;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,7 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
       ImageView theImage = (ImageView) convertView.findViewById(R.id.imageView_product);
       RowItem currentRow = (RowItem) getItem(position);
 
+      theHeading.setTextColor(Color.BLACK);
       theHeading.setText(currentRow.getListName());
       theSubHeading.setText(currentRow.getSubHeading());
       theImage.setImageResource(currentRow.getSmallImageName());
