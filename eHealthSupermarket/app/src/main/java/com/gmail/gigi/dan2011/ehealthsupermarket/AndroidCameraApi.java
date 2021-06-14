@@ -42,6 +42,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.Volley;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -61,7 +62,7 @@ public class AndroidCameraApi extends AppCompatActivity {
   private static final String TAG = "AndroidCameraApi";
   private TextureView textureView;
   private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
-
+  private static final String PRODUCT_FIND_ERROR = "Ha ocurrido un error al buscar el producto";
   static {
     ORIENTATIONS.append(Surface.ROTATION_0, 90);
     ORIENTATIONS.append(Surface.ROTATION_90, 0);
@@ -210,7 +211,14 @@ public class AndroidCameraApi extends AppCompatActivity {
                     intent.putExtra("product", product);
                     startActivity(intent);
                   }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(Exception error) {
+
+                Toast.makeText(getApplicationContext(), PRODUCT_FIND_ERROR, Toast.LENGTH_LONG)
+                    .show();
+              }
+            });
           }
         },
         new Response.ErrorListener() {

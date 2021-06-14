@@ -67,7 +67,7 @@ public class ActivityProductView extends AppCompatActivity {
     layout_dislike = findViewById(R.id.layout_dislike);
     result_compatibility = findViewById(R.id.result_compatibility);
 
-    String url = product.getImage().toString();
+    String url = product.getImage();
     //Set the view of the product with the data obtained
     Picasso.get().load(url).into(imageProduct);
     textGenericName.setText(product.getGeneric_name());

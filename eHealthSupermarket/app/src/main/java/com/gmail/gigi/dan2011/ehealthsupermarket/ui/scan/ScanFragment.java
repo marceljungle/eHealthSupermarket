@@ -10,18 +10,28 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.gigi.dan2011.ehealthsupermarket.ActivityProductView;
 import com.gmail.gigi.dan2011.ehealthsupermarket.AndroidCameraApi;
 import com.gmail.gigi.dan2011.ehealthsupermarket.R;
 import com.gmail.gigi.dan2011.ehealthsupermarket.collections.Product;
+import com.gmail.gigi.dan2011.ehealthsupermarket.ui.list.RowItem;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Javadoc comment.
@@ -73,21 +83,31 @@ public class ScanFragment extends Fragment {
       if (result.getContents() != null) {
         Intent intent = new Intent(getContext(), ActivityProductView.class);
         //FIND PRODUCT IN THE FIREBASE DATABASE
-        db.collection("PRODUCTS").document(result.getContents()).get().addOnSuccessListener(
-            new OnSuccessListener<DocumentSnapshot>() {
-              @Override
-              public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Product product = documentSnapshot.toObject(Product.class);
-                intent.putExtra("product", product);
-                startActivity(intent);
-              }
-            });
-
-        // tvBarCode.setText("El código de barras es:\n" + result.getContents());
-      } else {
-        //tvBarCode.setText("Error al escanear el código de barras");
-        Toast.makeText(getContext(), "Error al escanear el código de barras",
-            Toast.LENGTH_SHORT).show();
+        final ObjectMapper mapper = new ObjectMapper();
+        db.collection("PRODUCTS").whereEqualTo("code", result.getContents()).get()
+            .addOnCompleteListener(
+                new OnCompleteListener<QuerySnapshot>() {
+                  @Override
+                  public void onComplete(Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                      Map<String, Object> rawProduct = new HashMap<>();
+                      Product product = new Product();
+                      List<Product> productsAlreadyInList = new ArrayList<>();
+                      for (QueryDocumentSnapshot document : task.getResult()) {
+                        rawProduct = document.getData();
+                        product = mapper.convertValue(rawProduct, Product.class);
+                      }
+                      intent.putExtra("product", product);
+                      startActivity(intent);
+                    }
+                    // tvBarCode.setText("El código de barras es:\n" + result.getContents());
+                    else {
+                      //tvBarCode.setText("Error al escanear el código de barras");
+                      Toast.makeText(getContext(), "Error al escanear el código de barras",
+                          Toast.LENGTH_SHORT).show();
+                    }
+                  }
+                });
       }
     }
   }
