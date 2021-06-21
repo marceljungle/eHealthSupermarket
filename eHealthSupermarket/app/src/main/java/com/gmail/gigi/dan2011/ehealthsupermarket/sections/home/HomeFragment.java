@@ -130,12 +130,14 @@ public class HomeFragment extends Fragment {
     showBasedInIntolerances(root);
     showFeatured(root);
     rootView = root;
+
     return root;
   }
 
   @Override
   public void onResume() {
     super.onResume();
+    requireActivity().getWindow().getDecorView().findViewById(android.R.id.content).invalidate();
     showFavorites(rootView);
     showBasedInIntolerances(rootView);
     showFeatured(rootView);
@@ -202,6 +204,7 @@ public class HomeFragment extends Fragment {
       for (int i = 0; i < filledLayouts; i++) {
         switch (i) {
           case 0:
+            noFavorites.setVisibility(View.GONE);
             favorites[0].setVisibility(View.VISIBLE);
             favImageButtons[0] = root.findViewById(R.id.imageFav1);
             favNames[0] = root.findViewById(R.id.nameFav1);
@@ -221,6 +224,7 @@ public class HomeFragment extends Fragment {
             });
             break;
           case 1:
+            noFavorites.setVisibility(View.GONE);
             favorites[1].setVisibility(View.VISIBLE);
             favImageButtons[1] = root.findViewById(R.id.imageFav2);
             favNames[1] = root.findViewById(R.id.nameFav2);
@@ -240,6 +244,7 @@ public class HomeFragment extends Fragment {
             });
             break;
           case 2:
+            noFavorites.setVisibility(View.GONE);
             favorites[2].setVisibility(View.VISIBLE);
             favImageButtons[2] = root.findViewById(R.id.imageFav3);
             favNames[2] = root.findViewById(R.id.nameFav3);
@@ -259,6 +264,7 @@ public class HomeFragment extends Fragment {
             });
             break;
           case 3:
+            noFavorites.setVisibility(View.GONE);
             favorites[3].setVisibility(View.VISIBLE);
             favImageButtons[3] = root.findViewById(R.id.imageFav4);
             favNames[3] = root.findViewById(R.id.nameFav4);
@@ -278,6 +284,7 @@ public class HomeFragment extends Fragment {
             });
             break;
           case 4:
+            noFavorites.setVisibility(View.GONE);
             favorites[4].setVisibility(View.VISIBLE);
             favImageButtons[4] = root.findViewById(R.id.imageFav5);
             favNames[4] = root.findViewById(R.id.nameFav5);
