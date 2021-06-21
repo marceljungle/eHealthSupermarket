@@ -9,6 +9,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="true"
+    android:ellipsize="end"
+    android:maxLines="1"
     android:drawSelectorOnTop="false"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"

@@ -107,8 +107,6 @@ public class HomeFragment extends Fragment {
     featuredLayouts[0] = root.findViewById(R.id.rectangle1);
     featuredLayouts[1] = root.findViewById(R.id.rectangle2);
 
-
-
     goToBasedInIntolerances = root.findViewById(R.id.goToIntolerancesButton);
     goToBasedInIntolerances.setOnClickListener(new OnClickListener() {
       @Override
@@ -124,7 +122,6 @@ public class HomeFragment extends Fragment {
         Navigation.findNavController(v).navigate(R.id.action_home_fragment_to_scan);
       }
     });
-
 
     showFavorites(root);
     showBasedInIntolerances(root);
@@ -344,7 +341,6 @@ public class HomeFragment extends Fragment {
             List<Additive> additives = new ArrayList<>();
 
             List<Product> allProducts = new ArrayList<>();
-            List<Additive> allAdditives = new ArrayList<>();
 
             List<Map<String, Object>> intoleranceList = new ArrayList<>();
             List<Map<String, Object>> additiveList = new ArrayList<>();
@@ -394,32 +390,31 @@ public class HomeFragment extends Fragment {
                         }
                       }
                     }
-
                     List<Product> whiteListedProducts = new ArrayList<>();
                     boolean toAdd = false;
-                    for (Product p : allProducts) {
-                      if (p.getIntolerances() == null || intolerances.isEmpty() || Collections
-                          .disjoint(p.getIntolerances(), intolerances)) {
-                        toAdd = true;
-                      }else {
-                        toAdd = false;
-                      }
+                    if (!intolerances.isEmpty() && !additives.isEmpty()) {
 
-                      if (p.getAdditives() == null || additives.isEmpty() || Collections
-                          .disjoint(p.getAdditives(), additives)) {
-                        toAdd = toAdd && true;
+                      for (Product p : allProducts) {
+                        if (p.getIntolerances() == null || intolerances.isEmpty() || Collections
+                            .disjoint(p.getIntolerances(), intolerances)) {
+                          toAdd = true;
+                        } else {
+                          toAdd = false;
+                        }
+                        if (p.getAdditives() == null || additives.isEmpty() || Collections
+                            .disjoint(p.getAdditives(), additives)) {
+                          toAdd = toAdd && true;
 
-                      }else {
-                        toAdd = false;
-                      }
-
-                      if (toAdd) {
-                        whiteListedProducts.add(p);
-                      } else {
-                        continue;
+                        } else {
+                          toAdd = false;
+                        }
+                        if (toAdd) {
+                          whiteListedProducts.add(p);
+                        } else {
+                          continue;
+                        }
                       }
                     }
-
                     List<Product> whiteListedProducts1 = new ArrayList<>(
                         new HashSet<>(whiteListedProducts));
                     showBasedInIntolerances2(root, whiteListedProducts1);
@@ -457,6 +452,7 @@ public class HomeFragment extends Fragment {
       for (int i = 0; i < filledLayouts; i++) {
         switch (i) {
           case 0:
+            noBasedInIntolerances.setVisibility(View.GONE);
             basedInIntolerances[0].setVisibility(View.VISIBLE);
             basedInIntolerancesImageButtons[0] = root.findViewById(R.id.imgIntBased1);
             basedInIntolerancesNames[0] = root.findViewById(R.id.nameIntBased1);
@@ -478,6 +474,7 @@ public class HomeFragment extends Fragment {
             });
             break;
           case 1:
+            noBasedInIntolerances.setVisibility(View.GONE);
             basedInIntolerances[1].setVisibility(View.VISIBLE);
             basedInIntolerancesImageButtons[1] = root.findViewById(R.id.imgIntBased2);
             basedInIntolerancesNames[1] = root.findViewById(R.id.nameIntBased2);
@@ -499,6 +496,7 @@ public class HomeFragment extends Fragment {
             });
             break;
           case 2:
+            noBasedInIntolerances.setVisibility(View.GONE);
             basedInIntolerances[2].setVisibility(View.VISIBLE);
             basedInIntolerancesImageButtons[2] = root.findViewById(R.id.imgIntBased3);
             basedInIntolerancesNames[2] = root.findViewById(R.id.nameIntBased3);
@@ -520,6 +518,7 @@ public class HomeFragment extends Fragment {
             });
             break;
           case 3:
+            noBasedInIntolerances.setVisibility(View.GONE);
             basedInIntolerances[3].setVisibility(View.VISIBLE);
             basedInIntolerancesImageButtons[3] = root.findViewById(R.id.imgIntBased4);
             basedInIntolerancesNames[3] = root.findViewById(R.id.nameIntBased4);
@@ -541,6 +540,7 @@ public class HomeFragment extends Fragment {
             });
             break;
           case 4:
+            noBasedInIntolerances.setVisibility(View.GONE);
             basedInIntolerances[4].setVisibility(View.VISIBLE);
             basedInIntolerancesImageButtons[4] = root.findViewById(R.id.imgIntBased5);
             basedInIntolerancesNames[4] = root.findViewById(R.id.nameIntBased5);
@@ -576,7 +576,7 @@ public class HomeFragment extends Fragment {
         basedInIntolerances[i].setVisibility(View.GONE);
       }
     } else {
-      basedInIntolerances[0].setVisibility(View.INVISIBLE);
+      basedInIntolerances[0].setVisibility(View.GONE);
       basedInIntolerances[1].setVisibility(View.GONE);
       basedInIntolerances[2].setVisibility(View.GONE);
       basedInIntolerances[3].setVisibility(View.GONE);

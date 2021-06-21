@@ -11,6 +11,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnWidth="200dp"
+    android:ellipsize="end"
+    android:maxLines="1"
     android:numColumns="auto_fit"
     android:padding="1dp"
     android:verticalSpacing="1dp" />
