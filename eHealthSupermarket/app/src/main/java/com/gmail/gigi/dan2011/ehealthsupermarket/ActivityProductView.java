@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -66,6 +67,9 @@ public class ActivityProductView extends AppCompatActivity {
     layout_like = findViewById(R.id.layout_like);
     layout_dislike = findViewById(R.id.layout_dislike);
     result_compatibility = findViewById(R.id.result_compatibility);
+
+    if(product != null) {
+
 
     String url = product.getImage();
     //Set the view of the product with the data obtained
@@ -256,9 +260,11 @@ public class ActivityProductView extends AppCompatActivity {
         }
       }
     });
-
+    }else {
+      Toast.makeText(getApplicationContext(), "¡Código QR inválido!",
+          Toast.LENGTH_SHORT).show();
+    }
   }
-
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
