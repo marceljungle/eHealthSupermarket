@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:layout_margin="5dp"
-  tools:context="com.gmail.gigi.dan2011.ehealthsupermarket.AddProduct2MyList">
+  tools:context="com.gmail.gigi.dan2011.ehealthsupermarket.sections.list.AddProduct2MyList">
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/listshowAdd2MyList"
