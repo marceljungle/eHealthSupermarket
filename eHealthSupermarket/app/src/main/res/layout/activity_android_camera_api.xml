@@ -6,7 +6,7 @@
   android:layout_height="match_parent"
   android:background="#000000"
   android:orientation="vertical"
-  tools:context="com.gmail.gigi.dan2011.ehealthsupermarket.AndroidCameraApi">
+  tools:context="com.gmail.gigi.dan2011.ehealthsupermarket.sections.product.AndroidCameraApi">
     <Button
       android:id="@+id/takePicture"
       android:layout_width="100dp"

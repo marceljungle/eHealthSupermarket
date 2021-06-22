@@ -8,7 +8,7 @@
   <fragment
     android:id="@+id/navigation_home"
     android:label="@string/home_label"
-    android:name="com.gmail.gigi.dan2011.ehealthsupermarket.ui.home.HomeFragment"
+    android:name="com.gmail.gigi.dan2011.ehealthsupermarket.sections.home.HomeFragment"
     tools:layout="@layout/fragment_home">
     <action
       android:id="@+id/action_home_fragment_to_intolerances"
@@ -23,25 +23,25 @@
   <fragment
     android:id="@+id/navigation_mylist"
     android:label="@string/mylistLabel"
-    android:name="com.gmail.gigi.dan2011.ehealthsupermarket.ui.list.MyListFragment"
+    android:name="com.gmail.gigi.dan2011.ehealthsupermarket.sections.list.MyListFragment"
     tools:layout="@layout/fragment_mylist" />
 
   <fragment
     android:id="@+id/navigation_scan"
     android:label="@string/scanLabel"
-    android:name="com.gmail.gigi.dan2011.ehealthsupermarket.ui.scan.ScanFragment"
+    android:name="com.gmail.gigi.dan2011.ehealthsupermarket.sections.scan.ScanFragment"
     tools:layout="@layout/fragment_scan" />
 
   <fragment
     android:id="@+id/navigation_intolerances"
     android:label="@string/intolerancesLabel"
-    android:name="com.gmail.gigi.dan2011.ehealthsupermarket.ui.intolerances.IntoleranceFragment"
+    android:name="com.gmail.gigi.dan2011.ehealthsupermarket.sections.intolerances.IntoleranceFragment"
     tools:layout="@layout/fragment_intolerances" />
 
   <fragment
     android:id="@+id/navigation_account"
     android:label="@string/accountLabel"
-    android:name="com.gmail.gigi.dan2011.ehealthsupermarket.ui.account.AccountFragment"
+    android:name="com.gmail.gigi.dan2011.ehealthsupermarket.sections.account.AccountFragment"
     tools:layout="@layout/fragment_account" />
 
 </navigation>

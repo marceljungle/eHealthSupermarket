@@ -67,12 +67,4 @@ public class MainActivity extends AppCompatActivity {
     /* Sets up a BottomNavigationView for use with a NavController */
     NavigationUI.setupWithNavController(navigationView, navController);
   }
-
-  /**
-   * Javadoc comment.
-   */
-  public void startAccountSetting(View view) {
-    Intent intent = new Intent(this, AccountSettings.class);
-    startActivity(intent);
-  }
 }

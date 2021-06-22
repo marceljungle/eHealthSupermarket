@@ -13,21 +13,21 @@
     android:theme="@style/Theme.EHealthSupermarket"
     android:usesCleartextTraffic="true">
     <activity
-      android:name=".ProfileActivity"
+      android:name=".sections.account.ProfileActivity"
       android:theme="@style/AppTheme.ProfileTheme">
     </activity>
-    <activity android:name=".ui.account.Language" />
+    <activity android:name=".sections.account.Language" />
     <activity
       android:label="@string/add_products_to_your_list"
-      android:name=".AddProduct2MyList" />
-    <activity android:name=".AddIntolerancesOrAdditives" />
-    <activity android:name=".ActivityProductsListView" />
+      android:name=".sections.list.AddProduct2MyList" />
+    <activity android:name=".sections.intolerances.AddIntolerancesOrAdditives" />
+    <activity android:name=".sections.product.ActivityProductsListView" />
     <activity
       android:label="Productos"
-      android:name=".ui.list.MyListProducts" />
-    <activity android:name=".SignupActivity" />
-    <activity android:name=".ResetPasswordActivity" />
-    <activity android:name=".LoginActivity">
+      android:name=".sections.list.MyListProducts" />
+    <activity android:name=".sections.account.SignupActivity" />
+    <activity android:name=".sections.account.ResetPasswordActivity" />
+    <activity android:name=".sections.account.LoginActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +40,7 @@
     </activity>
     <activity
       android:label="@string/Escaneo_con_IA"
-      android:name=".AndroidCameraApi"
+      android:name=".sections.product.AndroidCameraApi"
       android:parentActivityName=".MainActivity"
       android:theme="@style/Theme.AppCompat.NoActionBar">
       <meta-data
@@ -49,17 +49,7 @@
     </activity>
     <activity
       android:label=""
-      android:name=".ActivityProductView"
-      android:parentActivityName=".MainActivity">
-
-      <!-- The meta-data tag is required if you support API level 15 and lower -->
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".MainActivity" />
-    </activity>
-    <activity
-      android:label="Ajustes"
-      android:name=".AccountSettings"
+      android:name=".sections.product.ActivityProductView"
       android:parentActivityName=".MainActivity">
 
       <!-- The meta-data tag is required if you support API level 15 and lower -->
